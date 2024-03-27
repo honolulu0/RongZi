@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.government.mapper.rzgovernmentspecialbondsMapper">
+    
+    <resultMap type="rzgovernmentspecialbonds" id="rzgovernmentspecialbondsResult">
+        <result property="id"    column="id"    />
+        <result property="scrUuid"    column="scr_uuid"    />
+        <result property="bondName"    column="bond_name"    />
+        <result property="bondSize"    column="bond_size"    />
+        <result property="rate"    column="rate"    />
+        <result property="bondDuration"    column="bond_duration"    />
+        <result property="repaymentMethod"    column="repayment_method"    />
+        <result property="approvedAmount"    column="approved_amount"    />
+        <result property="accumulatedAmountReceived"    column="accumulated_amount_received"    />
+        <result property="repaidAmount"    column="repaid_amount"    />
+        <result property="remainingAmount"    column="remaining_amount"    />
+        <result property="issuingEntity"    column="Issuing_entity"    />
+        <result property="comment"    column="comment"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="uuid"    column="uuid"    />
+        <result property="managementId"    column="management_id"    />
+    </resultMap>
+
+    <resultMap id="rzgovernmentspecialbondsrzsrc2Result" type="rzgovernmentspecialbonds" extends="rzgovernmentspecialbondsResult">
+        <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result" />
+    </resultMap>
+
+    <resultMap type="rzsrc2" id="rzsrc2Result">
+        <result property="id"    column="sub_id"    />
+        <result property="url"    column="sub_url"    />
+        <result property="scrUuid"    column="sub_scr_uuid"    />
+        <result property="projectManagementId"    column="sub_project_management_id"    />
+        <result property="type"    column="sub_type"    />
+        <result property="createTime"    column="sub_create_time"    />
+        <result property="createBy"    column="sub_create_by"    />
+    </resultMap>
+
+    <sql id="selectrzgovernmentspecialbondsVo">
+        select id, scr_uuid, bond_name, bond_size, rate, bond_duration, repayment_method, approved_amount, accumulated_amount_received, repaid_amount, remaining_amount, Issuing_entity, comment, create_time, create_by, update_time, update_by, uuid, management_id from rz_government_special_bonds
+    </sql>
+
+    <select id="selectrzgovernmentspecialbondsList" parameterType="rzgovernmentspecialbonds" resultMap="rzgovernmentspecialbondsResult">
+        <include refid="selectrzgovernmentspecialbondsVo"/>
+        <where>  
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="bondName != null  and bondName != ''"> and bond_name like concat('%', #{bondName}, '%')</if>
+            <if test="bondSize != null  and bondSize != ''"> and bond_size = #{bondSize}</if>
+            <if test="rate != null  and rate != ''"> and rate = #{rate}</if>
+            <if test="bondDuration != null  and bondDuration != ''"> and bond_duration = #{bondDuration}</if>
+            <if test="repaymentMethod != null  and repaymentMethod != ''"> and repayment_method = #{repaymentMethod}</if>
+            <if test="approvedAmount != null "> and approved_amount = #{approvedAmount}</if>
+            <if test="accumulatedAmountReceived != null "> and accumulated_amount_received like concat('%', #{accumulatedAmountReceived}, '%')</if>
+            <if test="repaidAmount != null "> and repaid_amount = #{repaidAmount}</if>
+            <if test="remainingAmount != null "> and remaining_amount = #{remainingAmount}</if>
+            <if test="issuingEntity != null  and issuingEntity != ''"> and Issuing_entity = #{issuingEntity}</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectrzgovernmentspecialbondsById" parameterType="Long" resultMap="rzgovernmentspecialbondsrzsrc2Result">
+        select a.id, a.scr_uuid, a.bond_name, a.bond_size, a.rate, a.bond_duration, a.repayment_method, a.approved_amount, a.accumulated_amount_received, a.repaid_amount, a.remaining_amount, a.Issuing_entity, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.management_id,
+ b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        from rz_government_special_bonds a
+        left join rz_scr b on b.scr_uuid = a.scr_uuid
+        where a.id = #{id}
+    </select>
+        
+    <insert id="insertrzgovernmentspecialbonds" parameterType="rzgovernmentspecialbonds" useGeneratedKeys="true" keyProperty="id">
+        insert into rz_government_special_bonds
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid,</if>
+            <if test="bondName != null and bondName != ''">bond_name,</if>
+            <if test="bondSize != null and bondSize != ''">bond_size,</if>
+            <if test="rate != null and rate != ''">rate,</if>
+            <if test="bondDuration != null and bondDuration != ''">bond_duration,</if>
+            <if test="repaymentMethod != null and repaymentMethod != ''">repayment_method,</if>
+            <if test="approvedAmount != null">approved_amount,</if>
+            <if test="accumulatedAmountReceived != null">accumulated_amount_received,</if>
+            <if test="repaidAmount != null">repaid_amount,</if>
+            <if test="remainingAmount != null">remaining_amount,</if>
+            <if test="issuingEntity != null and issuingEntity != ''">Issuing_entity,</if>
+            <if test="comment != null">comment,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="uuid != null">uuid,</if>
+            <if test="managementId != null and managementId != ''">management_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
+            <if test="bondName != null and bondName != ''">#{bondName},</if>
+            <if test="bondSize != null and bondSize != ''">#{bondSize},</if>
+            <if test="rate != null and rate != ''">#{rate},</if>
+            <if test="bondDuration != null and bondDuration != ''">#{bondDuration},</if>
+            <if test="repaymentMethod != null and repaymentMethod != ''">#{repaymentMethod},</if>
+            <if test="approvedAmount != null">#{approvedAmount},</if>
+            <if test="accumulatedAmountReceived != null">#{accumulatedAmountReceived},</if>
+            <if test="repaidAmount != null">#{repaidAmount},</if>
+            <if test="remainingAmount != null">#{remainingAmount},</if>
+            <if test="issuingEntity != null and issuingEntity != ''">#{issuingEntity},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="uuid != null">#{uuid},</if>
+            <if test="managementId != null and managementId != ''">#{managementId},</if>
+         </trim>
+    </insert>
+
+    <update id="updaterzgovernmentspecialbonds" parameterType="rzgovernmentspecialbonds">
+        update rz_government_special_bonds
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid = #{scrUuid},</if>
+            <if test="bondName != null and bondName != ''">bond_name = #{bondName},</if>
+            <if test="bondSize != null and bondSize != ''">bond_size = #{bondSize},</if>
+            <if test="rate != null and rate != ''">rate = #{rate},</if>
+            <if test="bondDuration != null and bondDuration != ''">bond_duration = #{bondDuration},</if>
+            <if test="repaymentMethod != null and repaymentMethod != ''">repayment_method = #{repaymentMethod},</if>
+            <if test="approvedAmount != null">approved_amount = #{approvedAmount},</if>
+            <if test="accumulatedAmountReceived != null">accumulated_amount_received = #{accumulatedAmountReceived},</if>
+            <if test="repaidAmount != null">repaid_amount = #{repaidAmount},</if>
+            <if test="remainingAmount != null">remaining_amount = #{remainingAmount},</if>
+            <if test="issuingEntity != null and issuingEntity != ''">Issuing_entity = #{issuingEntity},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="uuid != null">uuid = #{uuid},</if>
+            <if test="managementId != null and managementId != ''">management_id = #{managementId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleterzgovernmentspecialbondsById" parameterType="Long">
+        delete from rz_government_special_bonds where id = #{id};
+        delete from rz_scr where scr_uuid = (select scr_uuid from rz_government_special_bonds where id = #{id});
+    </delete>
+
+    <delete id="deleterzgovernmentspecialbondsByIds" parameterType="String">
+        delete from rz_scr where scr_uuid in
+        (select scr_uuid from rz_government_special_bonds where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        );
+        delete from rz_government_special_bonds where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deleterzsrc2ByScrUuids" parameterType="String">
+        delete from rz_scr where scr_uuid in 
+        <foreach item="scrUuid" collection="array" open="(" separator="," close=")">
+            #{scrUuid}
+        </foreach>
+    </delete>
+
+    <delete id="deleterzsrc2ByScrUuid" parameterType="String">
+        delete from rz_scr where scr_uuid = #{scrUuid}
+    </delete>
+
+    <insert id="batchrzsrc2">
+        insert into rz_scr( id, url, scr_uuid, project_management_id, type, create_time, create_by) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
+        </foreach>
+    </insert>
+</mapper>

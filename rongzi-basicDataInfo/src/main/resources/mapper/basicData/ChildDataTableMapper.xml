@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.basicData.mapper.ChildDataTableMapper">
+    
+    <resultMap type="ChildDataTable" id="ChildDataTableResult">
+        <result property="childDataId"    column="child_data_id"    />
+        <result property="basicDataId"    column="basic_data_id"    />
+        <result property="childName"    column="child_name"    />
+        <result property="childCreateTime"    column="child_create_time"    />
+        <result property="childCreatedBy"    column="child_created_by"    />
+    </resultMap>
+
+    <sql id="selectChildDataTableVo">
+        select child_data_id, basic_data_id, child_name, child_create_time, child_created_by from child_data_table
+    </sql>
+
+    <select id="selectChildDataTableList" parameterType="ChildDataTable" resultMap="ChildDataTableResult">
+        <include refid="selectChildDataTableVo"/>
+        <where>  
+            <if test="basicDataId != null "> and basic_data_id = #{basicDataId}</if>
+            <if test="childName != null  and childName != ''"> and child_name like concat('%', #{childName}, '%')</if>
+            <if test="childCreateTime != null "> and child_create_time = #{childCreateTime}</if>
+            <if test="childCreatedBy != null  and childCreatedBy != ''"> and child_created_by = #{childCreatedBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectChildDataTableByChildDataId" parameterType="Long" resultMap="ChildDataTableResult">
+        <include refid="selectChildDataTableVo"/>
+        where child_data_id = #{childDataId}
+    </select>
+        
+    <insert id="insertChildDataTable" parameterType="ChildDataTable" useGeneratedKeys="true" keyProperty="childDataId">
+        insert into child_data_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="basicDataId != null">basic_data_id,</if>
+            <if test="childName != null and childName != ''">child_name,</if>
+            <if test="childCreateTime != null">child_create_time,</if>
+            <if test="childCreatedBy != null and childCreatedBy != ''">child_created_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="basicDataId != null">#{basicDataId},</if>
+            <if test="childName != null and childName != ''">#{childName},</if>
+            <if test="childCreateTime != null">#{childCreateTime},</if>
+            <if test="childCreatedBy != null and childCreatedBy != ''">#{childCreatedBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateChildDataTable" parameterType="ChildDataTable">
+        update child_data_table
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="basicDataId != null">basic_data_id = #{basicDataId},</if>
+            <if test="childName != null and childName != ''">child_name = #{childName},</if>
+            <if test="childCreateTime != null">child_create_time = #{childCreateTime},</if>
+            <if test="childCreatedBy != null and childCreatedBy != ''">child_created_by = #{childCreatedBy},</if>
+        </trim>
+        where child_data_id = #{childDataId}
+    </update>
+
+    <delete id="deleteChildDataTableByChildDataId" parameterType="Long">
+        delete from child_data_table where child_data_id = #{childDataId}
+    </delete>
+
+    <delete id="deleteChildDataTableByChildDataIds" parameterType="String">
+        delete from child_data_table where child_data_id in 
+        <foreach item="childDataId" collection="array" open="(" separator="," close=")">
+            #{childDataId}
+        </foreach>
+    </delete>
+</mapper>

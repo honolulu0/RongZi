@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.rzlog.mapper.RzlogGuaranteeMapper">
+    
+    <resultMap type="RzlogGuarantee" id="RzlogGuaranteeResult">
+        <result property="id"    column="id"    />
+        <result property="managementId"    column="management_id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="scrUuid"    column="scr_uuid"    />
+        <result property="creditor"    column="creditor"    />
+        <result property="guarantor"    column="guarantor"    />
+        <result property="financialInstitution"    column="financial_institution"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="guaranteeAmount"    column="guarantee_amount"    />
+        <result property="guaranteeBalance"    column="guarantee_balance"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="deadline"    column="deadline"    />
+        <result property="guaranteeMethod"    column="guarantee_method"    />
+        <result property="isCreditInvestigation"    column="is_credit_investigation"    />
+        <result property="comment"    column="comment"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="uuid"    column="uuid"    />
+        <result property="type"    column="type"    />
+        <result property="logCreateDate"    column="log_create_date"    />
+        <result property="logCreateTime"    column="log_create_time"    />
+    </resultMap>
+
+    <sql id="selectRzlogGuaranteeVo">
+        select id, management_id, contract_id, scr_uuid, creditor, guarantor, financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline, guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid, type, log_create_date, log_create_time from rzlog_guarantee
+    </sql>
+
+    <select id="selectRzlogGuaranteeList" parameterType="RzlogGuarantee" resultMap="RzlogGuaranteeResult">
+        <include refid="selectRzlogGuaranteeVo"/>
+        <where>  
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
+            <if test="guarantor != null  and guarantor != ''"> and guarantor = #{guarantor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
+            <if test="guaranteeAmount != null "> and guarantee_amount like concat('%', #{guaranteeAmount}, '%')</if>
+            <if test="guaranteeBalance != null "> and guarantee_balance like concat('%', #{guaranteeBalance}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
+            <if test="guaranteeMethod != null  and guaranteeMethod != ''"> and guarantee_method = #{guaranteeMethod}</if>
+            <if test="isCreditInvestigation != null  and isCreditInvestigation != ''"> and is_credit_investigation = #{isCreditInvestigation}</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="params.beginLogCreateDate != null and params.beginLogCreateDate != '' and params.endLogCreateDate != null and params.endLogCreateDate != ''"> and log_create_date between #{params.beginLogCreateDate} and #{params.endLogCreateDate}</if>
+            <if test="params.beginLogCreateTime != null and params.beginLogCreateTime != '' and params.endLogCreateTime != null and params.endLogCreateTime != ''"> and log_create_time between #{params.beginLogCreateTime} and #{params.endLogCreateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectRzlogGuaranteeById" parameterType="Long" resultMap="RzlogGuaranteeResult">
+        <include refid="selectRzlogGuaranteeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertRzlogGuarantee" parameterType="RzlogGuarantee" useGeneratedKeys="true" keyProperty="id">
+        insert into rzlog_guarantee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">management_id,</if>
+            <if test="contractId != null and contractId != ''">contract_id,</if>
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid,</if>
+            <if test="creditor != null and creditor != ''">creditor,</if>
+            <if test="guarantor != null and guarantor != ''">guarantor,</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution,</if>
+            <if test="businessType != null and businessType != ''">business_type,</if>
+            <if test="guaranteeAmount != null">guarantee_amount,</if>
+            <if test="guaranteeBalance != null">guarantee_balance,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="deadline != null">deadline,</if>
+            <if test="guaranteeMethod != null and guaranteeMethod != ''">guarantee_method,</if>
+            <if test="isCreditInvestigation != null and isCreditInvestigation != ''">is_credit_investigation,</if>
+            <if test="comment != null">comment,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="uuid != null and uuid != ''">uuid,</if>
+            <if test="type != null">type,</if>
+            <if test="logCreateDate != null">log_create_date,</if>
+            <if test="logCreateTime != null">log_create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">#{managementId},</if>
+            <if test="contractId != null and contractId != ''">#{contractId},</if>
+            <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
+            <if test="creditor != null and creditor != ''">#{creditor},</if>
+            <if test="guarantor != null and guarantor != ''">#{guarantor},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">#{financialInstitution},</if>
+            <if test="businessType != null and businessType != ''">#{businessType},</if>
+            <if test="guaranteeAmount != null">#{guaranteeAmount},</if>
+            <if test="guaranteeBalance != null">#{guaranteeBalance},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="deadline != null">#{deadline},</if>
+            <if test="guaranteeMethod != null and guaranteeMethod != ''">#{guaranteeMethod},</if>
+            <if test="isCreditInvestigation != null and isCreditInvestigation != ''">#{isCreditInvestigation},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="uuid != null and uuid != ''">#{uuid},</if>
+            <if test="type != null">#{type},</if>
+            <if test="logCreateDate != null">#{logCreateDate},</if>
+            <if test="logCreateTime != null">#{logCreateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRzlogGuarantee" parameterType="RzlogGuarantee">
+        update rzlog_guarantee
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">management_id = #{managementId},</if>
+            <if test="contractId != null and contractId != ''">contract_id = #{contractId},</if>
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid = #{scrUuid},</if>
+            <if test="creditor != null and creditor != ''">creditor = #{creditor},</if>
+            <if test="guarantor != null and guarantor != ''">guarantor = #{guarantor},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution = #{financialInstitution},</if>
+            <if test="businessType != null and businessType != ''">business_type = #{businessType},</if>
+            <if test="guaranteeAmount != null">guarantee_amount = #{guaranteeAmount},</if>
+            <if test="guaranteeBalance != null">guarantee_balance = #{guaranteeBalance},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="guaranteeMethod != null and guaranteeMethod != ''">guarantee_method = #{guaranteeMethod},</if>
+            <if test="isCreditInvestigation != null and isCreditInvestigation != ''">is_credit_investigation = #{isCreditInvestigation},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="uuid != null and uuid != ''">uuid = #{uuid},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="logCreateDate != null">log_create_date = #{logCreateDate},</if>
+            <if test="logCreateTime != null">log_create_time = #{logCreateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRzlogGuaranteeById" parameterType="Long">
+        delete from rzlog_guarantee where id = #{id}
+    </delete>
+
+    <delete id="deleteRzlogGuaranteeByIds" parameterType="String">
+        delete from rzlog_guarantee where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+
+
+    <resultMap id="RzlogGuaranteeSummaryMap" type="com.rongzi.rzlog.domain.LogGuaranteeSummary">
+        <result property="month" column="month"/>
+        <result property="totalGuaranteeAmount" column="total_guarantee_amount"/>
+        <result property="totalGuaranteeBalance" column="total_guarantee_balance"/>
+        <result property="internalGuaranteeAmount" column="internal_guarantee_amount"/>
+        <result property="internalGuaranteeBalance" column="internal_guarantee_balance"/>
+        <result property="externalGuaranteeAmount" column="external_guarantee_amount"/>
+        <result property="externalGuaranteeBalance" column="external_guarantee_balance"/>
+    </resultMap>
+
+    
+    <sql id="selectLogRzlogGuaranteeSummaryVo">
+        SELECT
+        log_create_date AS month,
+        SUM(guarantee_amount) AS total_guarantee_amount,
+        SUM(guarantee_balance) AS total_guarantee_balance,
+        SUM(CASE WHEN type='内部' THEN guarantee_amount ELSE 0 END) AS internal_guarantee_amount,
+        SUM(CASE WHEN type='内部' THEN guarantee_balance ELSE 0 END) AS internal_guarantee_balance,
+        SUM(CASE WHEN type='外部' THEN guarantee_amount ELSE 0 END) AS external_guarantee_amount,
+        SUM(CASE WHEN type='外部' THEN guarantee_balance ELSE 0 END) AS external_guarantee_balance
+        FROM rzlog_guarantee
+    </sql>
+    
+    <select id="selectGuaranteeSummary" parameterType="RzlogGuarantee" resultMap="RzlogGuaranteeSummaryMap">
+        <include refid="selectLogRzlogGuaranteeSummaryVo"/>
+        <where>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
+            <if test="guarantor != null  and guarantor != ''"> and guarantor = #{guarantor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
+            <if test="guaranteeAmount != null "> and guarantee_amount like concat('%', #{guaranteeAmount}, '%')</if>
+            <if test="guaranteeBalance != null "> and guarantee_balance like concat('%', #{guaranteeBalance}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
+            <if test="guaranteeMethod != null  and guaranteeMethod != ''"> and guarantee_method = #{guaranteeMethod}</if>
+            <if test="isCreditInvestigation != null  and isCreditInvestigation != ''"> and is_credit_investigation = #{isCreditInvestigation}</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="params.beginLogCreateDate != null and params.beginLogCreateDate != '' and params.endLogCreateDate != null and params.endLogCreateDate != ''"> and log_create_date between #{params.beginLogCreateDate} and #{params.endLogCreateDate}</if>
+            <if test="params.beginLogCreateTime != null and params.beginLogCreateTime != '' and params.endLogCreateTime != null and params.endLogCreateTime != ''"> and log_create_time between #{params.beginLogCreateTime} and #{params.endLogCreateTime}</if>
+        </where>
+        GROUP BY log_create_date
+        ORDER BY month
+    </select>
+
+
+</mapper>

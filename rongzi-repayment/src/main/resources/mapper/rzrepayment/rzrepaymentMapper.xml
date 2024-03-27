@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.rzrepayment.mapper.rzrepaymentMapper">
+    
+    <resultMap type="rzrepayment" id="rzrepaymentResult">
+        <result property="id"    column="id"    />
+        <result property="managementId"    column="management_id"    />
+        <result property="scrUuid"    column="scr_uuid"    />
+        <result property="borrowingUnit"    column="borrowing_unit"    />
+        <result property="financialInstitution"    column="financial_institution"    />
+        <result property="fundingInstitution"    column="funding_institution"    />
+        <result property="loanUse"    column="loan_use"    />
+        <result property="creditEnhancementMeasures"    column="credit_enhancement_measures"    />
+        <result property="loanAmount"    column="loan_amount"    />
+        <result property="commission"    column="commission"    />
+        <result property="margin"    column="margin"    />
+        <result property="rate"    column="rate"    />
+        <result property="loanDate"    column="loan_date"    />
+        <result property="dueDate"    column="due_date"    />
+        <result property="remark"    column="remark"    />
+        <result property="loanTerm"    column="loan_term"    />
+        <result property="principalRepaymentMethod"    column="principal_repayment_method"    />
+        <result property="interestRepaymentMethod"    column="interest_repayment_method"    />
+        <result property="repaymentAccount"    column="repayment_account"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="uuid"    column="uuid"    />
+    </resultMap>
+
+    <sql id="selectrzrepaymentVo">
+        select id, management_id, scr_uuid, borrowing_unit, financial_institution, funding_institution, loan_use, credit_enhancement_measures, loan_amount, commission, margin, rate, loan_date, due_date, remark, loan_term, principal_repayment_method, 
+interest_repayment_method, repayment_account, create_time, create_by, update_time, update_by, uuid from rz_repayment
+    </sql>
+
+    <select id="selectrzrepaymentList" parameterType="rzrepayment" resultMap="rzrepaymentResult">
+        <include refid="selectrzrepaymentVo"/>
+        <where>  
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''"> and borrowing_unit = #{borrowingUnit}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="fundingInstitution != null  and fundingInstitution != ''"> and funding_institution = #{fundingInstitution}</if>
+            <if test="loanUse != null  and loanUse != ''"> and loan_use = #{loanUse}</if>
+            <if test="creditEnhancementMeasures != null  and creditEnhancementMeasures != ''"> and credit_enhancement_measures = #{creditEnhancementMeasures}</if>
+            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="commission != null  and commission != ''"> and commission like concat('%', #{commission}, '%')</if>
+            <if test="margin != null  and margin != ''"> and margin like concat('%', #{margin}, '%')</if>
+            <if test="rate != null  and rate != ''"> and rate like concat('%', #{rate}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
+            <if test="remark != null  and remark != ''"> and remark like concat('%', #{remark}, '%')</if>
+            <if test="loanTerm != null  and loanTerm != ''"> and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="principalRepaymentMethod != null  and principalRepaymentMethod != ''"> and principal_repayment_method = #{principalRepaymentMethod}</if>
+            <if test="interestRepaymentMethod != null  and interestRepaymentMethod != ''"> and interest_repayment_method = #{interestRepaymentMethod}</if>
+            <if test="repaymentAccount != null  and repaymentAccount != ''"> and repayment_account like concat('%', #{repaymentAccount}, '%')</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+        </where>
+    </select>
+    
+    <select id="selectrzrepaymentById" parameterType="Long" resultMap="rzrepaymentResult">
+        <include refid="selectrzrepaymentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertrzrepayment" parameterType="rzrepayment" useGeneratedKeys="true" keyProperty="id">
+        insert into rz_repayment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">management_id,</if>
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid,</if>
+            <if test="borrowingUnit != null and borrowingUnit != ''">borrowing_unit,</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution,</if>
+            <if test="fundingInstitution != null and fundingInstitution != ''">funding_institution,</if>
+            <if test="loanUse != null and loanUse != ''">loan_use,</if>
+            <if test="creditEnhancementMeasures != null and creditEnhancementMeasures != ''">credit_enhancement_measures,</if>
+            <if test="loanAmount != null">loan_amount,</if>
+            <if test="commission != null and commission != ''">commission,</if>
+            <if test="margin != null and margin != ''">margin,</if>
+            <if test="rate != null and rate != ''">rate,</if>
+            <if test="loanDate != null">loan_date,</if>
+            <if test="dueDate != null">due_date,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="loanTerm != null and loanTerm != ''">loan_term,</if>
+            <if test="principalRepaymentMethod != null and principalRepaymentMethod != ''">principal_repayment_method,</if>
+            <if test="interestRepaymentMethod != null and interestRepaymentMethod != ''">interest_repayment_method,</if>
+            <if test="repaymentAccount != null and repaymentAccount != ''">repayment_account,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="uuid != null">uuid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">#{managementId},</if>
+            <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
+            <if test="borrowingUnit != null and borrowingUnit != ''">#{borrowingUnit},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">#{financialInstitution},</if>
+            <if test="fundingInstitution != null and fundingInstitution != ''">#{fundingInstitution},</if>
+            <if test="loanUse != null and loanUse != ''">#{loanUse},</if>
+            <if test="creditEnhancementMeasures != null and creditEnhancementMeasures != ''">#{creditEnhancementMeasures},</if>
+            <if test="loanAmount != null">#{loanAmount},</if>
+            <if test="commission != null and commission != ''">#{commission},</if>
+            <if test="margin != null and margin != ''">#{margin},</if>
+            <if test="rate != null and rate != ''">#{rate},</if>
+            <if test="loanDate != null">#{loanDate},</if>
+            <if test="dueDate != null">#{dueDate},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="loanTerm != null and loanTerm != ''">#{loanTerm},</if>
+            <if test="principalRepaymentMethod != null and principalRepaymentMethod != ''">#{principalRepaymentMethod},</if>
+            <if test="interestRepaymentMethod != null and interestRepaymentMethod != ''">#{interestRepaymentMethod},</if>
+            <if test="repaymentAccount != null and repaymentAccount != ''">#{repaymentAccount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="uuid != null">#{uuid},</if>
+         </trim>
+    </insert>
+
+    <update id="updaterzrepayment" parameterType="rzrepayment">
+        update rz_repayment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="managementId != null and managementId != ''">management_id = #{managementId},</if>
+            <if test="scrUuid != null and scrUuid != ''">scr_uuid = #{scrUuid},</if>
+            <if test="borrowingUnit != null and borrowingUnit != ''">borrowing_unit = #{borrowingUnit},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution = #{financialInstitution},</if>
+            <if test="fundingInstitution != null and fundingInstitution != ''">funding_institution = #{fundingInstitution},</if>
+            <if test="loanUse != null and loanUse != ''">loan_use = #{loanUse},</if>
+            <if test="creditEnhancementMeasures != null and creditEnhancementMeasures != ''">credit_enhancement_measures = #{creditEnhancementMeasures},</if>
+            <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
+            <if test="commission != null and commission != ''">commission = #{commission},</if>
+            <if test="margin != null and margin != ''">margin = #{margin},</if>
+            <if test="rate != null and rate != ''">rate = #{rate},</if>
+            <if test="loanDate != null">loan_date = #{loanDate},</if>
+            <if test="dueDate != null">due_date = #{dueDate},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="loanTerm != null and loanTerm != ''">loan_term = #{loanTerm},</if>
+            <if test="principalRepaymentMethod != null and principalRepaymentMethod != ''">principal_repayment_method = #{principalRepaymentMethod},</if>
+            <if test="interestRepaymentMethod != null and interestRepaymentMethod != ''">interest_repayment_method = #{interestRepaymentMethod},</if>
+            <if test="repaymentAccount != null and repaymentAccount != ''">repayment_account = #{repaymentAccount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="uuid != null">uuid = #{uuid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleterzrepaymentById" parameterType="Long">
+        delete from rz_repayment where id = #{id}
+    </delete>
+
+    <delete id="deleterzrepaymentByIds" parameterType="String">
+        delete from rz_repayment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

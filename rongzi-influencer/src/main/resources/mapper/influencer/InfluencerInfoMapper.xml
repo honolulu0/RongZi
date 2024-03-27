@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.influencer.mapper.InfluencerInfoMapper">
+    
+    <resultMap type="InfluencerInfo" id="InfluencerInfoResult">
+        <result property="id"    column="id"    />
+        <result property="uid"    column="uid"    />
+        <result property="site"    column="site"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="lineOfBusiness"    column="line_of_business"    />
+        <result property="profileLink"    column="profile_link"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="banner"    column="banner"    />
+        <result property="influencerCommission"    column="influencer_commission"    />
+        <result property="influencerCommissionPercentage"    column="influencer_commission_percentage"    />
+        <result property="copyrightCommission"    column="copyright_commission"    />
+        <result property="copyrightCommissionPercentage"    column="copyright_commission_percentage"    />
+        <result property="vdeoCommission"    column="vdeo_commission"    />
+        <result property="vdeoCommissionPercentage"    column="vdeo_commission_percentage"    />
+        <result property="creatTime"    column="creat_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInfluencerInfoVo">
+        select id, uid, site, name, type, line_of_business, profile_link, avatar, banner, influencer_commission, influencer_commission_percentage, copyright_commission, copyright_commission_percentage, vdeo_commission, vdeo_commission_percentage, creat_time, update_time from influencer_info
+    </sql>
+
+    <select id="selectInfluencerInfoList" parameterType="InfluencerInfo" resultMap="InfluencerInfoResult">
+        <include refid="selectInfluencerInfoVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="uid != null "> and uid = #{uid}</if>
+            <if test="site != null  and site != ''"> and site = #{site}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="lineOfBusiness != null  and lineOfBusiness != ''"> and line_of_business = #{lineOfBusiness}</if>
+            <if test="params.beginCreatTime != null and params.beginCreatTime != '' and params.endCreatTime != null and params.endCreatTime != ''"> and creat_time between #{params.beginCreatTime} and #{params.endCreatTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectInfluencerInfoById" parameterType="Long" resultMap="InfluencerInfoResult">
+        <include refid="selectInfluencerInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertInfluencerInfo" parameterType="InfluencerInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into influencer_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">uid,</if>
+            <if test="site != null and site != ''">site,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="type != null">type,</if>
+            <if test="lineOfBusiness != null and lineOfBusiness != ''">line_of_business,</if>
+            <if test="profileLink != null">profile_link,</if>
+            <if test="avatar != null and avatar != ''">avatar,</if>
+            <if test="banner != null">banner,</if>
+            <if test="influencerCommission != null">influencer_commission,</if>
+            <if test="influencerCommissionPercentage != null">influencer_commission_percentage,</if>
+            <if test="copyrightCommission != null">copyright_commission,</if>
+            <if test="copyrightCommissionPercentage != null">copyright_commission_percentage,</if>
+            <if test="vdeoCommission != null">vdeo_commission,</if>
+            <if test="vdeoCommissionPercentage != null">vdeo_commission_percentage,</if>
+            <if test="creatTime != null">creat_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">#{uid},</if>
+            <if test="site != null and site != ''">#{site},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="lineOfBusiness != null and lineOfBusiness != ''">#{lineOfBusiness},</if>
+            <if test="profileLink != null">#{profileLink},</if>
+            <if test="avatar != null and avatar != ''">#{avatar},</if>
+            <if test="banner != null">#{banner},</if>
+            <if test="influencerCommission != null">#{influencerCommission},</if>
+            <if test="influencerCommissionPercentage != null">#{influencerCommissionPercentage},</if>
+            <if test="copyrightCommission != null">#{copyrightCommission},</if>
+            <if test="copyrightCommissionPercentage != null">#{copyrightCommissionPercentage},</if>
+            <if test="vdeoCommission != null">#{vdeoCommission},</if>
+            <if test="vdeoCommissionPercentage != null">#{vdeoCommissionPercentage},</if>
+            <if test="creatTime != null">#{creatTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInfluencerInfo" parameterType="InfluencerInfo">
+        update influencer_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uid != null">uid = #{uid},</if>
+            <if test="site != null and site != ''">site = #{site},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="lineOfBusiness != null and lineOfBusiness != ''">line_of_business = #{lineOfBusiness},</if>
+            <if test="profileLink != null">profile_link = #{profileLink},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            <if test="banner != null">banner = #{banner},</if>
+            <if test="influencerCommission != null">influencer_commission = #{influencerCommission},</if>
+            <if test="influencerCommissionPercentage != null">influencer_commission_percentage = #{influencerCommissionPercentage},</if>
+            <if test="copyrightCommission != null">copyright_commission = #{copyrightCommission},</if>
+            <if test="copyrightCommissionPercentage != null">copyright_commission_percentage = #{copyrightCommissionPercentage},</if>
+            <if test="vdeoCommission != null">vdeo_commission = #{vdeoCommission},</if>
+            <if test="vdeoCommissionPercentage != null">vdeo_commission_percentage = #{vdeoCommissionPercentage},</if>
+            <if test="creatTime != null">creat_time = #{creatTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInfluencerInfoById" parameterType="Long">
+        delete from influencer_info where id = #{id}
+    </delete>
+
+    <delete id="deleteInfluencerInfoByIds" parameterType="String">
+        delete from influencer_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

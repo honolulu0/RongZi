@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.rzauditlist.mapper.rzauditlistMapper">
+
+    <resultMap type="rzauditlist" id="rzauditlistResult">
+        <result property="id"    column="id"    />
+        <result property="auditId"    column="audit_id"    />
+        <result property="uuid"    column="uuid"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dataJson"    column="data_json"    />
+        <result property="tableName"    column="table_name"    />
+        <result property="auditState"    column="audit_state"    />
+        <result property="managementId"    column="management_id"    />
+    </resultMap>
+
+    <sql id="selectrzauditlistVo">
+        select id, audit_id, uuid, create_by, create_time, data_json, table_name, audit_state, management_id from rz_audit_list
+    </sql>
+
+    <select id="selectrzauditlistList" parameterType="rzauditlist" resultMap="rzauditlistResult">
+        <include refid="selectrzauditlistVo"/>
+        <where>
+            <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="dataJson != null  and dataJson != ''"> and data_json like concat('%', #{dataJson}, '%')</if>
+            <if test="tableName != null  and tableName != ''"> and table_name like concat('%', #{tableName}, '%')</if>
+            <if test="auditState != null  and auditState != ''"> and audit_state = #{auditState}</if>
+            <if test="managementId != null  and managementId != ''"> and management_id = #{managementId}</if>
+        </where>
+    </select>
+
+    <select id="selectrzauditlistById" parameterType="Long" resultMap="rzauditlistResult">
+        <include refid="selectrzauditlistVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertrzauditlist" parameterType="rzauditlist" useGeneratedKeys="true" keyProperty="id">
+        insert into rz_audit_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="auditId != null">audit_id,</if>
+            <if test="uuid != null">uuid,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dataJson != null and dataJson != ''">data_json,</if>
+            <if test="tableName != null and tableName != ''">table_name,</if>
+            <if test="auditState != null and auditState != ''">audit_state,</if>
+            <if test="managementId != null">management_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="auditId != null">#{auditId},</if>
+            <if test="uuid != null">#{uuid},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dataJson != null and dataJson != ''">#{dataJson},</if>
+            <if test="tableName != null and tableName != ''">#{tableName},</if>
+            <if test="auditState != null and auditState != ''">#{auditState},</if>
+            <if test="managementId != null">#{managementId},</if>
+        </trim>
+    </insert>
+
+    <update id="updaterzauditlist" parameterType="rzauditlist">
+        update rz_audit_list
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="auditId != null">audit_id = #{auditId},</if>
+            <if test="uuid != null">uuid = #{uuid},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dataJson != null and dataJson != ''">data_json = #{dataJson},</if>
+            <if test="tableName != null and tableName != ''">table_name = #{tableName},</if>
+            <if test="auditState != null and auditState != ''">audit_state = #{auditState},</if>
+            <if test="managementId != null">management_id = #{managementId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleterzauditlistById" parameterType="Long">
+        delete from rz_audit_list where id = #{id}
+    </delete>
+
+    <delete id="deleterzauditlistByIds" parameterType="String">
+        delete from rz_audit_list where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

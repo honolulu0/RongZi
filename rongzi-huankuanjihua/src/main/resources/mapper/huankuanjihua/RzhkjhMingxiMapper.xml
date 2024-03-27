@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongzi.huankuanjihua.mapper.RzhkjhMingxiMapper">
+    
+    <resultMap type="RzhkjhMingxi" id="RzhkjhMingxiResult">
+        <result property="id"    column="id"    />
+        <result property="managerId"    column="manager_id"    />
+        <result property="qishu"    column="qishu"    />
+        <result property="riqi"    column="riqi"    />
+        <result property="huankuanjine"    column="huankuanjine"    />
+        <result property="changhuanben"    column="changhuanben"    />
+        <result property="zhifulixi"    column="zhifulixi"    />
+        <result property="benjinshengyu"    column="benjinshengyu"    />
+        <result property="comment"    column="comment"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectRzhkjhMingxiVo">
+        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, comment, create_time, create_by, update_time, update_by from rzhkjh_mingxi
+    </sql>
+
+    <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
+        <include refid="selectRzhkjhMingxiVo"/>
+        <where>  
+            <if test="managerId != null  and managerId != ''"> and manager_id = #{managerId}</if>
+            <if test="qishu != null  and qishu != ''"> and qishu = #{qishu}</if>
+            <if test="params.beginRiqi != null and params.beginRiqi != '' and params.endRiqi != null and params.endRiqi != ''"> and riqi between #{params.beginRiqi} and #{params.endRiqi}</if>
+            <if test="huankuanjine != null  and huankuanjine != ''"> and huankuanjine = #{huankuanjine}</if>
+            <if test="changhuanben != null  and changhuanben != ''"> and changhuanben = #{changhuanben}</if>
+            <if test="zhifulixi != null  and zhifulixi != ''"> and zhifulixi = #{zhifulixi}</if>
+            <if test="benjinshengyu != null  and benjinshengyu != ''"> and benjinshengyu = #{benjinshengyu}</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectRzhkjhMingxiById" parameterType="Long" resultMap="RzhkjhMingxiResult">
+        <include refid="selectRzhkjhMingxiVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertRzhkjhMingxi" parameterType="RzhkjhMingxi" useGeneratedKeys="true" keyProperty="id">
+        insert into rzhkjh_mingxi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">manager_id,</if>
+            <if test="qishu != null">qishu,</if>
+            <if test="riqi != null">riqi,</if>
+            <if test="huankuanjine != null">huankuanjine,</if>
+            <if test="changhuanben != null">changhuanben,</if>
+            <if test="zhifulixi != null">zhifulixi,</if>
+            <if test="benjinshengyu != null">benjinshengyu,</if>
+            <if test="comment != null">comment,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">#{managerId},</if>
+            <if test="qishu != null">#{qishu},</if>
+            <if test="riqi != null">#{riqi},</if>
+            <if test="huankuanjine != null">#{huankuanjine},</if>
+            <if test="changhuanben != null">#{changhuanben},</if>
+            <if test="zhifulixi != null">#{zhifulixi},</if>
+            <if test="benjinshengyu != null">#{benjinshengyu},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRzhkjhMingxi" parameterType="RzhkjhMingxi">
+        update rzhkjh_mingxi
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="qishu != null">qishu = #{qishu},</if>
+            <if test="riqi != null">riqi = #{riqi},</if>
+            <if test="huankuanjine != null">huankuanjine = #{huankuanjine},</if>
+            <if test="changhuanben != null">changhuanben = #{changhuanben},</if>
+            <if test="zhifulixi != null">zhifulixi = #{zhifulixi},</if>
+            <if test="benjinshengyu != null">benjinshengyu = #{benjinshengyu},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRzhkjhMingxiById" parameterType="Long">
+        delete from rzhkjh_mingxi where id = #{id}
+    </delete>
+
+    <delete id="deleteRzhkjhMingxiByIds" parameterType="String">
+        delete from rzhkjh_mingxi where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
