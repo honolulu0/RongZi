@@ -1,19 +1,22 @@
 package com.rongzi.huankuanjihua.mapper;
 
 import java.util.List;
+
+import com.rongzi.huankuanjihua.domain.FinancialSummary;
+import com.rongzi.huankuanjihua.domain.PaymentSummary;
 import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
+import io.lettuce.core.dynamic.annotation.Param;
 
 /**
  * 还款计划明细Mapper接口
- * 
+ *
  * @author rongzi
  * @date 2024-03-27
  */
-public interface RzhkjhMingxiMapper 
-{
+public interface RzhkjhMingxiMapper {
     /**
      * 查询还款计划明细
-     * 
+     *
      * @param id 还款计划明细主键
      * @return 还款计划明细
      */
@@ -21,7 +24,7 @@ public interface RzhkjhMingxiMapper
 
     /**
      * 查询还款计划明细列表
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 还款计划明细集合
      */
@@ -29,7 +32,7 @@ public interface RzhkjhMingxiMapper
 
     /**
      * 新增还款计划明细
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 结果
      */
@@ -37,7 +40,7 @@ public interface RzhkjhMingxiMapper
 
     /**
      * 修改还款计划明细
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 结果
      */
@@ -45,7 +48,7 @@ public interface RzhkjhMingxiMapper
 
     /**
      * 删除还款计划明细
-     * 
+     *
      * @param id 还款计划明细主键
      * @return 结果
      */
@@ -53,9 +56,17 @@ public interface RzhkjhMingxiMapper
 
     /**
      * 批量删除还款计划明细
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
     public int deleteRzhkjhMingxiByIds(Long[] ids);
+
+
+    public List<PaymentSummary> selectPaymentSummary(String startDate,String endDate);
+
+
+    public FinancialSummary selectFinancialSummaryByMonth(String specifiedYearMonth);
+
+    public PaymentSummary selectPaymentSummaryByMonth(String specifiedYearMonth);
 }

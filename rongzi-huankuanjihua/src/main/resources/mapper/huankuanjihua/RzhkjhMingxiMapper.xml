@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.huankuanjihua.mapper.RzhkjhMingxiMapper">
-    
+
     <resultMap type="RzhkjhMingxi" id="RzhkjhMingxiResult">
-        <result property="id"    column="id"    />
-        <result property="managerId"    column="manager_id"    />
-        <result property="qishu"    column="qishu"    />
-        <result property="riqi"    column="riqi"    />
-        <result property="huankuanjine"    column="huankuanjine"    />
-        <result property="changhuanben"    column="changhuanben"    />
-        <result property="zhifulixi"    column="zhifulixi"    />
-        <result property="benjinshengyu"    column="benjinshengyu"    />
-        <result property="comment"    column="comment"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="updateBy"    column="update_by"    />
+        <result property="id" column="id"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="qishu" column="qishu"/>
+        <result property="riqi" column="riqi"/>
+        <result property="huankuanjine" column="huankuanjine"/>
+        <result property="changhuanben" column="changhuanben"/>
+        <result property="zhifulixi" column="zhifulixi"/>
+        <result property="benjinshengyu" column="benjinshengyu"/>
+        <result property="comment" column="comment"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
     </resultMap>
 
     <sql id="selectRzhkjhMingxiVo">
-        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, comment, create_time, create_by, update_time, update_by from rzhkjh_mingxi
+        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, comment, create_time,
+        create_by, update_time, update_by from rzhkjh_mingxi
     </sql>
 
     <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
         <include refid="selectRzhkjhMingxiVo"/>
-        <where>  
-            <if test="managerId != null  and managerId != ''"> and manager_id = #{managerId}</if>
-            <if test="qishu != null  and qishu != ''"> and qishu = #{qishu}</if>
-            <if test="params.beginRiqi != null and params.beginRiqi != '' and params.endRiqi != null and params.endRiqi != ''"> and riqi between #{params.beginRiqi} and #{params.endRiqi}</if>
-            <if test="huankuanjine != null  and huankuanjine != ''"> and huankuanjine = #{huankuanjine}</if>
-            <if test="changhuanben != null  and changhuanben != ''"> and changhuanben = #{changhuanben}</if>
-            <if test="zhifulixi != null  and zhifulixi != ''"> and zhifulixi = #{zhifulixi}</if>
-            <if test="benjinshengyu != null  and benjinshengyu != ''"> and benjinshengyu = #{benjinshengyu}</if>
-            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
-            <if test="createTime != null "> and create_time = #{createTime}</if>
-            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
-            <if test="updateTime != null "> and update_time = #{updateTime}</if>
-            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+        <where>
+            <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
+            <if test="qishu != null  and qishu != ''">and qishu = #{qishu}</if>
+            <if test="params.beginRiqi != null and params.beginRiqi != '' and params.endRiqi != null and params.endRiqi != ''">
+                and riqi between #{params.beginRiqi} and #{params.endRiqi}
+            </if>
+            <if test="huankuanjine != null  and huankuanjine != ''">and huankuanjine = #{huankuanjine}</if>
+            <if test="changhuanben != null  and changhuanben != ''">and changhuanben = #{changhuanben}</if>
+            <if test="zhifulixi != null  and zhifulixi != ''">and zhifulixi = #{zhifulixi}</if>
+            <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
+            <if test="updateTime != null ">and update_time = #{updateTime}</if>
+            <if test="updateBy != null  and updateBy != ''">and update_by = #{updateBy}</if>
         </where>
     </select>
-    
+
     <select id="selectRzhkjhMingxiById" parameterType="Long" resultMap="RzhkjhMingxiResult">
         <include refid="selectRzhkjhMingxiVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertRzhkjhMingxi" parameterType="RzhkjhMingxi" useGeneratedKeys="true" keyProperty="id">
         insert into rzhkjh_mingxi
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -62,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createBy != null">create_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managerId != null">#{managerId},</if>
             <if test="qishu != null">#{qishu},</if>
@@ -76,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createBy != null">#{createBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateRzhkjhMingxi" parameterType="RzhkjhMingxi">
@@ -103,9 +106,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteRzhkjhMingxiByIds" parameterType="String">
-        delete from rzhkjh_mingxi where id in 
+        delete from rzhkjh_mingxi where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
+    <resultMap id="paymentSummaryMap" type="PaymentSummary">
+        <result property="month" column="month"/>
+        <result property="totalInterest" column="total_interest" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result property="totalPrincipal" column="total_principal" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="selectPaymentSummary" resultMap="paymentSummaryMap">
+        SELECT
+        DATE_FORMAT(riqi, '%Y-%m') AS month,
+        SUM(IFNULL(CAST(zhifulixi AS DECIMAL), 0)) AS total_interest,
+        SUM(IFNULL(CAST(changhuanben AS DECIMAL), 0)) AS total_principal
+        FROM rzhkjh_mingxi
+        WHERE 1=1
+        <if test="param1 != null">
+            AND DATE_FORMAT(riqi, '%Y-%m') &gt;= #{param1}
+        </if>
+        <if test="param2 != null">
+            AND DATE_FORMAT(riqi, '%Y-%m') &lt;= #{param2}
+        </if>
+        GROUP BY DATE_FORMAT(riqi, '%Y-%m')
+    </select>
+
+
+    <resultMap id="financialSummaryMap" type="FinancialSummary">
+        <result property="totalPrincipal" column="total_principal"/>
+        <result property="totalInterest" column="total_interest"/>
+        <result property="totalPaidPrincipal" column="total_paid_principal"/>
+        <result property="totalUnpaidPrincipal" column="total_unpaid_principal"/>
+        <result property="totalPaidInterest" column="total_paid_interest"/>
+        <result property="totalUnpaidInterest" column="total_unpaid_interest"/>
+    </resultMap>
+
+    <select id="selectFinancialSummaryByMonth" parameterType="string" resultMap="financialSummaryMap">
+        SELECT
+        SUM(IFNULL(CAST(changhuanben AS DECIMAL(10,2)), 0)) AS total_principal,
+        SUM(IFNULL(CAST(zhifulixi AS DECIMAL(10,2)), 0)) AS total_interest,
+        SUM(IF(DATE(riqi) &lt;= CURDATE(), IFNULL(CAST(changhuanben AS DECIMAL), 0), 0)) AS total_paid_principal,
+        SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(changhuanben AS DECIMAL), 0), 0)) AS total_unpaid_principal,
+        SUM(IF(DATE(riqi) &lt;= CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_paid_interest,
+        SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_unpaid_interest
+        FROM rzhkjh_mingxi
+        WHERE DATE_FORMAT(riqi, '%Y-%m') = #{specifiedYearMonth}
+    </select>
+
+
+    <select id="selectPaymentSummaryByMonth" parameterType="string" resultMap="paymentSummaryMap">
+        SELECT
+        SUM(IFNULL(CAST(changhuanben AS DECIMAL), 0)) AS total_principal,
+        SUM(IFNULL(CAST(zhifulixi AS DECIMAL), 0)) AS total_interest
+        FROM rzhkjh_mingxi
+        WHERE DATE_FORMAT(riqi, '%Y-%m') = #{specifiedYearMonth}
+    </select>
 </mapper>

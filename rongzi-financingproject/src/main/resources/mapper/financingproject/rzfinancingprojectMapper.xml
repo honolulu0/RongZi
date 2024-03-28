@@ -111,6 +111,8 @@
         a.financing_type, a.contract_id, a.contract_signing_date, a.loan_date, a.due_date, a.rate, a.loan_term,
         a.credit_enhancement_measures, a.repaid_amount, a.remaining_amount, a.loan_state, a.comment, a.create_time,
         a.create_by, a.update_time, a.update_by, a.uuid,
+        a.principal_repayment_method, a.interest_repayment_method, a.rate_type, a.first_repayment_date, a.has_repayment_plan,
+        a.tiqubenjin, a.changhuanbenjin, a.lilvbiangeng, a.lixichanghuan,
         b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as
         sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_financing_project a

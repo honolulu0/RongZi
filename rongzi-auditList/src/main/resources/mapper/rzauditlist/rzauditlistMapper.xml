@@ -74,7 +74,7 @@
             <if test="auditState != null and auditState != ''">audit_state = #{auditState},</if>
             <if test="managementId != null">management_id = #{managementId},</if>
         </trim>
-        where id = #{id}
+        where id = #{id} and audit_state = 1759514891045044200
     </update>
 
     <delete id="deleterzauditlistById" parameterType="Long">

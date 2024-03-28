@@ -1,6 +1,9 @@
 package com.rongzi.huankuanjihua.service;
 
 import java.util.List;
+
+import com.rongzi.huankuanjihua.domain.FinancialSummary;
+import com.rongzi.huankuanjihua.domain.PaymentSummary;
 import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
 
 /**
@@ -58,4 +61,10 @@ public interface IRzhkjhMingxiService
      * @return 结果
      */
     public int deleteRzhkjhMingxiById(Long id);
+
+    public List<PaymentSummary> getPaymentSummary(String startDate, String endDate);
+
+    public FinancialSummary getFinancialSummaryByMonth(String specifiedYearMonth);
+
+    public PaymentSummary getPaymentSummaryByMonth(String specifiedYearMonth);
 }
