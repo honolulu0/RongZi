@@ -7,9 +7,9 @@ import com.rongzi.common.core.domain.BaseEntity;
 
 /**
  * 附件表对象 rz_scr
- * 
+ *
  * @author rongzi
- * @date 2024-02-08
+ * @date 2024-03-28
  */
 public class rzsrc2 extends BaseEntity
 {
@@ -17,6 +17,14 @@ public class rzsrc2 extends BaseEntity
 
     /** 资源id主键 */
     private Long id;
+
+    /** 标题 */
+    @Excel(name = "标题")
+    private String title;
+
+    /** 备注 */
+    @Excel(name = "备注")
+    private String comment;
 
     /** url地址 */
     @Excel(name = "url地址")
@@ -34,48 +42,66 @@ public class rzsrc2 extends BaseEntity
     @Excel(name = "种类筛选：下拉", readConverterExp = "融=资项目、政府专项债、专项借款、内部借款、企业借款、对内担保、对外担保、银行承兑汇票、商业承兑汇票、信用证、反向保理、贷后管理、授信管理")
     private String type;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setUrl(String url) 
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    public String getComment()
+    {
+        return comment;
+    }
+    public void setUrl(String url)
     {
         this.url = url;
     }
 
-    public String getUrl() 
+    public String getUrl()
     {
         return url;
     }
-    public void setScrUuid(String scrUuid) 
+    public void setScrUuid(String scrUuid)
     {
         this.scrUuid = scrUuid;
     }
 
-    public String getScrUuid() 
+    public String getScrUuid()
     {
         return scrUuid;
     }
-    public void setProjectManagementId(String projectManagementId) 
+    public void setProjectManagementId(String projectManagementId)
     {
         this.projectManagementId = projectManagementId;
     }
 
-    public String getProjectManagementId() 
+    public String getProjectManagementId()
     {
         return projectManagementId;
     }
-    public void setType(String type) 
+    public void setType(String type)
     {
         this.type = type;
     }
 
-    public String getType() 
+    public String getType()
     {
         return type;
     }
@@ -83,13 +109,15 @@ public class rzsrc2 extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("url", getUrl())
-            .append("scrUuid", getScrUuid())
-            .append("projectManagementId", getProjectManagementId())
-            .append("type", getType())
-            .append("createTime", getCreateTime())
-            .append("createBy", getCreateBy())
-            .toString();
+                .append("id", getId())
+                .append("title", getTitle())
+                .append("comment", getComment())
+                .append("url", getUrl())
+                .append("scrUuid", getScrUuid())
+                .append("projectManagementId", getProjectManagementId())
+                .append("type", getType())
+                .append("createTime", getCreateTime())
+                .append("createBy", getCreateBy())
+                .toString();
     }
 }

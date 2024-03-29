@@ -13,6 +13,7 @@
         <result property="changhuanben" column="changhuanben"/>
         <result property="zhifulixi" column="zhifulixi"/>
         <result property="benjinshengyu" column="benjinshengyu"/>
+        <result property="lilv" column="lilv"/>
         <result property="comment" column="comment"/>
         <result property="createTime" column="create_time"/>
         <result property="createBy" column="create_by"/>
@@ -21,8 +22,8 @@
     </resultMap>
 
     <sql id="selectRzhkjhMingxiVo">
-        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, comment, create_time,
-        create_by, update_time, update_by from rzhkjh_mingxi
+        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, lilv, comment,
+        create_time, create_by, update_time, update_by from rzhkjh_mingxi
     </sql>
 
     <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
@@ -37,6 +38,7 @@
             <if test="changhuanben != null  and changhuanben != ''">and changhuanben = #{changhuanben}</if>
             <if test="zhifulixi != null  and zhifulixi != ''">and zhifulixi = #{zhifulixi}</if>
             <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
+            <if test="lilv != null  and lilv != ''">and lilv = #{lilv}</if>
             <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
             <if test="createTime != null ">and create_time = #{createTime}</if>
             <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
@@ -60,6 +62,7 @@
             <if test="changhuanben != null">changhuanben,</if>
             <if test="zhifulixi != null">zhifulixi,</if>
             <if test="benjinshengyu != null">benjinshengyu,</if>
+            <if test="lilv != null">lilv,</if>
             <if test="comment != null">comment,</if>
             <if test="createTime != null">create_time,</if>
             <if test="createBy != null">create_by,</if>
@@ -74,6 +77,7 @@
             <if test="changhuanben != null">#{changhuanben},</if>
             <if test="zhifulixi != null">#{zhifulixi},</if>
             <if test="benjinshengyu != null">#{benjinshengyu},</if>
+            <if test="lilv != null">#{lilv},</if>
             <if test="comment != null">#{comment},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -92,6 +96,7 @@
             <if test="changhuanben != null">changhuanben = #{changhuanben},</if>
             <if test="zhifulixi != null">zhifulixi = #{zhifulixi},</if>
             <if test="benjinshengyu != null">benjinshengyu = #{benjinshengyu},</if>
+            <if test="lilv != null">lilv = #{lilv},</if>
             <if test="comment != null">comment = #{comment},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
@@ -111,6 +116,7 @@
             #{id}
         </foreach>
     </delete>
+
 
     <resultMap id="paymentSummaryMap" type="PaymentSummary">
         <result property="month" column="month"/>

@@ -92,7 +92,6 @@ public class RzhkjhMingxiController extends BaseController {
     }
 
 
-    @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:query')")
 
     @GetMapping(value = "/paymentSummary")
     public AjaxResult paymentSummary(
@@ -101,7 +100,6 @@ public class RzhkjhMingxiController extends BaseController {
         return success(rzhkjhMingxiService.getPaymentSummary(startDate, endDate));
     }
 
-    @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:query')")
     @GetMapping(value = {"/financialSummaryByMonth", "/financialSummaryByMonth/{specifiedYearMonth}"})
     public AjaxResult getFinancialSummaryByMonth(@PathVariable(required = false) String specifiedYearMonth) {
         // 如果没有提供月份，则使用当前月份
@@ -111,7 +109,6 @@ public class RzhkjhMingxiController extends BaseController {
         return success(rzhkjhMingxiService.getFinancialSummaryByMonth(specifiedYearMonth));
     }
 
-    @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:query')")
     @GetMapping(value = {"/paymentSummaryByMonth", "/paymentSummaryByMonth/{specifiedYearMonth}"})
     public AjaxResult getPaymentSummaryByMonth(@PathVariable(required = false) String specifiedYearMonth) {
         // 如果没有提供月份，则使用当前月份

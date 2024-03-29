@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.appendix.mapper.rzsrc2Mapper">
-    
+
     <resultMap type="rzsrc2" id="rzsrc2Result">
         <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="comment"    column="comment"    />
         <result property="url"    column="url"    />
         <result property="scrUuid"    column="scr_uuid"    />
         <result property="projectManagementId"    column="project_management_id"    />
@@ -15,47 +17,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectrzsrc2Vo">
-        select id, url, scr_uuid, project_management_id, type, create_time, create_by from rz_scr
+        select id, title, comment, url, scr_uuid, project_management_id, type, create_time, create_by from rz_scr
     </sql>
 
     <select id="selectrzsrc2List" parameterType="rzsrc2" resultMap="rzsrc2Result">
         <include refid="selectrzsrc2Vo"/>
-        <where>  
-            <if test="url != null  and url != ''"> and url = #{url}</if>
-            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+        <where>
+            1 = 1 AND  ISNULL(scr_uuid)
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="url != null  and url != ''"> and url like concat('%', #{url}, '%')</if>
             <if test="projectManagementId != null  and projectManagementId != ''"> and project_management_id = #{projectManagementId}</if>
             <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
         </where>
     </select>
-    
+
     <select id="selectrzsrc2ById" parameterType="Long" resultMap="rzsrc2Result">
         <include refid="selectrzsrc2Vo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertrzsrc2" parameterType="rzsrc2" useGeneratedKeys="true" keyProperty="id">
         insert into rz_scr
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="comment != null">comment,</if>
             <if test="url != null">url,</if>
             <if test="scrUuid != null">scr_uuid,</if>
             <if test="projectManagementId != null">project_management_id,</if>
             <if test="type != null">type,</if>
             <if test="createTime != null">create_time,</if>
             <if test="createBy != null">create_by,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="comment != null">#{comment},</if>
             <if test="url != null">#{url},</if>
             <if test="scrUuid != null">#{scrUuid},</if>
             <if test="projectManagementId != null">#{projectManagementId},</if>
             <if test="type != null">#{type},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="createBy != null">#{createBy},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updaterzsrc2" parameterType="rzsrc2">
         update rz_scr
         <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="comment != null">comment = #{comment},</if>
             <if test="url != null">url = #{url},</if>
             <if test="scrUuid != null">scr_uuid = #{scrUuid},</if>
             <if test="projectManagementId != null">project_management_id = #{projectManagementId},</if>
@@ -71,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleterzsrc2ByIds" parameterType="String">
-        delete from rz_scr where id in 
+        delete from rz_scr where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
