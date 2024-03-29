@@ -1,7 +1,6 @@
 package com.rongzi.huankuanjihua.domain;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -12,146 +11,168 @@ import com.rongzi.common.core.domain.BaseEntity;
  * 还款计划明细对象 rzhkjh_mingxi
  *
  * @author rongzi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
-public class RzhkjhMingxi extends BaseEntity {
+public class RzhkjhMingxi extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     *
-     */
+    /**  */
     private Long id;
 
-    /**
-     * 还款计划对应项目的管理编号
-     */
-    @Excel(name = "还款计划对应项目的管理编号")
+    /** 管理编号 */
+    @Excel(name = "管理编号")
     private String managerId;
 
-    /**
-     * 期数
-     */
+    /** 期数 */
     @Excel(name = "期数")
     private String qishu;
 
-    /**
-     * 日期
-     */
+    /** 日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date riqi;
 
-    /**
-     * 还款金额
-     */
+
+    /** 借款人 */
+    @Excel(name = "借款人")
+    private String borrowingUnit;
+
+    /** 债权人 */
+    @Excel(name = "债权人")
+    private String financialInstitution;
+
+
+    /** 还款金额 */
     @Excel(name = "还款金额")
     private String huankuanjine;
 
-    /**
-     * 偿还本金
-     */
+    /** 偿还本金 */
     @Excel(name = "偿还本金")
     private String changhuanben;
 
-    /**
-     * 支付利息
-     */
+    /** 支付利息 */
     @Excel(name = "支付利息")
     private String zhifulixi;
 
-    /**
-     * 本金剩余
-     */
+    /** 本金剩余 */
     @Excel(name = "本金剩余")
     private String benjinshengyu;
-    /**
-     * 利率
-     */
+
+    /** 利率 */
     @Excel(name = "利率")
     private String lilv;
-    /**
-     * 备注
-     */
+
+    /** 备注 */
     @Excel(name = "备注")
     private String comment;
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
-
-    public void setManagerId(String managerId) {
+    public void setManagerId(String managerId)
+    {
         this.managerId = managerId;
     }
 
-    public String getManagerId() {
+    public String getManagerId()
+    {
         return managerId;
     }
+    public void setBorrowingUnit(String borrowingUnit)
+    {
+        this.borrowingUnit = borrowingUnit;
+    }
 
-    public void setQishu(String qishu) {
+    public String getBorrowingUnit()
+    {
+        return borrowingUnit;
+    }
+    public void setFinancialInstitution(String financialInstitution)
+    {
+        this.financialInstitution = financialInstitution;
+    }
+
+    public String getFinancialInstitution()
+    {
+        return financialInstitution;
+    }
+    public void setQishu(String qishu)
+    {
         this.qishu = qishu;
     }
 
-    public String getQishu() {
+    public String getQishu()
+    {
         return qishu;
     }
-
-    public void setRiqi(Date riqi) {
+    public void setRiqi(Date riqi)
+    {
         this.riqi = riqi;
     }
 
-    public Date getRiqi() {
+    public Date getRiqi()
+    {
         return riqi;
     }
-
-    public void setHuankuanjine(String huankuanjine) {
+    public void setHuankuanjine(String huankuanjine)
+    {
         this.huankuanjine = huankuanjine;
     }
 
-    public String getHuankuanjine() {
+    public String getHuankuanjine()
+    {
         return huankuanjine;
     }
-
-    public void setChanghuanben(String changhuanben) {
+    public void setChanghuanben(String changhuanben)
+    {
         this.changhuanben = changhuanben;
     }
 
-    public String getChanghuanben() {
+    public String getChanghuanben()
+    {
         return changhuanben;
     }
-
-    public void setZhifulixi(String zhifulixi) {
+    public void setZhifulixi(String zhifulixi)
+    {
         this.zhifulixi = zhifulixi;
     }
 
-    public String getZhifulixi() {
+    public String getZhifulixi()
+    {
         return zhifulixi;
     }
-
-    public void setBenjinshengyu(String benjinshengyu) {
+    public void setBenjinshengyu(String benjinshengyu)
+    {
         this.benjinshengyu = benjinshengyu;
     }
 
-    public String getBenjinshengyu() {
+    public String getBenjinshengyu()
+    {
         return benjinshengyu;
     }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getLilv() {
-        return lilv;
-    }
-
-    public void setLilv(String lilv) {
+    public void setLilv(String lilv)
+    {
         this.lilv = lilv;
     }
 
-    public String getComment() {
+    public String getLilv()
+    {
+        return lilv;
+    }
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    public String getComment()
+    {
         return comment;
     }
 
@@ -160,6 +181,8 @@ public class RzhkjhMingxi extends BaseEntity {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("managerId", getManagerId())
+                .append("borrowingUnit", getBorrowingUnit())
+                .append("financialInstitution", getFinancialInstitution())
                 .append("qishu", getQishu())
                 .append("riqi", getRiqi())
                 .append("huankuanjine", getHuankuanjine())

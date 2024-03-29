@@ -36,6 +36,17 @@ public class RzhkjhMingxiController extends BaseController {
     @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:list')")
     @GetMapping("/list")
     public TableDataInfo list(RzhkjhMingxi rzhkjhMingxi) {
+        startPage();
+        List<RzhkjhMingxi> list = rzhkjhMingxiService.selectRzhkjhMingxiList(rzhkjhMingxi);
+        return getDataTable(list);
+    }
+
+    /**
+     * 查询还款计划明细列表
+     */
+    @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:list')")
+    @GetMapping("/all")
+    public TableDataInfo listAll(RzhkjhMingxi rzhkjhMingxi) {
         List<RzhkjhMingxi> list = rzhkjhMingxiService.selectRzhkjhMingxiList(rzhkjhMingxi);
         return getDataTable(list);
     }

@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.huankuanjihua.mapper.RzhkjhMingxiMapper">
 
+
     <resultMap type="RzhkjhMingxi" id="RzhkjhMingxiResult">
         <result property="id" column="id"/>
         <result property="managerId" column="manager_id"/>
+        <result property="borrowingUnit" column="borrowing_unit"/>
+        <result property="financialInstitution" column="financial_institution"/>
         <result property="qishu" column="qishu"/>
         <result property="riqi" column="riqi"/>
         <result property="huankuanjine" column="huankuanjine"/>
@@ -22,14 +25,18 @@
     </resultMap>
 
     <sql id="selectRzhkjhMingxiVo">
-        select id, manager_id, qishu, riqi, huankuanjine, changhuanben, zhifulixi, benjinshengyu, lilv, comment,
-        create_time, create_by, update_time, update_by from rzhkjh_mingxi
+        select id, manager_id, borrowing_unit, financial_institution, qishu, riqi, huankuanjine, changhuanben,
+        zhifulixi, benjinshengyu, lilv, comment, create_time, create_by, update_time, update_by from rzhkjh_mingxi
     </sql>
 
     <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
         <include refid="selectRzhkjhMingxiVo"/>
         <where>
             <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
             <if test="qishu != null  and qishu != ''">and qishu = #{qishu}</if>
             <if test="params.beginRiqi != null and params.beginRiqi != '' and params.endRiqi != null and params.endRiqi != ''">
                 and riqi between #{params.beginRiqi} and #{params.endRiqi}
@@ -40,9 +47,13 @@
             <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
             <if test="lilv != null  and lilv != ''">and lilv = #{lilv}</if>
             <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
-            <if test="createTime != null ">and create_time = #{createTime}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''">
+                and create_time between #{params.beginCreateTime} and #{params.endCreateTime}
+            </if>
             <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
-            <if test="updateTime != null ">and update_time = #{updateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''">
+                and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}
+            </if>
             <if test="updateBy != null  and updateBy != ''">and update_by = #{updateBy}</if>
         </where>
     </select>
@@ -56,6 +67,8 @@
         insert into rzhkjh_mingxi
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="managerId != null">manager_id,</if>
+            <if test="borrowingUnit != null">borrowing_unit,</if>
+            <if test="financialInstitution != null">financial_institution,</if>
             <if test="qishu != null">qishu,</if>
             <if test="riqi != null">riqi,</if>
             <if test="huankuanjine != null">huankuanjine,</if>
@@ -71,6 +84,8 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managerId != null">#{managerId},</if>
+            <if test="borrowingUnit != null">#{borrowingUnit},</if>
+            <if test="financialInstitution != null">#{financialInstitution},</if>
             <if test="qishu != null">#{qishu},</if>
             <if test="riqi != null">#{riqi},</if>
             <if test="huankuanjine != null">#{huankuanjine},</if>
@@ -90,6 +105,8 @@
         update rzhkjh_mingxi
         <trim prefix="SET" suffixOverrides=",">
             <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="borrowingUnit != null">borrowing_unit = #{borrowingUnit},</if>
+            <if test="financialInstitution != null">financial_institution = #{financialInstitution},</if>
             <if test="qishu != null">qishu = #{qishu},</if>
             <if test="riqi != null">riqi = #{riqi},</if>
             <if test="huankuanjine != null">huankuanjine = #{huankuanjine},</if>
@@ -116,6 +133,9 @@
             #{id}
         </foreach>
     </delete>
+
+
+    <!--    下面是汇总信息，勿替换-->
 
 
     <resultMap id="paymentSummaryMap" type="PaymentSummary">
