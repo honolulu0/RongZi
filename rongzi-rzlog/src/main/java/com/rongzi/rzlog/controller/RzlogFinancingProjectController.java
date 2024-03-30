@@ -51,7 +51,6 @@ public class RzlogFinancingProjectController extends BaseController
     /**
      * 查询历史融资查询列表
      */
-    @PreAuthorize("@ss.hasPermi('rzlog:historyFinancing:summary')")
     @GetMapping("/summary")
     public TableDataInfo summary(RzlogFinancingProject rzlogFinancingProject)
     {

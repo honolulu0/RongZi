@@ -49,7 +49,6 @@ public class RzlogGuaranteeController extends BaseController {
     /**
      * 查询历史担保列表
      */
-    @PreAuthorize("@ss.hasPermi('rzlog:historyGuarantee:summary')")
     @GetMapping("/summary")
     public TableDataInfo summary(RzlogGuarantee rzlogGuarantee) {
         startPage();

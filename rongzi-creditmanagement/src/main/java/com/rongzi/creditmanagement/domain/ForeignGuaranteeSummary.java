@@ -7,7 +7,15 @@ public class ForeignGuaranteeSummary {
     private BigDecimal totalGuaranteeBalance;
 
     public BigDecimal getTotalGuaranteeAmount() {
-        return totalGuaranteeAmount;
+
+            if(totalGuaranteeAmount == null) {
+                return BigDecimal.ZERO;
+            } else {
+                return totalGuaranteeAmount;
+            }
+
+
+
     }
 
     public void setTotalGuaranteeAmount(BigDecimal totalGuaranteeAmount) {
@@ -15,7 +23,11 @@ public class ForeignGuaranteeSummary {
     }
 
     public BigDecimal getTotalGuaranteeBalance() {
-        return totalGuaranteeBalance;
+        if (totalGuaranteeBalance == null) {
+            return BigDecimal.ZERO;
+        } else {
+            return totalGuaranteeBalance;
+        }
     }
 
     public void setTotalGuaranteeBalance(BigDecimal totalGuaranteeBalance) {

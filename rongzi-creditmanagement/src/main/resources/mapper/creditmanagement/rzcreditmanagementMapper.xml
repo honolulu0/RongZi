@@ -65,9 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INNER JOIN
         sys_dict_data sd ON rcm.credit_type = sd.dict_value
         WHERE
-        rcm.credit_state =#{creditState}
-        GROUP BY
-        sd.dict_value
+        rcm.credit_state =#{creditState} and DATE_FORMAT(rcm.deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND rcm.start_date &lt;= NOW()
+        GROUP BY sd.dict_value
 
     </select>
 
@@ -214,30 +213,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectRzFinancingProjectSummary" resultType="RzFinancingProjectSummary">
         SELECT SUM(financing_amount) AS totalFinancingAmount,
         SUM(remaining_amount) AS totalRemainingAmount
-        FROM rz_financing_project;
+        FROM rz_financing_project  WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date &lt;= NOW();
     </select>
 
     <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">
         SELECT SUM(approved_amount) AS totalApprovedAmount,
         SUM(remaining_amount) AS totalRemainingAmount
-        FROM rz_government_special_bonds;
+        FROM rz_government_special_bonds  WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date &lt;= NOW();
     </select>
 
     <select id="selectSpecialLoansSummary" resultType="SpecialLoansSummary">
         SELECT SUM(loan_amount) AS totalLoanAmount,
         SUM(balance) AS totalBalance
-        FROM rz_special_loans;
+        FROM rz_special_loans  WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date &lt;= NOW();
     </select>
 
 
     <select id="selectInternalGuaranteeSummary" resultType="InternalGuaranteeSummary">
         SELECT SUM(guarantee_amount) AS totalGuaranteeAmount, SUM(guarantee_balance) AS totalGuaranteeBalance
-        FROM rz_gl_internal;
+        FROM rz_gl_internal  WHERE DATE_FORMAT(deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND start_date &lt;= NOW();
     </select>
 
     <select id="selectForeignGuaranteeSummary" resultType="ForeignGuaranteeSummary">
         SELECT SUM(guarantee_amount) AS totalGuaranteeAmount, SUM(guarantee_balance) AS totalGuaranteeBalance
-        FROM rz_gl_foreign;
+        FROM rz_gl_foreign  WHERE DATE_FORMAT(deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND start_date &lt;= NOW();
     </select>
 
 

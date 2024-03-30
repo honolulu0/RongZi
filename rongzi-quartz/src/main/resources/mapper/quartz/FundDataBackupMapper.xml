@@ -17,7 +17,7 @@
 		financing_amount, financing_type, contract_id, contract_signing_date, loan_date, due_date, rate, loan_term,
 		credit_enhancement_measures, repaid_amount, remaining_amount, loan_state, comment,create_time, create_by,update_time,update_by, uuid,
 		DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_financing_project WHERE DATE_FORMAT(due_date, '%Y-%m') >= DATE_FORMAT(NOW(), '%Y-%m') AND loan_date &lt;= NOW();
+		FROM rz_financing_project WHERE due_date >= NOW() AND loan_date &lt;= NOW();
 	</insert>
 
 
@@ -34,7 +34,7 @@
 		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
 		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
 		'内部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_gl_internal WHERE DATE_FORMAT(deadline, '%Y-%m') >= DATE_FORMAT(NOW(), '%Y-%m') AND start_date &lt;= NOW();
+		FROM rz_gl_internal WHERE deadline >= NOW() AND start_date &lt;= NOW();
 	</insert>
 
 	<insert id="insertDataGuaranteeExternal">
@@ -46,7 +46,7 @@
 		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
 		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
 		'外部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_gl_foreign WHERE DATE_FORMAT(deadline, '%Y-%m') >= DATE_FORMAT(NOW(), '%Y-%m') AND start_date &lt;= NOW();
+		FROM rz_gl_foreign WHERE deadline >=NOW() AND start_date &lt;= NOW();
 	</insert>
 
 

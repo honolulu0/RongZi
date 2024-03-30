@@ -184,21 +184,6 @@
             </dependency>
 
 
-            <!-- 基本信息父表 -->
-            <dependency>
-                <groupId>com.rongzi</groupId>
-                <artifactId>rongzi-basic</artifactId>
-                <version>${rongzi.version}</version>
-            </dependency>
-
-            <!-- 基本信息子表 -->
-            <dependency>
-                <groupId>com.rongzi</groupId>
-                <artifactId>rongzi-basicDataInfo</artifactId>
-                <version>${rongzi.version}</version>
-            </dependency>
-
-
 
             <dependency>
                 <groupId>com.rongzi</groupId>
@@ -318,8 +303,7 @@
         <module>rongzi-influencer</module>
         <module>rongzi-common</module>
         <module>rongzi-bank</module>
-        <module>rongzi-basic</module>
-        <module>rongzi-basicDataInfo</module>
+
         <module>rongzi-appendix</module>
         <module>rongzi-business</module>
         <module>rongzi-credit</module>

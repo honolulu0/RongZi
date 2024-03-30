@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.bankaccept.mapper.rzbankacceptbillMapper">
     
-    <resultMap type="rzbankacceptbill" id="rzbankacceptbillResult">
+    <resultMap type="rzbankacceptbill" id="rzbankacceptbillResult2">
         <result property="id"    column="id"    />
         <result property="managementId"    column="management_id"    />
         <result property="scrUuid"    column="scr_uuid"    />
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="uuid"    column="uuid"    />
     </resultMap>
 
-    <resultMap id="rzbankacceptbillrzsrc2Result" type="rzbankacceptbill" extends="rzbankacceptbillResult">
+    <resultMap id="rzbankacceptbillrzsrc2Result" type="rzbankacceptbill" extends="rzbankacceptbillResult2">
         <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result" />
     </resultMap>
 
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, management_id, scr_uuid, audit_id, drawer, payee, financial_institution, invoice_amount, draft_date, due_date, remark, accept_agreement_id, entry_name, comment, create_time, create_by, update_time, update_by, uuid from rz_bank_accept_bill
     </sql>
 
-    <select id="selectrzbankacceptbillList" parameterType="rzbankacceptbill" resultMap="rzbankacceptbillResult">
+    <select id="selectrzbankacceptbillList" parameterType="rzbankacceptbill" resultMap="rzbankacceptbillResult2">
         <include refid="selectrzbankacceptbillVo"/>
         <where>  
             <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>

@@ -154,16 +154,37 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
 
         Map<String, Map<String, BigDecimal>> result = new HashMap<>();
         Map<String, BigDecimal> financedAmount = new HashMap<>();
-        financedAmount.put("金融负债", financingSummary.getTotalFinancingAmount());
-        financedAmount.put("政府专项债", bondsSummary.getTotalApprovedAmount());
-        financedAmount.put("专项借款", loansSummary.getTotalLoanAmount());
+        if (financingSummary != null) {
+
+            financedAmount.put("金融负债", financingSummary.getTotalFinancingAmount());
+        }
+
+        if (bondsSummary != null) {
+            financedAmount.put("政府专项债", bondsSummary.getTotalApprovedAmount());
+        }
+        if (loansSummary != null) {
+
+            financedAmount.put("专项借款", loansSummary.getTotalLoanAmount());
+        }
 
         Map<String, BigDecimal> financeBalance = new HashMap<>();
         //正常情况下    融资项目 = 金融负债+政府专项债+专项借款
         //由于融资项目里没有包含 政府专项债 专项借款 所以 融资项目就是 金融负债
-        financeBalance.put("金融负债", financingSummary.getTotalRemainingAmount());
-        financeBalance.put("政府专项债", bondsSummary.getTotalRemainingAmount());
-        financeBalance.put("专项借款", loansSummary.getTotalBalance());
+        if (financingSummary != null) {
+
+            financeBalance.put("金融负债", financingSummary.getTotalRemainingAmount());
+        }
+
+        if (bondsSummary != null) {
+
+            financeBalance.put("政府专项债", bondsSummary.getTotalRemainingAmount());
+        }
+
+        if (loansSummary != null) {
+
+            financeBalance.put("专项借款", loansSummary.getTotalBalance());
+        }
+
 
         result.put("已融资金额", financedAmount);
         result.put("融资余额", financeBalance);
@@ -177,12 +198,26 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
 
         Map<String, Map<String, BigDecimal>> result = new HashMap<>();
         Map<String, BigDecimal> financedAmount = new HashMap<>();
-        financedAmount.put("对内担保", bondsSummary.getTotalGuaranteeAmount());
-        financedAmount.put("对外担保", loansSummary.getTotalGuaranteeAmount());
+        if (bondsSummary != null) {
+
+            financedAmount.put("对内担保", bondsSummary.getTotalGuaranteeAmount());
+        }
+        if (loansSummary != null) {
+
+            financedAmount.put("对外担保", loansSummary.getTotalGuaranteeAmount());
+        }
+
 
         Map<String, BigDecimal> financeBalance = new HashMap<>();
-        financeBalance.put("对内担保", bondsSummary.getTotalGuaranteeBalance());
-        financeBalance.put("对外担保", loansSummary.getTotalGuaranteeBalance());
+        if (bondsSummary != null) {
+
+            financeBalance.put("对内担保", bondsSummary.getTotalGuaranteeBalance());
+        }
+        if (loansSummary != null) {
+
+            financeBalance.put("对外担保", loansSummary.getTotalGuaranteeBalance());
+        }
+
 
         result.put("已担保金额", financedAmount);
         result.put("担保余额", financeBalance);

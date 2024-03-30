@@ -24,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"    column="update_by"    />
         <result property="uuid"    column="uuid"    />
         <result property="managementId"    column="management_id"    />
+        <result property="loanDate"    column="loan_date"    />
+        <result property="dueDate"    column="due_date"    />
     </resultMap>
 
     <resultMap id="rzgovernmentspecialbondsrzsrc2Result" type="rzgovernmentspecialbonds" extends="rzgovernmentspecialbondsResult">
@@ -41,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectrzgovernmentspecialbondsVo">
-        select id, scr_uuid, bond_name, bond_size, rate, bond_duration, repayment_method, approved_amount, accumulated_amount_received, repaid_amount, remaining_amount, Issuing_entity, comment, create_time, create_by, update_time, update_by, uuid, management_id from rz_government_special_bonds
+        select id, scr_uuid, bond_name, bond_size, rate, bond_duration, repayment_method, approved_amount, accumulated_amount_received, repaid_amount, remaining_amount, Issuing_entity, comment, create_time, create_by, update_time, update_by, uuid, management_id, loan_date, due_date from rz_government_special_bonds
     </sql>
 
     <select id="selectrzgovernmentspecialbondsList" parameterType="rzgovernmentspecialbonds" resultMap="rzgovernmentspecialbondsResult">
@@ -61,12 +63,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
             <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
             <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
         </where>
     </select>
     
     <select id="selectrzgovernmentspecialbondsById" parameterType="Long" resultMap="rzgovernmentspecialbondsrzsrc2Result">
         select a.id, a.scr_uuid, a.bond_name, a.bond_size, a.rate, a.bond_duration, a.repayment_method, a.approved_amount, a.accumulated_amount_received, a.repaid_amount, a.remaining_amount, a.Issuing_entity, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.management_id,
- b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        a.loan_date, a.due_date,b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_government_special_bonds a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
@@ -93,6 +97,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null">uuid,</if>
             <if test="managementId != null and managementId != ''">management_id,</if>
+            <if test="loanDate != null">loan_date,</if>
+            <if test="dueDate != null">due_date,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
@@ -113,6 +119,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null">#{uuid},</if>
             <if test="managementId != null and managementId != ''">#{managementId},</if>
+            <if test="loanDate != null">#{loanDate},</if>
+            <if test="dueDate != null">#{dueDate},</if>
          </trim>
     </insert>
 
@@ -137,6 +145,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="uuid != null">uuid = #{uuid},</if>
             <if test="managementId != null and managementId != ''">management_id = #{managementId},</if>
+            <if test="loanDate != null">loan_date = #{loanDate},</if>
+            <if test="dueDate != null">due_date = #{dueDate},</if>
         </trim>
         where id = #{id}
     </update>

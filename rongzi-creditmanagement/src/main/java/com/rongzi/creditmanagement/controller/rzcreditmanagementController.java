@@ -103,7 +103,6 @@ public class rzcreditmanagementController extends BaseController {
      * 获取信用管理统计信息
      */
 
-    @PreAuthorize("@ss.hasPermi('creditmanagement:grant:summary')")
     @Log(title = "授信管理汇总", businessType = BusinessType.OTHER)
     @GetMapping("/summary")
 
@@ -118,7 +117,6 @@ public class rzcreditmanagementController extends BaseController {
      * 获取融资统计信息
      */
 
-    @PreAuthorize("@ss.hasPermi('creditmanagement:grant:summary')")
     @Log(title = "融资汇总", businessType = BusinessType.OTHER)
     @GetMapping("/finance/summary")
 
@@ -131,7 +129,6 @@ public class rzcreditmanagementController extends BaseController {
      * 获取内外担保统计信息
      */
 
-    @PreAuthorize("@ss.hasPermi('creditmanagement:grant:summary')")
     @Log(title = "内外担保汇总", businessType = BusinessType.OTHER)
     @GetMapping("/guarantee/summary")
 

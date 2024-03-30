@@ -75,17 +75,6 @@
 
         <dependency>
             <groupId>com.rongzi</groupId>
-            <artifactId>rongzi-basic</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.rongzi</groupId>
-            <artifactId>rongzi-basicDataInfo</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.rongzi</groupId>
             <artifactId>rongzi-appendix</artifactId>
         </dependency>
         <!-- 商业承兑汇票 -->
