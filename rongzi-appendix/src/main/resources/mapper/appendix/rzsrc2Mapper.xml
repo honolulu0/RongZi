@@ -7,6 +7,7 @@
     <resultMap type="rzsrc2" id="rzsrc2Result">
         <result property="id"    column="id"    />
         <result property="title"    column="title"    />
+        <result property="title2"    column="title2"    />
         <result property="comment"    column="comment"    />
         <result property="url"    column="url"    />
         <result property="scrUuid"    column="scr_uuid"    />
@@ -17,7 +18,7 @@
     </resultMap>
 
     <sql id="selectrzsrc2Vo">
-        select id, title, comment, url, scr_uuid, project_management_id, type, create_time, create_by from rz_scr
+        select id, title, title2, comment, url, scr_uuid, project_management_id, type, create_time, create_by from rz_scr
     </sql>
 
     <select id="selectrzsrc2List" parameterType="rzsrc2" resultMap="rzsrc2Result">
@@ -25,8 +26,10 @@
         <where>
             1 = 1 AND  ISNULL(scr_uuid)
             <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="title2 != null  and title2 != ''"> and title2 = #{title2}</if>
             <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
             <if test="url != null  and url != ''"> and url like concat('%', #{url}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
             <if test="projectManagementId != null  and projectManagementId != ''"> and project_management_id = #{projectManagementId}</if>
             <if test="type != null  and type != ''"> and type = #{type}</if>
             <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
@@ -42,6 +45,7 @@
         insert into rz_scr
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="title != null">title,</if>
+            <if test="title2 != null">title2,</if>
             <if test="comment != null">comment,</if>
             <if test="url != null">url,</if>
             <if test="scrUuid != null">scr_uuid,</if>
@@ -52,6 +56,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="title != null">#{title},</if>
+            <if test="title2 != null">#{title2},</if>
             <if test="comment != null">#{comment},</if>
             <if test="url != null">#{url},</if>
             <if test="scrUuid != null">#{scrUuid},</if>
@@ -66,6 +71,7 @@
         update rz_scr
         <trim prefix="SET" suffixOverrides=",">
             <if test="title != null">title = #{title},</if>
+            <if test="title2 != null">title2 = #{title2},</if>
             <if test="comment != null">comment = #{comment},</if>
             <if test="url != null">url = #{url},</if>
             <if test="scrUuid != null">scr_uuid = #{scrUuid},</if>

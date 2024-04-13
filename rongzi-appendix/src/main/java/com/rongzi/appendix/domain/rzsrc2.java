@@ -9,7 +9,7 @@ import com.rongzi.common.core.domain.BaseEntity;
  * 附件表对象 rz_scr
  *
  * @author rongzi
- * @date 2024-03-28
+ * @date 2024-04-13
  */
 public class rzsrc2 extends BaseEntity
 {
@@ -18,9 +18,13 @@ public class rzsrc2 extends BaseEntity
     /** 资源id主键 */
     private Long id;
 
-    /** 标题 */
-    @Excel(name = "标题")
+    /** 一级标题 */
+    @Excel(name = "一级标题")
     private String title;
+
+    /** 二级标题 */
+    @Excel(name = "二级标题")
+    private String title2;
 
     /** 备注 */
     @Excel(name = "备注")
@@ -59,6 +63,15 @@ public class rzsrc2 extends BaseEntity
     public String getTitle()
     {
         return title;
+    }
+    public void setTitle2(String title2)
+    {
+        this.title2 = title2;
+    }
+
+    public String getTitle2()
+    {
+        return title2;
     }
     public void setComment(String comment)
     {
@@ -111,6 +124,7 @@ public class rzsrc2 extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("title", getTitle())
+                .append("title2", getTitle2())
                 .append("comment", getComment())
                 .append("url", getUrl())
                 .append("scrUuid", getScrUuid())
