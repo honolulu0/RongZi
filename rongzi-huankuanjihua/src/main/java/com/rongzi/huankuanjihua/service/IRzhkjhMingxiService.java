@@ -5,6 +5,7 @@ import java.util.List;
 import com.rongzi.huankuanjihua.domain.FinancialSummary;
 import com.rongzi.huankuanjihua.domain.PaymentSummary;
 import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
+import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
 
 /**
  * 还款计划明细Service接口
@@ -29,6 +30,8 @@ public interface IRzhkjhMingxiService
      * @return 还款计划明细集合
      */
     public List<RzhkjhMingxi> selectRzhkjhMingxiList(RzhkjhMingxi rzhkjhMingxi);
+
+    public TotalRzhkjhMingxi totalRzhkjhMingxi(RzhkjhMingxi rzhkjhMingxi);
 
     /**
      * 新增还款计划明细

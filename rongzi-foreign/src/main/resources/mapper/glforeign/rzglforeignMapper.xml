@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.glforeign.mapper.rzglforeignMapper">
-    
+
     <resultMap type="rzglforeign" id="rzglforeignResult">
         <result property="id"    column="id"    />
         <result property="managementId"    column="management_id"    />
@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="guaranteeBalance"    column="guarantee_balance"    />
         <result property="startDate"    column="start_date"    />
         <result property="deadline"    column="deadline"    />
+        <result property="danbaozhuangtai"    column="danbaozhuangtai"    />
         <result property="guaranteeMethod"    column="guarantee_method"    />
         <result property="isCreditInvestigation"    column="is_credit_investigation"    />
         <result property="comment"    column="comment"    />
@@ -33,6 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="rzsrc2" id="rzsrc2Result">
         <result property="id"    column="sub_id"    />
+        <result property="title"    column="sub_title"    />
+        <result property="comment"    column="sub_comment"    />
         <result property="url"    column="sub_url"    />
         <result property="scrUuid"    column="sub_scr_uuid"    />
         <result property="projectManagementId"    column="sub_project_management_id"    />
@@ -42,12 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectrzglforeignVo">
-        select id, management_id, contract_id, scr_uuid, creditor, guarantor, financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline, guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid from rz_gl_foreign
+        select id, management_id, contract_id, scr_uuid, creditor, guarantor, financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline, danbaozhuangtai, guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid from rz_gl_foreign
     </sql>
 
     <select id="selectrzglforeignList" parameterType="rzglforeign" resultMap="rzglforeignResult">
         <include refid="selectrzglforeignVo"/>
-        <where>  
+        <where>
             <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
             <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
             <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
@@ -59,23 +62,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="guaranteeBalance != null "> and guarantee_balance like concat('%', #{guaranteeBalance}, '%')</if>
             <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
             <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
+            <if test="danbaozhuangtai != null  and danbaozhuangtai != ''"> and danbaozhuangtai = #{danbaozhuangtai}</if>
             <if test="guaranteeMethod != null  and guaranteeMethod != ''"> and guarantee_method = #{guaranteeMethod}</if>
             <if test="isCreditInvestigation != null  and isCreditInvestigation != ''"> and is_credit_investigation = #{isCreditInvestigation}</if>
             <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
-            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
             <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
             <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
         </where>
     </select>
-    
+
     <select id="selectrzglforeignById" parameterType="Long" resultMap="rzglforeignrzsrc2Result">
-        select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
- b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.danbaozhuangtai, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
+        b.id as sub_id, b.title as sub_title, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_gl_foreign a
-        left join rz_scr b on b.scr_uuid = a.scr_uuid
+        left join rz_scr b on b.scr_uuid = a.id
         where a.id = #{id}
     </select>
-        
+
     <insert id="insertrzglforeign" parameterType="rzglforeign" useGeneratedKeys="true" keyProperty="id">
         insert into rz_gl_foreign
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="guaranteeBalance != null">guarantee_balance,</if>
             <if test="startDate != null">start_date,</if>
             <if test="deadline != null">deadline,</if>
+            <if test="danbaozhuangtai != null and danbaozhuangtai != ''">danbaozhuangtai,</if>
             <if test="guaranteeMethod != null and guaranteeMethod != ''">guarantee_method,</if>
             <if test="isCreditInvestigation != null and isCreditInvestigation != ''">is_credit_investigation,</if>
             <if test="comment != null">comment,</if>
@@ -98,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null and uuid != ''">uuid,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
             <if test="contractId != null and contractId != ''">#{contractId},</if>
@@ -111,6 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="guaranteeBalance != null">#{guaranteeBalance},</if>
             <if test="startDate != null">#{startDate},</if>
             <if test="deadline != null">#{deadline},</if>
+            <if test="danbaozhuangtai != null and danbaozhuangtai != ''">#{danbaozhuangtai},</if>
             <if test="guaranteeMethod != null and guaranteeMethod != ''">#{guaranteeMethod},</if>
             <if test="isCreditInvestigation != null and isCreditInvestigation != ''">#{isCreditInvestigation},</if>
             <if test="comment != null">#{comment},</if>
@@ -119,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null and uuid != ''">#{uuid},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updaterzglforeign" parameterType="rzglforeign">
@@ -136,6 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="guaranteeBalance != null">guarantee_balance = #{guaranteeBalance},</if>
             <if test="startDate != null">start_date = #{startDate},</if>
             <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="danbaozhuangtai != null and danbaozhuangtai != ''">danbaozhuangtai = #{danbaozhuangtai},</if>
             <if test="guaranteeMethod != null and guaranteeMethod != ''">guarantee_method = #{guaranteeMethod},</if>
             <if test="isCreditInvestigation != null and isCreditInvestigation != ''">is_credit_investigation = #{isCreditInvestigation},</if>
             <if test="comment != null">comment = #{comment},</if>

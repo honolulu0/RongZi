@@ -65,7 +65,7 @@ public class rzreversefactoring extends BaseEntity
 
     /** 回款账户 */
     @Excel(name = "回款账户")
-    private Long collectionAccount;
+    private String collectionAccount;
 
     /** 备注 */
     @Excel(name = "备注")
@@ -177,12 +177,12 @@ public class rzreversefactoring extends BaseEntity
     {
         return entryName;
     }
-    public void setCollectionAccount(Long collectionAccount) 
+    public void setCollectionAccount(String collectionAccount)
     {
         this.collectionAccount = collectionAccount;
     }
 
-    public Long getCollectionAccount() 
+    public String getCollectionAccount()
     {
         return collectionAccount;
     }

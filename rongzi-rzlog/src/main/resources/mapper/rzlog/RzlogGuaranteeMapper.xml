@@ -185,6 +185,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectGuaranteeSummary" parameterType="RzlogGuarantee" resultMap="RzlogGuaranteeSummaryMap">
         <include refid="selectLogRzlogGuaranteeSummaryVo"/>
         <where>
+            1=1 and danbaozhuangtai="担保中"
             <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
             <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
             <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>

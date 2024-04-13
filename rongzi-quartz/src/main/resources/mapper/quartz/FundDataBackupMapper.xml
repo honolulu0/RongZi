@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.quartz.mapper.FundDataBackupMapper">
 
-	<delete id="deleteDataFinancing">
-		DELETE FROM rzlog_financing_project WHERE log_create_date = DATE_FORMAT(NOW(), '%Y-%m')
-	</delete>
+    <!--删除任务执行本月的-->
+    <delete id="deleteDataFinancing">
+        DELETE FROM rzlog_financing_project WHERE log_create_date = DATE_FORMAT(NOW(), '%Y-%m')
+    </delete>
 
-	<insert id="insertDataFinancing">
-		INSERT INTO rzlog_financing_project (management_id, scr_uuid, borrowing_unit, financial_institution,
-		financing_amount, financing_type, contract_id, contract_signing_date, loan_date, due_date, rate, loan_term,
-		credit_enhancement_measures, repaid_amount, remaining_amount, loan_state, comment,create_time, create_by,update_time,update_by, uuid,
-		log_create_date, log_create_time)
-		SELECT management_id, scr_uuid, borrowing_unit, financial_institution,
-		financing_amount, financing_type, contract_id, contract_signing_date, loan_date, due_date, rate, loan_term,
-		credit_enhancement_measures, repaid_amount, remaining_amount, loan_state, comment,create_time, create_by,update_time,update_by, uuid,
-		DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_financing_project WHERE due_date >= NOW() AND loan_date &lt;= NOW();
-	</insert>
+    <!--    重新填写本月数据-->
+    <insert id="insertDataFinancing">
+        INSERT INTO rzlog_financing_project (management_id, scr_uuid, borrowing_unit, financial_institution,
+        financing_amount, financing_type, contract_id, contract_signing_date, loan_date, due_date, rate, loan_term,
+        credit_enhancement_measures, repaid_amount, remaining_amount, loan_state, comment,create_time,
+        create_by,update_time,update_by, uuid,
+        log_create_date, log_create_time)
+        SELECT management_id, scr_uuid, borrowing_unit, financial_institution,
+        financing_amount, financing_type, contract_id, contract_signing_date, loan_date, due_date, rate, loan_term,
+        credit_enhancement_measures, repaid_amount, remaining_amount, loan_state, comment,create_time,
+        create_by,update_time,update_by, uuid,
+        DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
+        FROM rz_financing_project WHERE due_date >= NOW() AND loan_date &lt;= NOW();
+    </insert>
 
+    <!--删除任务执行本月的-->
+    <delete id="deleteDataGuarantee">
+        DELETE FROM rzlog_guarantee WHERE log_create_date = DATE_FORMAT(NOW(), '%Y-%m')
+    </delete>
 
-	<delete id="deleteDataGuarantee">
-		DELETE FROM rzlog_guarantee WHERE log_create_date = DATE_FORMAT(NOW(), '%Y-%m')
-	</delete>
+    <!--    重新填写本月 担保中 的数据-->
+    <insert id="insertDataGuaranteeInternal">
+        INSERT INTO rzlog_guarantee (management_id, contract_id, scr_uuid, creditor, guarantor,
+        financial_institution, business_type, guarantee_amount, guarantee_balance,danbaozhuangtai, start_date, deadline,
+        guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
+        type, log_create_date, log_create_time)
+        SELECT management_id, contract_id, scr_uuid, creditor, guarantor,
+        financial_institution, business_type, guarantee_amount, guarantee_balance, danbaozhuangtai, start_date, deadline,
+        guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
+        '内部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
+        FROM rz_gl_internal WHERE danbaozhuangtai="担保中";
+    </insert>
 
-	<insert id="insertDataGuaranteeInternal">
-		INSERT INTO rzlog_guarantee (management_id, contract_id, scr_uuid, creditor, guarantor,
-		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
-		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
-		type, log_create_date, log_create_time)
-		SELECT management_id, contract_id, scr_uuid, creditor, guarantor,
-		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
-		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
-		'内部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_gl_internal WHERE deadline >= NOW() AND start_date &lt;= NOW();
-	</insert>
-
-	<insert id="insertDataGuaranteeExternal">
-		INSERT INTO rzlog_guarantee (management_id, contract_id, scr_uuid, creditor, guarantor,
-		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
-		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
-		type, log_create_date, log_create_time)
-		SELECT management_id, contract_id, scr_uuid, creditor, guarantor,
-		financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline,
-		guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
-		'外部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
-		FROM rz_gl_foreign WHERE deadline >=NOW() AND start_date &lt;= NOW();
-	</insert>
+    <!--    重新填写本月 担保中 的数据-->
+    <insert id="insertDataGuaranteeExternal">
+        INSERT INTO rzlog_guarantee (management_id, contract_id, scr_uuid, creditor, guarantor,
+        financial_institution, business_type, guarantee_amount, guarantee_balance, danbaozhuangtai,start_date, deadline,
+        guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
+        type, log_create_date, log_create_time)
+        SELECT management_id, contract_id, scr_uuid, creditor, guarantor,
+        financial_institution, business_type, guarantee_amount, guarantee_balance,danbaozhuangtai, start_date, deadline,
+        guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid,
+        '外部' as type, DATE_FORMAT(NOW(), '%Y-%m') as log_create_date, NOW() as log_create_time
+        FROM rz_gl_foreign WHERE danbaozhuangtai="担保中";
+    </insert>
 
 
 </mapper>

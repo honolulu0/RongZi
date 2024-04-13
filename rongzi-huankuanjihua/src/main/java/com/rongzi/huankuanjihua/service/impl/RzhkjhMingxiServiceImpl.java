@@ -5,6 +5,7 @@ import java.util.List;
 import com.rongzi.common.utils.DateUtils;
 import com.rongzi.huankuanjihua.domain.FinancialSummary;
 import com.rongzi.huankuanjihua.domain.PaymentSummary;
+import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.rongzi.huankuanjihua.mapper.RzhkjhMingxiMapper;
@@ -42,6 +43,17 @@ public class RzhkjhMingxiServiceImpl implements IRzhkjhMingxiService {
     @Override
     public List<RzhkjhMingxi> selectRzhkjhMingxiList(RzhkjhMingxi rzhkjhMingxi) {
         return rzhkjhMingxiMapper.selectRzhkjhMingxiList(rzhkjhMingxi);
+    }
+
+    /**
+     * 查询还款计划明细列表
+     *
+     * @param rzhkjhMingxi 还款计划明细
+     * @return 还款计划明细
+     */
+    @Override
+    public TotalRzhkjhMingxi totalRzhkjhMingxi(RzhkjhMingxi rzhkjhMingxi) {
+        return rzhkjhMingxiMapper.totalRzhkjhMingxi(rzhkjhMingxi);
     }
 
     /**

@@ -21,6 +21,8 @@
         <result property="creditEnhancementMeasures" column="credit_enhancement_measures"/>
         <result property="repaidAmount" column="repaid_amount"/>
         <result property="remainingAmount" column="remaining_amount"/>
+        <result property="baozhengjin" column="baozhengjin"/>
+        <result property="shouxufei" column="shouxufei"/>
         <result property="loanState" column="loan_state"/>
         <result property="comment" column="comment"/>
         <result property="createTime" column="create_time"/>
@@ -56,8 +58,9 @@
     <sql id="selectrzfinancingprojectVo">
         select id, management_id, scr_uuid, borrowing_unit, financial_institution, financing_amount, financing_type,
         contract_id, contract_signing_date, loan_date, due_date, rate, loan_term, credit_enhancement_measures,
-        repaid_amount, remaining_amount, loan_state, comment, create_time, create_by, update_time, update_by, uuid,
-        principal_repayment_method, interest_repayment_method, rate_type, first_repayment_date, has_repayment_plan,
+        repaid_amount, remaining_amount, baozhengjin, shouxufei, loan_state, comment, create_time, create_by,
+        update_time, update_by, uuid, principal_repayment_method, interest_repayment_method, rate_type,
+        first_repayment_date, has_repayment_plan,
         tiqubenjin, changhuanbenjin, lilvbiangeng, lixichanghuan from rz_financing_project
     </sql>
 
@@ -109,9 +112,11 @@
     <select id="selectrzfinancingprojectById" parameterType="Long" resultMap="rzfinancingprojectrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.borrowing_unit, a.financial_institution, a.financing_amount,
         a.financing_type, a.contract_id, a.contract_signing_date, a.loan_date, a.due_date, a.rate, a.loan_term,
-        a.credit_enhancement_measures, a.repaid_amount, a.remaining_amount, a.loan_state, a.comment, a.create_time,
+        a.credit_enhancement_measures, a.repaid_amount, a.remaining_amount, a.baozhengjin, a.shouxufei, a.loan_state,
+        a.comment, a.create_time,
         a.create_by, a.update_time, a.update_by, a.uuid,
-        a.principal_repayment_method, a.interest_repayment_method, a.rate_type, a.first_repayment_date, a.has_repayment_plan,
+        a.principal_repayment_method, a.interest_repayment_method, a.rate_type, a.first_repayment_date,
+        a.has_repayment_plan,
         a.tiqubenjin, a.changhuanbenjin, a.lilvbiangeng, a.lixichanghuan,
         b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as
         sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
@@ -119,6 +124,7 @@
         left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
     </select>
+
 
     <insert id="insertrzfinancingproject" parameterType="rzfinancingproject" useGeneratedKeys="true" keyProperty="id">
         insert into rz_financing_project
@@ -140,6 +146,8 @@
             </if>
             <if test="repaidAmount != null">repaid_amount,</if>
             <if test="remainingAmount != null">remaining_amount,</if>
+            <if test="baozhengjin != null">baozhengjin,</if>
+            <if test="shouxufei != null">shouxufei,</if>
             <if test="loanState != null and loanState != ''">loan_state,</if>
             <if test="comment != null">comment,</if>
             <if test="createTime != null">create_time,</if>
@@ -175,6 +183,8 @@
             </if>
             <if test="repaidAmount != null">#{repaidAmount},</if>
             <if test="remainingAmount != null">#{remainingAmount},</if>
+            <if test="baozhengjin != null">#{baozhengjin},</if>
+            <if test="shouxufei != null">#{shouxufei},</if>
             <if test="loanState != null and loanState != ''">#{loanState},</if>
             <if test="comment != null">#{comment},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -216,6 +226,8 @@
             </if>
             <if test="repaidAmount != null">repaid_amount = #{repaidAmount},</if>
             <if test="remainingAmount != null">remaining_amount = #{remainingAmount},</if>
+            <if test="baozhengjin != null">baozhengjin = #{baozhengjin},</if>
+            <if test="shouxufei != null">shouxufei = #{shouxufei},</if>
             <if test="loanState != null and loanState != ''">loan_state = #{loanState},</if>
             <if test="comment != null">comment = #{comment},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
@@ -275,11 +287,14 @@
 
 
     <insert id="batchhuankuanmingxi">
-        insert into rzhkjh_mingxi(manager_id, qishu, riqi,borrowing_unit,financial_institution,huankuanjine, changhuanben, zhifulixi, benjinshengyu,lilv,
+        insert into rzhkjh_mingxi(manager_id, qishu, riqi,borrowing_unit,financial_institution,huankuanjine,
+        changhuanben, zhifulixi, benjinshengyu,lilv,
         comment, create_time, create_by, update_time, update_by) values
         <foreach item="item" index="index" collection="list" separator=",">
-            (#{item.managerId}, #{item.qishu}, #{item.riqi}, #{item.borrowingUnit}, #{item.financialInstitution}, #{item.huankuanjine}, #{item.changhuanben},
-            #{item.zhifulixi}, #{item.benjinshengyu}, #{item.lilv}, #{item.comment}, #{item.createTime}, #{item.createBy},
+            (#{item.managerId}, #{item.qishu}, #{item.riqi}, #{item.borrowingUnit}, #{item.financialInstitution},
+            #{item.huankuanjine}, #{item.changhuanben},
+            #{item.zhifulixi}, #{item.benjinshengyu}, #{item.lilv}, #{item.comment}, #{item.createTime},
+            #{item.createBy},
             #{item.updateTime}, #{item.updateBy})
         </foreach>
     </insert>

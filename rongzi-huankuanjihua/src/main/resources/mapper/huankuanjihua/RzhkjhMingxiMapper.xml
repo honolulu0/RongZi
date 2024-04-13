@@ -58,6 +58,42 @@
         </where>
     </select>
 
+
+    <sql id="totalRzhkjhMingxiVo">
+        select sum(huankuanjine) total_huankuanjine, sum(changhuanben) total_changhuanben,sum(zhifulixi) total_zhifulixi
+        from rzhkjh_mingxi
+    </sql>
+
+    <select id="totalRzhkjhMingxi" parameterType="RzhkjhMingxi"  resultType="TotalRzhkjhMingxi">
+        <include refid="totalRzhkjhMingxiVo"/>
+        <where>
+            <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="qishu != null  and qishu != ''">and qishu = #{qishu}</if>
+            <if test="params.beginRiqi != null and params.beginRiqi != '' and params.endRiqi != null and params.endRiqi != ''">
+                and riqi between #{params.beginRiqi} and #{params.endRiqi}
+            </if>
+            <if test="huankuanjine != null  and huankuanjine != ''">and huankuanjine = #{huankuanjine}</if>
+            <if test="changhuanben != null  and changhuanben != ''">and changhuanben = #{changhuanben}</if>
+            <if test="zhifulixi != null  and zhifulixi != ''">and zhifulixi = #{zhifulixi}</if>
+            <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
+            <if test="lilv != null  and lilv != ''">and lilv = #{lilv}</if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''">
+                and create_time between #{params.beginCreateTime} and #{params.endCreateTime}
+            </if>
+            <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''">
+                and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}
+            </if>
+            <if test="updateBy != null  and updateBy != ''">and update_by = #{updateBy}</if>
+        </where>
+    </select>
+
+
     <select id="selectRzhkjhMingxiById" parameterType="Long" resultMap="RzhkjhMingxiResult">
         <include refid="selectRzhkjhMingxiVo"/>
         where id = #{id}
@@ -157,7 +193,7 @@
         <if test="param2 != null">
             AND DATE_FORMAT(riqi, '%Y-%m') &lt;= #{param2}
         </if>
-        GROUP BY DATE_FORMAT(riqi, '%Y-%m')
+        GROUP BY DATE_FORMAT(riqi, '%Y-%m') order by riqi
     </select>
 
 

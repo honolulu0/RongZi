@@ -86,6 +86,15 @@ public class rzfinancingproject extends BaseEntity
     @Excel(name = "待还金额")
     private Long remainingAmount;
 
+    /** 保证金 */
+    @Excel(name = "保证金")
+    private Long baozhengjin;
+
+    /** 手续费 */
+    @Excel(name = "手续费")
+    private Long shouxufei;
+
+
     /** 贷款状态：未结清、已结清 */
     @Excel(name = "贷款状态：未结清、已结清")
     private String loanState;
@@ -363,6 +372,26 @@ public class rzfinancingproject extends BaseEntity
         this.loanState = loanState;
     }
 
+    public void setBaozhengjin(Long baozhengjin)
+    {
+        this.baozhengjin = baozhengjin;
+    }
+
+    public Long getBaozhengjin()
+    {
+        return baozhengjin;
+    }
+    public void setShouxufei(Long shouxufei)
+    {
+        this.shouxufei = shouxufei;
+    }
+
+    public Long getShouxufei()
+    {
+        return shouxufei;
+    }
+
+
     public String getLoanState() 
     {
         return loanState;
@@ -425,6 +454,8 @@ public class rzfinancingproject extends BaseEntity
                 .append("creditEnhancementMeasures", getCreditEnhancementMeasures())
                 .append("repaidAmount", getRepaidAmount())
                 .append("remainingAmount", getRemainingAmount())
+                .append("baozhengjin", getBaozhengjin())
+                .append("shouxufei", getShouxufei())
                 .append("loanState", getLoanState())
                 .append("comment", getComment())
                 .append("createTime", getCreateTime())

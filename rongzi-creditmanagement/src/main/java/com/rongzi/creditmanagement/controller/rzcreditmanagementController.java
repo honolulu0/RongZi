@@ -107,7 +107,7 @@ public class rzcreditmanagementController extends BaseController {
     @GetMapping("/summary")
 
     public AjaxResult getCreditManagementSummary() {
-        String creditState = "1765002224863281200";  // 默认类型为 已授信
+        String creditState = "已授信";  // 默认类型为 已授信
         Map<String, Map<String, Object>> summaryMap = rzcreditmanagementService.selectCreditManagementSummary(creditState);
         return success(summaryMap);
     }

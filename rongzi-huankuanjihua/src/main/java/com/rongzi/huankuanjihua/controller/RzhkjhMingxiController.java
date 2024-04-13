@@ -6,6 +6,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +36,16 @@ public class RzhkjhMingxiController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('huankuanjihua:mingxi:list')")
     @GetMapping("/list")
-    public TableDataInfo list(RzhkjhMingxi rzhkjhMingxi) {
-        startPage();
-        List<RzhkjhMingxi> list = rzhkjhMingxiService.selectRzhkjhMingxiList(rzhkjhMingxi);
-        return getDataTable(list);
+    public AjaxResult list(RzhkjhMingxi rzhkjhMingxi) {
+
+        TotalRzhkjhMingxi totalRzhkjhMingxi = rzhkjhMingxiService.totalRzhkjhMingxi(rzhkjhMingxi);
+        if (totalRzhkjhMingxi != null) {
+            startPage();
+            List<RzhkjhMingxi> list = rzhkjhMingxiService.selectRzhkjhMingxiList(rzhkjhMingxi);
+            totalRzhkjhMingxi.setTableDataInfo(getDataTable(list));
+        }
+
+        return success(totalRzhkjhMingxi);
     }
 
     /**
@@ -101,7 +108,6 @@ public class RzhkjhMingxiController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rzhkjhMingxiService.deleteRzhkjhMingxiByIds(ids));
     }
-
 
 
     @GetMapping(value = "/paymentSummary")

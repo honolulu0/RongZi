@@ -5,6 +5,7 @@ import java.util.List;
 import com.rongzi.huankuanjihua.domain.FinancialSummary;
 import com.rongzi.huankuanjihua.domain.PaymentSummary;
 import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
+import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
 import io.lettuce.core.dynamic.annotation.Param;
 
 /**
@@ -29,6 +30,13 @@ public interface RzhkjhMingxiMapper {
      * @return 还款计划明细集合
      */
     public List<RzhkjhMingxi> selectRzhkjhMingxiList(RzhkjhMingxi rzhkjhMingxi);
+    /**
+     * 查询还款计划明细列表
+     *
+     * @param rzhkjhMingxi 还款计划明细
+     * @return 还款计划明细集合
+     */
+    public TotalRzhkjhMingxi totalRzhkjhMingxi(RzhkjhMingxi rzhkjhMingxi);
 
     /**
      * 新增还款计划明细
