@@ -76,7 +76,7 @@
         select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.danbaozhuangtai, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
         b.id as sub_id, b.title as sub_title, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_gl_foreign a
-        left join rz_scr b on b.scr_uuid = a.id
+        left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
     </select>
 
