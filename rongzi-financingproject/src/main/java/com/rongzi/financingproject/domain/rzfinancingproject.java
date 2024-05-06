@@ -2,6 +2,7 @@ package com.rongzi.financingproject.domain;
 
 import java.util.List;
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,120 +13,168 @@ import com.rongzi.appendix.domain.rzsrc2;
 
 /**
  * 融资项目对象 rz_financing_project
- * 
+ *
  * @author rongzi
  * @date 2024-02-19
  */
-public class rzfinancingproject extends BaseEntity
-{
+public class rzfinancingproject extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键id */
+    /**
+     * 主键id
+     */
     private Long id;
 
-    /** 贷后项目管理编号 */
-    @Excel(name = "贷后项目管理编号")
+    /**
+     * 贷后项目管理编号
+     */
+    @Excel(name = "管理编号")
     private String managementId;
 
-    /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    /**
+     * 数据唯一编号
+     */
     private String scrUuid;
 
-    /** 借款单位 */
-    @Excel(name = "借款单位")
+    /**
+     * 借款单位
+     */
+    @Excel(name = "借款人")
     private String borrowingUnit;
 
-    /** 金融机构 */
-    @Excel(name = "金融机构")
+    /**
+     * 金融机构
+     */
+    @Excel(name = "债权人")
     private String financialInstitution;
 
-    /** 融资金额 */
-    @Excel(name = "融资金额")
-    private Long financingAmount;
 
-    /** 融资类型：流贷金额、并购贷、反向保理、商业承兑、银行承兑 */
-    @Excel(name = "融资类型：流贷金额、并购贷、反向保理、商业承兑、银行承兑")
+    /**
+     * 融资类型：流贷金额、并购贷、反向保理、商业承兑、银行承兑
+     */
+    @Excel(name = "融资类型")
     private String financingType;
 
-    /** 合同编号 */
-    @Excel(name = "合同编号")
-    private String contractId;
+    /**
+     * 融资金额
+     */
+    @Excel(name = "融资金额", cellType = Excel.ColumnType.BIGINT, scale = 2)
+    private Long financingAmount;
 
-    /** 合同签订日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "合同签订日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date contractSigningDate;
 
-    /** 借款日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "借款日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date loanDate;
-
-    /** 到期日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "到期日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date dueDate;
-
-    /** 利率 */
-    @Excel(name = "利率")
-    private String rate;
-
-    /** 借款期限 */
-    @Excel(name = "借款期限")
-    private String loanTerm;
-
-    /** 增信措施：固定融资、固定资产 */
-    @Excel(name = "增信措施：固定融资、固定资产")
-    private String creditEnhancementMeasures;
-
-    /** 已还金额 */
-    @Excel(name = "已还金额")
-    private Long repaidAmount;
-
-    /** 待还金额 */
-    @Excel(name = "待还金额")
-    private Long remainingAmount;
-
-    /** 保证金 */
-    @Excel(name = "保证金")
+    /**
+     * 保证金
+     */
+    @Excel(name = "保证金", cellType = Excel.ColumnType.BIGINT, scale = 2)
     private Long baozhengjin;
 
-    /** 手续费 */
-    @Excel(name = "手续费")
+    /**
+     * 手续费
+     */
+    @Excel(name = "手续费", cellType = Excel.ColumnType.BIGINT, scale = 2)
     private Long shouxufei;
 
 
-    /** 贷款状态：未结清、已结清 */
-    @Excel(name = "贷款状态：未结清、已结清")
+    /**
+     * 借款日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "放款日", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date loanDate;
+
+    /**
+     * 到期日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "到期日", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date dueDate;
+
+    /**
+     * 利率
+     */
+    @Excel(name = "年利率")
+    private String rate;
+
+
+    /**
+     * 合同编号
+     */
+    private String contractId;
+
+    /**
+     * 合同签订日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date contractSigningDate;
+
+    /**
+     * 借款期限
+     */
+    private String loanTerm;
+
+    /**
+     * 增信措施：固定融资、固定资产
+     */
+    private String creditEnhancementMeasures;
+
+    /**
+     * 已还金额
+     */
+    private Long repaidAmount;
+
+    /**
+     * 待还金额
+     */
+    @Excel(name = "融资余额", cellType = Excel.ColumnType.BIGINT, scale = 2)
+    private Long remainingAmount;
+
+
+    /**
+     * 贷款状态：未结清、已结清
+     */
+    @Excel(name = "债务状态")
     private String loanState;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     @Excel(name = "备注")
     private String comment;
 
-    /** uuid */
-    @Excel(name = "uuid")
+    /**
+     * uuid
+     */
     private String uuid;
 
-    /** 本金偿还方式：半年偿还/季度偿还/按年偿还/到期还本 */
-    @Excel(name = "本金偿还方式：半年偿还/季度偿还/按年偿还/到期还本")
+    /**
+     * 本金偿还方式：半年偿还/季度偿还/按年偿还/到期还本
+     */
+    @Excel(name = "本金偿还方式")
     private String principalRepaymentMethod;
 
-    /** 利息偿还方式：按月偿还/按季度偿还/其他 */
-    @Excel(name = "利息偿还方式：按月偿还/按季度偿还/其他")
+    /**
+     * 利息偿还方式：按月偿还/按季度偿还/其他
+     */
+    @Excel(name = "利息偿还方式")
     private String interestRepaymentMethod;
 
-    /** 是否固定利率，固定/浮动 */
-    @Excel(name = "是否固定利率，固定/浮动")
+    /**
+     * 是否固定利率，固定/浮动
+     */
+    @Excel(name = "是否固定利率")
     private String rateType;
 
-    /** 首次还款时间 */
+    /**
+     * 首次还款时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "首次还款时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date firstRepaymentDate;
 
-    /** 是否有还款计划   有 无 */
-    @Excel(name = "是否有还款计划   有 无")
+    /**
+     * 是否有还款计划   有 无
+     */
+    @Excel(name = "是否有还款计划")
     private String hasRepaymentPlan;
 
     public String getPrincipalRepaymentMethod() {
@@ -200,229 +249,212 @@ public class rzfinancingproject extends BaseEntity
         this.lixichanghuan = lixichanghuan;
     }
 
-    /** 提取本金 */
-    @Excel(name = "提取本金")
+    /**
+     * 提取本金
+     */
     private String tiqubenjin;
 
-    /** 偿还本金 */
-    @Excel(name = "偿还本金")
+    /**
+     * 偿还本金
+     */
     private String changhuanbenjin;
 
-    /** 利率变更 */
-    @Excel(name = "利率变更")
+    /**
+     * 利率变更
+     */
     private String lilvbiangeng;
 
-    /** 利息偿还 */
-    @Excel(name = "利息偿还")
+    /**
+     * 利息偿还
+     */
     private String lixichanghuan;
 
-    /** 附件表信息 */
+    /**
+     * 附件表信息
+     */
     private List<rzsrc2> rzsrc2List;
 
 
-    /** 还款明细 */
+    /**
+     * 还款明细
+     */
     private List<RzhkjhMingxi> huankuanmingxi2List;
 
-    public void setId(Long id) 
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
-    public void setManagementId(String managementId) 
-    {
+
+    public void setManagementId(String managementId) {
         this.managementId = managementId;
     }
 
-    public String getManagementId() 
-    {
+    public String getManagementId() {
         return managementId;
     }
-    public void setScrUuid(String scrUuid) 
-    {
+
+    public void setScrUuid(String scrUuid) {
         this.scrUuid = scrUuid;
     }
 
-    public String getScrUuid() 
-    {
+    public String getScrUuid() {
         return scrUuid;
     }
-    public void setBorrowingUnit(String borrowingUnit) 
-    {
+
+    public void setBorrowingUnit(String borrowingUnit) {
         this.borrowingUnit = borrowingUnit;
     }
 
-    public String getBorrowingUnit() 
-    {
+    public String getBorrowingUnit() {
         return borrowingUnit;
     }
-    public void setFinancialInstitution(String financialInstitution) 
-    {
+
+    public void setFinancialInstitution(String financialInstitution) {
         this.financialInstitution = financialInstitution;
     }
 
-    public String getFinancialInstitution() 
-    {
+    public String getFinancialInstitution() {
         return financialInstitution;
     }
-    public void setFinancingAmount(Long financingAmount) 
-    {
+
+    public void setFinancingAmount(Long financingAmount) {
         this.financingAmount = financingAmount;
     }
 
-    public Long getFinancingAmount() 
-    {
+    public Long getFinancingAmount() {
         return financingAmount;
     }
-    public void setFinancingType(String financingType) 
-    {
+
+    public void setFinancingType(String financingType) {
         this.financingType = financingType;
     }
 
-    public String getFinancingType() 
-    {
+    public String getFinancingType() {
         return financingType;
     }
-    public void setContractId(String contractId) 
-    {
+
+    public void setContractId(String contractId) {
         this.contractId = contractId;
     }
 
-    public String getContractId() 
-    {
+    public String getContractId() {
         return contractId;
     }
-    public void setContractSigningDate(Date contractSigningDate) 
-    {
+
+    public void setContractSigningDate(Date contractSigningDate) {
         this.contractSigningDate = contractSigningDate;
     }
 
-    public Date getContractSigningDate() 
-    {
+    public Date getContractSigningDate() {
         return contractSigningDate;
     }
-    public void setLoanDate(Date loanDate) 
-    {
+
+    public void setLoanDate(Date loanDate) {
         this.loanDate = loanDate;
     }
 
-    public Date getLoanDate() 
-    {
+    public Date getLoanDate() {
         return loanDate;
     }
-    public void setDueDate(Date dueDate) 
-    {
+
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Date getDueDate() 
-    {
+    public Date getDueDate() {
         return dueDate;
     }
-    public void setRate(String rate) 
-    {
+
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
-    public String getRate() 
-    {
+    public String getRate() {
         return rate;
     }
-    public void setLoanTerm(String loanTerm) 
-    {
+
+    public void setLoanTerm(String loanTerm) {
         this.loanTerm = loanTerm;
     }
 
-    public String getLoanTerm() 
-    {
+    public String getLoanTerm() {
         return loanTerm;
     }
-    public void setCreditEnhancementMeasures(String creditEnhancementMeasures) 
-    {
+
+    public void setCreditEnhancementMeasures(String creditEnhancementMeasures) {
         this.creditEnhancementMeasures = creditEnhancementMeasures;
     }
 
-    public String getCreditEnhancementMeasures() 
-    {
+    public String getCreditEnhancementMeasures() {
         return creditEnhancementMeasures;
     }
-    public void setRepaidAmount(Long repaidAmount) 
-    {
+
+    public void setRepaidAmount(Long repaidAmount) {
         this.repaidAmount = repaidAmount;
     }
 
-    public Long getRepaidAmount() 
-    {
+    public Long getRepaidAmount() {
         return repaidAmount;
     }
-    public void setRemainingAmount(Long remainingAmount) 
-    {
+
+    public void setRemainingAmount(Long remainingAmount) {
         this.remainingAmount = remainingAmount;
     }
 
-    public Long getRemainingAmount() 
-    {
+    public Long getRemainingAmount() {
         return remainingAmount;
     }
-    public void setLoanState(String loanState) 
-    {
+
+    public void setLoanState(String loanState) {
         this.loanState = loanState;
     }
 
-    public void setBaozhengjin(Long baozhengjin)
-    {
+    public void setBaozhengjin(Long baozhengjin) {
         this.baozhengjin = baozhengjin;
     }
 
-    public Long getBaozhengjin()
-    {
+    public Long getBaozhengjin() {
         return baozhengjin;
     }
-    public void setShouxufei(Long shouxufei)
-    {
+
+    public void setShouxufei(Long shouxufei) {
         this.shouxufei = shouxufei;
     }
 
-    public Long getShouxufei()
-    {
+    public Long getShouxufei() {
         return shouxufei;
     }
 
 
-    public String getLoanState() 
-    {
+    public String getLoanState() {
         return loanState;
     }
-    public void setComment(String comment) 
-    {
+
+    public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public String getComment() 
-    {
+    public String getComment() {
         return comment;
     }
-    public void setUuid(String uuid) 
-    {
+
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
-    public String getUuid() 
-    {
+    public String getUuid() {
         return uuid;
     }
 
 
-    public List<rzsrc2> getrzsrc2List()
-    {
+    public List<rzsrc2> getrzsrc2List() {
         return rzsrc2List;
     }
 
-    public void setrzsrc2List(List<rzsrc2> rzsrc2List)
-    {
+    public void setrzsrc2List(List<rzsrc2> rzsrc2List) {
         this.rzsrc2List = rzsrc2List;
     }
 
@@ -437,7 +469,7 @@ public class rzfinancingproject extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("managementId", getManagementId())
                 .append("scrUuid", getScrUuid())
