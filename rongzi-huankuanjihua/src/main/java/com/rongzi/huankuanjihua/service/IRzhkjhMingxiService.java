@@ -9,15 +9,14 @@ import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
 
 /**
  * 还款计划明细Service接口
- * 
+ *
  * @author rongzi
  * @date 2024-03-27
  */
-public interface IRzhkjhMingxiService 
-{
+public interface IRzhkjhMingxiService {
     /**
      * 查询还款计划明细
-     * 
+     *
      * @param id 还款计划明细主键
      * @return 还款计划明细
      */
@@ -25,7 +24,7 @@ public interface IRzhkjhMingxiService
 
     /**
      * 查询还款计划明细列表
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 还款计划明细集合
      */
@@ -35,7 +34,7 @@ public interface IRzhkjhMingxiService
 
     /**
      * 新增还款计划明细
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 结果
      */
@@ -43,7 +42,7 @@ public interface IRzhkjhMingxiService
 
     /**
      * 修改还款计划明细
-     * 
+     *
      * @param rzhkjhMingxi 还款计划明细
      * @return 结果
      */
@@ -51,7 +50,7 @@ public interface IRzhkjhMingxiService
 
     /**
      * 批量删除还款计划明细
-     * 
+     *
      * @param ids 需要删除的还款计划明细主键集合
      * @return 结果
      */
@@ -59,7 +58,7 @@ public interface IRzhkjhMingxiService
 
     /**
      * 删除还款计划明细信息
-     * 
+     *
      * @param id 还款计划明细主键
      * @return 结果
      */
@@ -68,6 +67,8 @@ public interface IRzhkjhMingxiService
     public List<PaymentSummary> getPaymentSummary(String startDate, String endDate);
 
     public FinancialSummary getFinancialSummaryByMonth(String specifiedYearMonth);
+    public FinancialSummary getFinancialSummaryByDate(String specifiedDate);
 
     public PaymentSummary getPaymentSummaryByMonth(String specifiedYearMonth);
+
 }

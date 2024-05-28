@@ -75,6 +75,7 @@ public interface RzhkjhMingxiMapper {
 
 
     public FinancialSummary selectFinancialSummaryByMonth(String specifiedYearMonth);
+    public FinancialSummary selectFinancialSummaryByDate(String specifiedDate);
 
     public PaymentSummary selectPaymentSummaryByMonth(String specifiedYearMonth);
 }

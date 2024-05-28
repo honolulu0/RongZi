@@ -126,6 +126,16 @@ public class RzhkjhMingxiController extends BaseController {
         return success(rzhkjhMingxiService.getFinancialSummaryByMonth(specifiedYearMonth));
     }
 
+    @GetMapping(value = {"/financialSummaryByDate", "/financialSummaryByDate/{specifiedDate}"})
+    public AjaxResult getFinancialSummaryByDate(@PathVariable(required = false) String specifiedDate) {
+//        筛选传入月份，但是小于传入日期的数据
+        // 如果没有提供月份，则使用当前月份
+        if (specifiedDate == null) {
+            specifiedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+        return success(rzhkjhMingxiService.getFinancialSummaryByDate(specifiedDate));
+    }
+
     @GetMapping(value = {"/paymentSummaryByMonth", "/paymentSummaryByMonth/{specifiedYearMonth}"})
     public AjaxResult getPaymentSummaryByMonth(@PathVariable(required = false) String specifiedYearMonth) {
         // 如果没有提供月份，则使用当前月份

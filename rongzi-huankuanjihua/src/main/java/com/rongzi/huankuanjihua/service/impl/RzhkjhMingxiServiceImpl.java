@@ -113,6 +113,11 @@ public class RzhkjhMingxiServiceImpl implements IRzhkjhMingxiService {
     }
 
     @Override
+    public FinancialSummary getFinancialSummaryByDate(String specifiedDate) {
+        return rzhkjhMingxiMapper.selectFinancialSummaryByDate(specifiedDate);
+    }
+
+    @Override
     public PaymentSummary getPaymentSummaryByMonth(String specifiedYearMonth) {
         return rzhkjhMingxiMapper.selectPaymentSummaryByMonth(specifiedYearMonth);
     }

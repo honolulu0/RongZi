@@ -32,6 +32,7 @@
     <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
         <include refid="selectRzhkjhMingxiVo"/>
         <where>
+            1=1 and huankuanjine != 0
             <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
             <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
             <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
@@ -216,6 +217,19 @@
         SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_unpaid_interest
         FROM rzhkjh_mingxi
         WHERE DATE_FORMAT(riqi, '%Y-%m') = #{specifiedYearMonth}
+    </select>
+
+    <select id="selectFinancialSummaryByDate" parameterType="string" resultMap="financialSummaryMap">
+<!--        筛选传入月份，但是小于传入日期的数据-->
+        SELECT
+        SUM(IFNULL(CAST(changhuanben AS DECIMAL(10,2)), 0)) AS total_principal,
+        SUM(IFNULL(CAST(zhifulixi AS DECIMAL(10,2)), 0)) AS total_interest,
+        SUM(IF(DATE(riqi) &lt;= CURDATE(), IFNULL(CAST(changhuanben AS DECIMAL), 0), 0)) AS total_paid_principal,
+        SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(changhuanben AS DECIMAL), 0), 0)) AS total_unpaid_principal,
+        SUM(IF(DATE(riqi) &lt;= CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_paid_interest,
+        SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_unpaid_interest
+        FROM rzhkjh_mingxi
+        WHERE DATE_FORMAT(riqi, '%Y-%m') = DATE_FORMAT( #{specifiedDate}, '%Y-%m')  and DATE_FORMAT(riqi, '%Y-%m-%d') &lt;= #{specifiedDate}
     </select>
 
 
