@@ -23,14 +23,13 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 融资项目Controller
- * 
+ *
  * @author rongzi
- * @date 2024-02-19
+ * @date 2024-05-28
  */
 @RestController
 @RequestMapping("/financingproject/project")
-public class rzfinancingprojectController extends BaseController
-{
+public class rzfinancingprojectController extends BaseController {
     @Autowired
     private IrzfinancingprojectService rzfinancingprojectService;
 
@@ -39,8 +38,7 @@ public class rzfinancingprojectController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('financingproject:project:list')")
     @GetMapping("/list")
-    public TableDataInfo list(rzfinancingproject rzfinancingproject)
-    {
+    public TableDataInfo list(rzfinancingproject rzfinancingproject) {
         startPage();
         List<rzfinancingproject> list = rzfinancingprojectService.selectrzfinancingprojectList(rzfinancingproject);
         return getDataTable(list);
@@ -52,8 +50,7 @@ public class rzfinancingprojectController extends BaseController
     @PreAuthorize("@ss.hasPermi('financingproject:project:export')")
     @Log(title = "融资项目", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, rzfinancingproject rzfinancingproject)
-    {
+    public void export(HttpServletResponse response, rzfinancingproject rzfinancingproject) {
         List<rzfinancingproject> list = rzfinancingprojectService.selectrzfinancingprojectList(rzfinancingproject);
         ExcelUtil<rzfinancingproject> util = new ExcelUtil<rzfinancingproject>(rzfinancingproject.class);
         util.exportExcel(response, list, "融资项目数据");
@@ -64,8 +61,7 @@ public class rzfinancingprojectController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('financingproject:project:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(rzfinancingprojectService.selectrzfinancingprojectById(id));
     }
 
@@ -75,8 +71,7 @@ public class rzfinancingprojectController extends BaseController
     @PreAuthorize("@ss.hasPermi('financingproject:project:add')")
     @Log(title = "融资项目", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody rzfinancingproject rzfinancingproject)
-    {
+    public AjaxResult add(@RequestBody rzfinancingproject rzfinancingproject) {
         return toAjax(rzfinancingprojectService.insertrzfinancingproject(rzfinancingproject));
     }
 
@@ -86,8 +81,7 @@ public class rzfinancingprojectController extends BaseController
     @PreAuthorize("@ss.hasPermi('financingproject:project:edit')")
     @Log(title = "融资项目", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody rzfinancingproject rzfinancingproject)
-    {
+    public AjaxResult edit(@RequestBody rzfinancingproject rzfinancingproject) {
         return toAjax(rzfinancingprojectService.updaterzfinancingproject(rzfinancingproject));
     }
 
@@ -96,9 +90,8 @@ public class rzfinancingprojectController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('financingproject:project:remove')")
     @Log(title = "融资项目", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rzfinancingprojectService.deleterzfinancingprojectByIds(ids));
     }
 }

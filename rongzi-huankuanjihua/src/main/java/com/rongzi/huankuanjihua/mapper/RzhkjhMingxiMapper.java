@@ -12,9 +12,10 @@ import io.lettuce.core.dynamic.annotation.Param;
  * 还款计划明细Mapper接口
  *
  * @author rongzi
- * @date 2024-03-27
+ * @date 2024-05-28
  */
-public interface RzhkjhMingxiMapper {
+public interface RzhkjhMingxiMapper
+{
     /**
      * 查询还款计划明细
      *

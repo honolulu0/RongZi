@@ -16,7 +16,7 @@ import com.rongzi.huankuanjihua.service.IRzhkjhMingxiService;
  * 还款计划明细Service业务层处理
  *
  * @author rongzi
- * @date 2024-03-27
+ * @date 2024-05-28
  */
 @Service
 public class RzhkjhMingxiServiceImpl implements IRzhkjhMingxiService {

@@ -23,7 +23,7 @@ import com.rongzi.common.core.page.TableDataInfo;
  * 还款计划明细Controller
  *
  * @author rongzi
- * @date 2024-03-27
+ * @date 2024-05-28
  */
 @RestController
 @RequestMapping("/huankuanjihua/mingxi")

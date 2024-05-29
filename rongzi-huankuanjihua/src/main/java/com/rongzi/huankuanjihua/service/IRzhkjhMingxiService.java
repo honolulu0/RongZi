@@ -11,9 +11,10 @@ import com.rongzi.huankuanjihua.domain.TotalRzhkjhMingxi;
  * 还款计划明细Service接口
  *
  * @author rongzi
- * @date 2024-03-27
+ * @date 2024-05-28
  */
-public interface IRzhkjhMingxiService {
+public interface IRzhkjhMingxiService
+{
     /**
      * 查询还款计划明细
      *

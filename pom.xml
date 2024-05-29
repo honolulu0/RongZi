@@ -148,12 +148,6 @@
                 <artifactId>rongzi-generator</artifactId>
                 <version>${rongzi.version}</version>
             </dependency>
-            <!-- rongzi-influencer-->
-            <dependency>
-                <groupId>com.rongzi</groupId>
-                <artifactId>rongzi-influencer</artifactId>
-                <version>${rongzi.version}</version>
-            </dependency>
 
             <!-- 核心模块-->
             <dependency>
@@ -300,10 +294,8 @@
         <module>rongzi-system</module>
         <module>rongzi-quartz</module>
         <module>rongzi-generator</module>
-        <module>rongzi-influencer</module>
         <module>rongzi-common</module>
         <module>rongzi-bank</module>
-
         <module>rongzi-appendix</module>
         <module>rongzi-business</module>
         <module>rongzi-credit</module>

@@ -11,7 +11,7 @@ import com.rongzi.common.core.domain.BaseEntity;
  * 还款计划明细对象 rzhkjh_mingxi
  *
  * @author rongzi
- * @date 2024-03-29
+ * @date 2024-05-28
  */
 public class RzhkjhMingxi extends BaseEntity
 {
@@ -24,16 +24,6 @@ public class RzhkjhMingxi extends BaseEntity
     @Excel(name = "管理编号")
     private String managerId;
 
-    /** 期数 */
-    @Excel(name = "期数")
-    private String qishu;
-
-    /** 日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date riqi;
-
-
     /** 借款人 */
     @Excel(name = "借款人")
     private String borrowingUnit;
@@ -42,6 +32,18 @@ public class RzhkjhMingxi extends BaseEntity
     @Excel(name = "债权人")
     private String financialInstitution;
 
+    /** 贷款用途 */
+    @Excel(name = "贷款用途")
+    private String daikuanyongtu;
+
+    /** 期数 */
+    @Excel(name = "期数")
+    private String qishu;
+
+    /** 日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "日期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date riqi;
 
     /** 还款金额 */
     @Excel(name = "还款金额")
@@ -54,6 +56,10 @@ public class RzhkjhMingxi extends BaseEntity
     /** 支付利息 */
     @Excel(name = "支付利息")
     private String zhifulixi;
+
+    /** 手续费 */
+    @Excel(name = "手续费")
+    private String shouxufei;
 
     /** 本金剩余 */
     @Excel(name = "本金剩余")
@@ -103,6 +109,15 @@ public class RzhkjhMingxi extends BaseEntity
     {
         return financialInstitution;
     }
+    public void setDaikuanyongtu(String daikuanyongtu)
+    {
+        this.daikuanyongtu = daikuanyongtu;
+    }
+
+    public String getDaikuanyongtu()
+    {
+        return daikuanyongtu;
+    }
     public void setQishu(String qishu)
     {
         this.qishu = qishu;
@@ -148,6 +163,15 @@ public class RzhkjhMingxi extends BaseEntity
     {
         return zhifulixi;
     }
+    public void setShouxufei(String shouxufei)
+    {
+        this.shouxufei = shouxufei;
+    }
+
+    public String getShouxufei()
+    {
+        return shouxufei;
+    }
     public void setBenjinshengyu(String benjinshengyu)
     {
         this.benjinshengyu = benjinshengyu;
@@ -183,11 +207,13 @@ public class RzhkjhMingxi extends BaseEntity
                 .append("managerId", getManagerId())
                 .append("borrowingUnit", getBorrowingUnit())
                 .append("financialInstitution", getFinancialInstitution())
+                .append("daikuanyongtu", getDaikuanyongtu())
                 .append("qishu", getQishu())
                 .append("riqi", getRiqi())
                 .append("huankuanjine", getHuankuanjine())
                 .append("changhuanben", getChanghuanben())
                 .append("zhifulixi", getZhifulixi())
+                .append("shouxufei", getShouxufei())
                 .append("benjinshengyu", getBenjinshengyu())
                 .append("lilv", getLilv())
                 .append("comment", getComment())

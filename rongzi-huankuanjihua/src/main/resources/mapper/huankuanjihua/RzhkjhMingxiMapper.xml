@@ -10,11 +10,13 @@
         <result property="managerId" column="manager_id"/>
         <result property="borrowingUnit" column="borrowing_unit"/>
         <result property="financialInstitution" column="financial_institution"/>
+        <result property="daikuanyongtu" column="daikuanyongtu"/>
         <result property="qishu" column="qishu"/>
         <result property="riqi" column="riqi"/>
         <result property="huankuanjine" column="huankuanjine"/>
         <result property="changhuanben" column="changhuanben"/>
         <result property="zhifulixi" column="zhifulixi"/>
+        <result property="shouxufei" column="shouxufei"/>
         <result property="benjinshengyu" column="benjinshengyu"/>
         <result property="lilv" column="lilv"/>
         <result property="comment" column="comment"/>
@@ -25,8 +27,9 @@
     </resultMap>
 
     <sql id="selectRzhkjhMingxiVo">
-        select id, manager_id, borrowing_unit, financial_institution, qishu, riqi, huankuanjine, changhuanben,
-        zhifulixi, benjinshengyu, lilv, comment, create_time, create_by, update_time, update_by from rzhkjh_mingxi
+        select id, manager_id, borrowing_unit, financial_institution, daikuanyongtu, qishu, riqi, huankuanjine,
+        changhuanben, zhifulixi, shouxufei, benjinshengyu, lilv, comment, create_time, create_by, update_time, update_by
+        from rzhkjh_mingxi
     </sql>
 
     <select id="selectRzhkjhMingxiList" parameterType="RzhkjhMingxi" resultMap="RzhkjhMingxiResult">
@@ -106,11 +109,13 @@
             <if test="managerId != null">manager_id,</if>
             <if test="borrowingUnit != null">borrowing_unit,</if>
             <if test="financialInstitution != null">financial_institution,</if>
+            <if test="daikuanyongtu != null">daikuanyongtu,</if>
             <if test="qishu != null">qishu,</if>
             <if test="riqi != null">riqi,</if>
             <if test="huankuanjine != null">huankuanjine,</if>
             <if test="changhuanben != null">changhuanben,</if>
             <if test="zhifulixi != null">zhifulixi,</if>
+            <if test="shouxufei != null">shouxufei,</if>
             <if test="benjinshengyu != null">benjinshengyu,</if>
             <if test="lilv != null">lilv,</if>
             <if test="comment != null">comment,</if>
@@ -123,11 +128,13 @@
             <if test="managerId != null">#{managerId},</if>
             <if test="borrowingUnit != null">#{borrowingUnit},</if>
             <if test="financialInstitution != null">#{financialInstitution},</if>
+            <if test="daikuanyongtu != null">#{daikuanyongtu},</if>
             <if test="qishu != null">#{qishu},</if>
             <if test="riqi != null">#{riqi},</if>
             <if test="huankuanjine != null">#{huankuanjine},</if>
             <if test="changhuanben != null">#{changhuanben},</if>
             <if test="zhifulixi != null">#{zhifulixi},</if>
+            <if test="shouxufei != null">#{shouxufei},</if>
             <if test="benjinshengyu != null">#{benjinshengyu},</if>
             <if test="lilv != null">#{lilv},</if>
             <if test="comment != null">#{comment},</if>
@@ -144,11 +151,13 @@
             <if test="managerId != null">manager_id = #{managerId},</if>
             <if test="borrowingUnit != null">borrowing_unit = #{borrowingUnit},</if>
             <if test="financialInstitution != null">financial_institution = #{financialInstitution},</if>
+            <if test="daikuanyongtu != null">daikuanyongtu = #{daikuanyongtu},</if>
             <if test="qishu != null">qishu = #{qishu},</if>
             <if test="riqi != null">riqi = #{riqi},</if>
             <if test="huankuanjine != null">huankuanjine = #{huankuanjine},</if>
             <if test="changhuanben != null">changhuanben = #{changhuanben},</if>
             <if test="zhifulixi != null">zhifulixi = #{zhifulixi},</if>
+            <if test="shouxufei != null">shouxufei = #{shouxufei},</if>
             <if test="benjinshengyu != null">benjinshengyu = #{benjinshengyu},</if>
             <if test="lilv != null">lilv = #{lilv},</if>
             <if test="comment != null">comment = #{comment},</if>

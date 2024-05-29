@@ -11,7 +11,7 @@ import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
  * 融资项目Mapper接口
  *
  * @author rongzi
- * @date 2024-02-19
+ * @date 2024-05-28
  */
 public interface rzfinancingprojectMapper {
     /**
@@ -78,6 +78,7 @@ public interface rzfinancingprojectMapper {
      */
     public int batchrzsrc2(List<rzsrc2> rzsrc2List);
 
+
     /**
      * 通过融资项目主键删除附件表信息
      *
@@ -101,5 +102,4 @@ public interface rzfinancingprojectMapper {
      * @return 结果
      */
     public int deleterHuankuanmingxiByManagementId(String managementId);
-
 }

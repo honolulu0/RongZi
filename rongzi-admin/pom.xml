@@ -61,12 +61,6 @@
             <artifactId>rongzi-generator</artifactId>
         </dependency>
 
-        <!-- rongzi-influencer-->
-        <dependency>
-            <groupId>com.rongzi</groupId>
-            <artifactId>rongzi-influencer</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>com.rongzi</groupId>
