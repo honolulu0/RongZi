@@ -76,14 +76,12 @@ public class rzfinancingproject extends BaseEntity {
     /**
      * 合同编号
      */
-    @Excel(name = "合同编号")
     private String contractId;
 
     /**
      * 合同签订日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "合同签订日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date contractSigningDate;
 
     /**
