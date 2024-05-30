@@ -10,6 +10,17 @@ public class TotalRzhkjhMingxi {
     private BigDecimal total_changhuanben;
     private BigDecimal total_zhifulixi;
 
+
+    private BigDecimal total_shouxufei;
+
+    public BigDecimal getTotal_shouxufei() {
+        return total_shouxufei;
+    }
+
+    public void setTotal_shouxufei(BigDecimal total_shouxufei) {
+        this.total_shouxufei = total_shouxufei;
+    }
+
     private TableDataInfo tableDataInfo;
 
     public BigDecimal getTotal_huankuanjine() {
@@ -50,6 +61,7 @@ public class TotalRzhkjhMingxi {
                 .append("total_huankuanjine", total_huankuanjine)
                 .append("total_changhuanben", total_changhuanben)
                 .append("total_zhifulixi", total_zhifulixi)
+                .append("total_shouxufei", total_shouxufei)
                 .append("tableDataInfo", tableDataInfo)
                 .toString();
     }

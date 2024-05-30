@@ -64,7 +64,7 @@
 
 
     <sql id="totalRzhkjhMingxiVo">
-        select sum(huankuanjine) total_huankuanjine, sum(changhuanben) total_changhuanben,sum(zhifulixi) total_zhifulixi
+        select sum(huankuanjine) total_huankuanjine, sum(changhuanben) total_changhuanben,sum(zhifulixi) total_zhifulixi,sum(shouxufei) total_shouxufei
         from rzhkjh_mingxi
     </sql>
 

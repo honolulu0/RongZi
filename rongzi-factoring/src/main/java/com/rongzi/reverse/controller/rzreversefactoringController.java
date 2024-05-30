@@ -23,9 +23,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 反向保理Controller
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-29
  */
 @RestController
 @RequestMapping("/reverse/factoring")
@@ -96,7 +96,7 @@ public class rzreversefactoringController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('reverse:factoring:remove')")
     @Log(title = "反向保理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(rzreversefactoringService.deleterzreversefactoringByIds(ids));

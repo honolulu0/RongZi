@@ -10,9 +10,9 @@ import com.rongzi.common.core.domain.BaseEntity;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 反向保理对象 rz_reverse_factoring
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-29
  */
 public class rzreversefactoring extends BaseEntity
 {
@@ -78,102 +78,102 @@ public class rzreversefactoring extends BaseEntity
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setManagementId(String managementId) 
+    public void setManagementId(String managementId)
     {
         this.managementId = managementId;
     }
 
-    public String getManagementId() 
+    public String getManagementId()
     {
         return managementId;
     }
-    public void setScrUuid(String scrUuid) 
+    public void setScrUuid(String scrUuid)
     {
         this.scrUuid = scrUuid;
     }
 
-    public String getScrUuid() 
+    public String getScrUuid()
     {
         return scrUuid;
     }
-    public void setAuditId(Long auditId) 
+    public void setAuditId(Long auditId)
     {
         this.auditId = auditId;
     }
 
-    public Long getAuditId() 
+    public Long getAuditId()
     {
         return auditId;
     }
-    public void setCreditor(String creditor) 
+    public void setCreditor(String creditor)
     {
         this.creditor = creditor;
     }
 
-    public String getCreditor() 
+    public String getCreditor()
     {
         return creditor;
     }
-    public void setFactor(String factor) 
+    public void setFactor(String factor)
     {
         this.factor = factor;
     }
 
-    public String getFactor() 
+    public String getFactor()
     {
         return factor;
     }
-    public void setFinancialInstitution(String financialInstitution) 
+    public void setFinancialInstitution(String financialInstitution)
     {
         this.financialInstitution = financialInstitution;
     }
 
-    public String getFinancialInstitution() 
+    public String getFinancialInstitution()
     {
         return financialInstitution;
     }
-    public void setLoanAmount(Long loanAmount) 
+    public void setLoanAmount(Long loanAmount)
     {
         this.loanAmount = loanAmount;
     }
 
-    public Long getLoanAmount() 
+    public Long getLoanAmount()
     {
         return loanAmount;
     }
-    public void setStartDate(Date startDate) 
+    public void setStartDate(Date startDate)
     {
         this.startDate = startDate;
     }
 
-    public Date getStartDate() 
+    public Date getStartDate()
     {
         return startDate;
     }
-    public void setDeadline(Date deadline) 
+    public void setDeadline(Date deadline)
     {
         this.deadline = deadline;
     }
 
-    public Date getDeadline() 
+    public Date getDeadline()
     {
         return deadline;
     }
-    public void setEntryName(String entryName) 
+    public void setEntryName(String entryName)
     {
         this.entryName = entryName;
     }
 
-    public String getEntryName() 
+    public String getEntryName()
     {
         return entryName;
     }
@@ -186,21 +186,21 @@ public class rzreversefactoring extends BaseEntity
     {
         return collectionAccount;
     }
-    public void setComment(String comment) 
+    public void setComment(String comment)
     {
         this.comment = comment;
     }
 
-    public String getComment() 
+    public String getComment()
     {
         return comment;
     }
-    public void setUuid(String uuid) 
+    public void setUuid(String uuid)
     {
         this.uuid = uuid;
     }
 
-    public String getUuid() 
+    public String getUuid()
     {
         return uuid;
     }
@@ -218,26 +218,26 @@ public class rzreversefactoring extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("managementId", getManagementId())
-            .append("scrUuid", getScrUuid())
-            .append("auditId", getAuditId())
-            .append("creditor", getCreditor())
-            .append("factor", getFactor())
-            .append("financialInstitution", getFinancialInstitution())
-            .append("loanAmount", getLoanAmount())
-            .append("startDate", getStartDate())
-            .append("deadline", getDeadline())
-            .append("entryName", getEntryName())
-            .append("remark", getRemark())
-            .append("collectionAccount", getCollectionAccount())
-            .append("comment", getComment())
-            .append("createTime", getCreateTime())
-            .append("createBy", getCreateBy())
-            .append("updateTime", getUpdateTime())
-            .append("updateBy", getUpdateBy())
-            .append("uuid", getUuid())
-            .append("rzsrc2List", getrzsrc2List())
-            .toString();
+                .append("id", getId())
+                .append("managementId", getManagementId())
+                .append("scrUuid", getScrUuid())
+                .append("auditId", getAuditId())
+                .append("creditor", getCreditor())
+                .append("factor", getFactor())
+                .append("financialInstitution", getFinancialInstitution())
+                .append("loanAmount", getLoanAmount())
+                .append("startDate", getStartDate())
+                .append("deadline", getDeadline())
+                .append("entryName", getEntryName())
+                .append("remark", getRemark())
+                .append("collectionAccount", getCollectionAccount())
+                .append("comment", getComment())
+                .append("createTime", getCreateTime())
+                .append("createBy", getCreateBy())
+                .append("updateTime", getUpdateTime())
+                .append("updateBy", getUpdateBy())
+                .append("uuid", getUuid())
+                .append("rzsrc2List", getrzsrc2List())
+                .toString();
     }
 }

@@ -182,7 +182,7 @@ public class rzfinancingproject extends BaseEntity {
     /**
      * 授信管理编号
      */
-    @Excel(name = "授信管理编号")
+//    @Excel(name = "授信管理编号")
     private String sxManagementId;
 
     /**
@@ -251,6 +251,19 @@ public class rzfinancingproject extends BaseEntity {
      * 还款明细
      */
     private List<RzhkjhMingxi> huankuanmingxi2List;
+
+
+    /** 手续费缴纳记录 */
+    private String zjywjnjl;
+
+
+    public String getZjywjnjl() {
+        return zjywjnjl;
+    }
+
+    public void setZjywjnjl(String zjywjnjl) {
+        this.zjywjnjl = zjywjnjl;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -619,6 +632,7 @@ public class rzfinancingproject extends BaseEntity {
                 .append("lilvbiangeng", getLilvbiangeng())
                 .append("lixichanghuan", getLixichanghuan())
                 .append("rzsrc2List", getrzsrc2List())
+                .append("zjywjnjl", getZjywjnjl())
                 .toString();
     }
 }
