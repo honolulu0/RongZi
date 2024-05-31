@@ -223,7 +223,7 @@
         FROM
         rz_credit_management rcm
         INNER JOIN
-        sys_dict_data sd ON rcm.credit_type = sd.dict_value
+        sys_dict_data sd ON rcm.credit_type = sd.dict_label
         WHERE
         rcm.credit_state =#{creditState} and DATE_FORMAT(rcm.deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND
         rcm.start_date &lt;= NOW()
