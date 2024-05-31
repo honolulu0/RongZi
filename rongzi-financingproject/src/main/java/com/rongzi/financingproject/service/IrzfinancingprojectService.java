@@ -18,6 +18,16 @@ public interface IrzfinancingprojectService {
      */
     public rzfinancingproject selectrzfinancingprojectById(Long id);
 
+
+    /**
+     * 查询融资项目
+     *
+     * @param managementId 融资managementId
+     * @return 融资项目
+     */
+    public rzfinancingproject selectrzfinancingprojectByManagementId(String managementId);
+    ;
+
     /**
      * 查询融资项目列表
      *
@@ -57,4 +67,5 @@ public interface IrzfinancingprojectService {
      * @return 结果
      */
     public int deleterzfinancingprojectById(Long id);
+
 }

@@ -39,6 +39,17 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
     }
 
     /**
+     * 查询融资项目
+     *
+     * @param managementId 融资managementId
+     * @return 融资项目
+     */
+    @Override
+    public rzfinancingproject selectrzfinancingprojectByManagementId(String managementId) {
+        return rzfinancingprojectMapper.selectrzfinancingprojectByManagementId(managementId);
+    }
+
+    /**
      * 查询融资项目列表
      *
      * @param rzfinancingproject 融资项目

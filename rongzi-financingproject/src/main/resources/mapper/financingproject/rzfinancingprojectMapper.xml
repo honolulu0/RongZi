@@ -157,6 +157,22 @@
         where a.id = #{id}
     </select>
 
+    <select id="selectrzfinancingprojectByManagementId" parameterType="String" resultMap="rzfinancingprojectrzsrc2Result">
+        select a.id, a.management_id, a.scr_uuid, a.borrowing_unit, a.financial_institution, a.shouxinjine,
+        a.financing_amount, a.financing_type, a.daikuanyongtu, a.contract_id, a.contract_signing_date, a.loan_date,
+        a.due_date, a.rate, a.loan_term, a.credit_enhancement_measures, a.repaid_amount, a.remaining_amount,
+        a.baozhengjin, a.shouxufei, a.loan_state, a.zijinyongtu, a.danbaocuoshi, a.hdzhanghumingcheng, a.hdzhanghao,
+        a.hdkaihuhang, a.comment, a.sx_management_id, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
+        a.principal_repayment_method, a.interest_repayment_method, a.rate_type, a.first_repayment_date,
+        a.has_repayment_plan, a.tiqubenjin, a.changhuanbenjin, a.lilvbiangeng, a.lixichanghuan,a.zjywjnjl,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url,
+        b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type,
+        b.create_time as sub_create_time, b.create_by as sub_create_by
+        from rz_financing_project a
+        left join rz_scr b on b.scr_uuid = a.scr_uuid
+        where a.management_id  = #{managementId}
+    </select>
+
     <insert id="insertrzfinancingproject" parameterType="rzfinancingproject" useGeneratedKeys="true" keyProperty="id">
         insert into rz_financing_project
         <trim prefix="(" suffix=")" suffixOverrides=",">

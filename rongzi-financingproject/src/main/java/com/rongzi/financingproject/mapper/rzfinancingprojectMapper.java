@@ -22,6 +22,9 @@ public interface rzfinancingprojectMapper {
      */
     public rzfinancingproject selectrzfinancingprojectById(Long id);
 
+
+    public rzfinancingproject selectrzfinancingprojectByManagementId(String managementId);
+
     /**
      * 查询融资项目列表
      *

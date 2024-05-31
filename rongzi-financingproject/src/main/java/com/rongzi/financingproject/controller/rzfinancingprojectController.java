@@ -65,6 +65,16 @@ public class rzfinancingprojectController extends BaseController {
         return success(rzfinancingprojectService.selectrzfinancingprojectById(id));
     }
 
+
+    // 根据 management_id 查询融资项目信息
+    @PreAuthorize("@ss.hasPermi('financingproject:project:query')")
+    @GetMapping(value = "/managementId/{managementId}")
+    public AjaxResult getInfoByManagementId(@PathVariable("managementId") String managementId) {
+        return success(rzfinancingprojectService.selectrzfinancingprojectByManagementId(managementId));
+    }
+
+
+
     /**
      * 新增融资项目
      */
