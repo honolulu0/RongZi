@@ -12,7 +12,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * 反向保理对象 rz_reverse_factoring
  *
  * @author rongzi
- * @date 2024-05-29
+ * @date 2024-05-30
  */
 public class rzreversefactoring extends BaseEntity
 {
@@ -33,12 +33,12 @@ public class rzreversefactoring extends BaseEntity
     @Excel(name = "审核id")
     private Long auditId;
 
-    /** 债权人 */
-    @Excel(name = "债权人")
+    /** 供应商名称 */
+    @Excel(name = "供应商名称")
     private String creditor;
 
-    /** 保理商 */
-    @Excel(name = "保理商")
+    /** 保理企业 */
+    @Excel(name = "保理企业")
     private String factor;
 
     /** 金融机构 */
@@ -63,8 +63,8 @@ public class rzreversefactoring extends BaseEntity
     @Excel(name = "项目名称")
     private String entryName;
 
-    /** 回款账户 */
-    @Excel(name = "回款账户")
+    /** 回款账户名称 */
+    @Excel(name = "回款账户名称")
     private String collectionAccount;
 
     /** 备注 */
@@ -74,6 +74,14 @@ public class rzreversefactoring extends BaseEntity
     /** uuid */
     @Excel(name = "uuid")
     private String uuid;
+
+    /** 账号 */
+    @Excel(name = "账号")
+    private String account;
+
+    /** 开户行 */
+    @Excel(name = "开户行")
+    private String bank;
 
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
@@ -204,6 +212,24 @@ public class rzreversefactoring extends BaseEntity
     {
         return uuid;
     }
+    public void setAccount(String account)
+    {
+        this.account = account;
+    }
+
+    public String getAccount()
+    {
+        return account;
+    }
+    public void setBank(String bank)
+    {
+        this.bank = bank;
+    }
+
+    public String getBank()
+    {
+        return bank;
+    }
 
     public List<rzsrc2> getrzsrc2List()
     {
@@ -237,6 +263,8 @@ public class rzreversefactoring extends BaseEntity
                 .append("updateTime", getUpdateTime())
                 .append("updateBy", getUpdateBy())
                 .append("uuid", getUuid())
+                .append("account", getAccount())
+                .append("bank", getBank())
                 .append("rzsrc2List", getrzsrc2List())
                 .toString();
     }

@@ -10,9 +10,9 @@ import com.rongzi.common.core.domain.BaseEntity;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 银行承兑汇票对象 rz_bank_accept_bill
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
 public class rzbankacceptbill extends BaseEntity
 {
@@ -75,134 +75,238 @@ public class rzbankacceptbill extends BaseEntity
     @Excel(name = "uuid")
     private String uuid;
 
+    /** 出票手续费 */
+    @Excel(name = "出票手续费")
+    private String ticketProcessingFee;
+
+    /** 保证金比例 */
+    @Excel(name = "保证金比例")
+    private String marginLevel;
+
+    /** 保证金利率 */
+    @Excel(name = "保证金利率")
+    private String marginInterestRate;
+
+    /** 保证金收益金额 */
+    @Excel(name = "保证金收益金额")
+    private String marginIncomeAmount;
+
+    /** 是否已贴现 */
+    @Excel(name = "是否已贴现")
+    private String discountedOrNot;
+
+    /** 贴现金融机构 */
+    @Excel(name = "贴现金融机构")
+    private String discountedFinancialInstitutions;
+
+    /** 贴现手续费 */
+    @Excel(name = "贴现手续费")
+    private String discountedHandlingFee;
+
+    /** 贴现费用承担情况 */
+    @Excel(name = "贴现费用承担情况")
+    private String assumptionOfDiscountFees;
+
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setManagementId(String managementId) 
+    public void setManagementId(String managementId)
     {
         this.managementId = managementId;
     }
 
-    public String getManagementId() 
+    public String getManagementId()
     {
         return managementId;
     }
-    public void setScrUuid(String scrUuid) 
+    public void setScrUuid(String scrUuid)
     {
         this.scrUuid = scrUuid;
     }
 
-    public String getScrUuid() 
+    public String getScrUuid()
     {
         return scrUuid;
     }
-    public void setAuditId(Long auditId) 
+    public void setAuditId(Long auditId)
     {
         this.auditId = auditId;
     }
 
-    public Long getAuditId() 
+    public Long getAuditId()
     {
         return auditId;
     }
-    public void setDrawer(String drawer) 
+    public void setDrawer(String drawer)
     {
         this.drawer = drawer;
     }
 
-    public String getDrawer() 
+    public String getDrawer()
     {
         return drawer;
     }
-    public void setPayee(String payee) 
+    public void setPayee(String payee)
     {
         this.payee = payee;
     }
 
-    public String getPayee() 
+    public String getPayee()
     {
         return payee;
     }
-    public void setFinancialInstitution(String financialInstitution) 
+    public void setFinancialInstitution(String financialInstitution)
     {
         this.financialInstitution = financialInstitution;
     }
 
-    public String getFinancialInstitution() 
+    public String getFinancialInstitution()
     {
         return financialInstitution;
     }
-    public void setInvoiceAmount(Long invoiceAmount) 
+    public void setInvoiceAmount(Long invoiceAmount)
     {
         this.invoiceAmount = invoiceAmount;
     }
 
-    public Long getInvoiceAmount() 
+    public Long getInvoiceAmount()
     {
         return invoiceAmount;
     }
-    public void setDraftDate(Date draftDate) 
+    public void setDraftDate(Date draftDate)
     {
         this.draftDate = draftDate;
     }
 
-    public Date getDraftDate() 
+    public Date getDraftDate()
     {
         return draftDate;
     }
-    public void setDueDate(Date dueDate) 
+    public void setDueDate(Date dueDate)
     {
         this.dueDate = dueDate;
     }
 
-    public Date getDueDate() 
+    public Date getDueDate()
     {
         return dueDate;
     }
-    public void setAcceptAgreementId(String acceptAgreementId) 
+    public void setAcceptAgreementId(String acceptAgreementId)
     {
         this.acceptAgreementId = acceptAgreementId;
     }
 
-    public String getAcceptAgreementId() 
+    public String getAcceptAgreementId()
     {
         return acceptAgreementId;
     }
-    public void setEntryName(String entryName) 
+    public void setEntryName(String entryName)
     {
         this.entryName = entryName;
     }
 
-    public String getEntryName() 
+    public String getEntryName()
     {
         return entryName;
     }
-    public void setComment(String comment) 
+    public void setComment(String comment)
     {
         this.comment = comment;
     }
 
-    public String getComment() 
+    public String getComment()
     {
         return comment;
     }
-    public void setUuid(String uuid) 
+    public void setUuid(String uuid)
     {
         this.uuid = uuid;
     }
 
-    public String getUuid() 
+    public String getUuid()
     {
         return uuid;
+    }
+    public void setTicketProcessingFee(String ticketProcessingFee)
+    {
+        this.ticketProcessingFee = ticketProcessingFee;
+    }
+
+    public String getTicketProcessingFee()
+    {
+        return ticketProcessingFee;
+    }
+    public void setMarginLevel(String marginLevel)
+    {
+        this.marginLevel = marginLevel;
+    }
+
+    public String getMarginLevel()
+    {
+        return marginLevel;
+    }
+    public void setMarginInterestRate(String marginInterestRate)
+    {
+        this.marginInterestRate = marginInterestRate;
+    }
+
+    public String getMarginInterestRate()
+    {
+        return marginInterestRate;
+    }
+    public void setMarginIncomeAmount(String marginIncomeAmount)
+    {
+        this.marginIncomeAmount = marginIncomeAmount;
+    }
+
+    public String getMarginIncomeAmount()
+    {
+        return marginIncomeAmount;
+    }
+    public void setDiscountedOrNot(String discountedOrNot)
+    {
+        this.discountedOrNot = discountedOrNot;
+    }
+
+    public String getDiscountedOrNot()
+    {
+        return discountedOrNot;
+    }
+    public void setDiscountedFinancialInstitutions(String discountedFinancialInstitutions)
+    {
+        this.discountedFinancialInstitutions = discountedFinancialInstitutions;
+    }
+
+    public String getDiscountedFinancialInstitutions()
+    {
+        return discountedFinancialInstitutions;
+    }
+    public void setDiscountedHandlingFee(String discountedHandlingFee)
+    {
+        this.discountedHandlingFee = discountedHandlingFee;
+    }
+
+    public String getDiscountedHandlingFee()
+    {
+        return discountedHandlingFee;
+    }
+    public void setAssumptionOfDiscountFees(String assumptionOfDiscountFees)
+    {
+        this.assumptionOfDiscountFees = assumptionOfDiscountFees;
+    }
+
+    public String getAssumptionOfDiscountFees()
+    {
+        return assumptionOfDiscountFees;
     }
 
     public List<rzsrc2> getrzsrc2List()
@@ -218,26 +322,34 @@ public class rzbankacceptbill extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("managementId", getManagementId())
-            .append("scrUuid", getScrUuid())
-            .append("auditId", getAuditId())
-            .append("drawer", getDrawer())
-            .append("payee", getPayee())
-            .append("financialInstitution", getFinancialInstitution())
-            .append("invoiceAmount", getInvoiceAmount())
-            .append("draftDate", getDraftDate())
-            .append("dueDate", getDueDate())
-            .append("remark", getRemark())
-            .append("acceptAgreementId", getAcceptAgreementId())
-            .append("entryName", getEntryName())
-            .append("comment", getComment())
-            .append("createTime", getCreateTime())
-            .append("createBy", getCreateBy())
-            .append("updateTime", getUpdateTime())
-            .append("updateBy", getUpdateBy())
-            .append("uuid", getUuid())
-            .append("rzsrc2List", getrzsrc2List())
-            .toString();
+                .append("id", getId())
+                .append("managementId", getManagementId())
+                .append("scrUuid", getScrUuid())
+                .append("auditId", getAuditId())
+                .append("drawer", getDrawer())
+                .append("payee", getPayee())
+                .append("financialInstitution", getFinancialInstitution())
+                .append("invoiceAmount", getInvoiceAmount())
+                .append("draftDate", getDraftDate())
+                .append("dueDate", getDueDate())
+                .append("remark", getRemark())
+                .append("acceptAgreementId", getAcceptAgreementId())
+                .append("entryName", getEntryName())
+                .append("comment", getComment())
+                .append("createTime", getCreateTime())
+                .append("createBy", getCreateBy())
+                .append("updateTime", getUpdateTime())
+                .append("updateBy", getUpdateBy())
+                .append("uuid", getUuid())
+                .append("ticketProcessingFee", getTicketProcessingFee())
+                .append("marginLevel", getMarginLevel())
+                .append("marginInterestRate", getMarginInterestRate())
+                .append("marginIncomeAmount", getMarginIncomeAmount())
+                .append("discountedOrNot", getDiscountedOrNot())
+                .append("discountedFinancialInstitutions", getDiscountedFinancialInstitutions())
+                .append("discountedHandlingFee", getDiscountedHandlingFee())
+                .append("assumptionOfDiscountFees", getAssumptionOfDiscountFees())
+                .append("rzsrc2List", getrzsrc2List())
+                .toString();
     }
 }

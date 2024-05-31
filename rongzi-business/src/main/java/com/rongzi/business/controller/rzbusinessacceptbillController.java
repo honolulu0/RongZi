@@ -23,9 +23,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 商业承兑汇票Controller
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
 @RestController
 @RequestMapping("/business/bill")
@@ -96,7 +96,7 @@ public class rzbusinessacceptbillController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('business:bill:remove')")
     @Log(title = "商业承兑汇票", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(rzbusinessacceptbillService.deleterzbusinessacceptbillByIds(ids));

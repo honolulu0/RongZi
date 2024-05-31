@@ -23,9 +23,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 对内担保台账Controller
- * 
+ *
  * @author rongzi
- * @date 2024-03-11
+ * @date 2024-05-31
  */
 @RestController
 @RequestMapping("/glinternal/internal")
@@ -96,7 +96,7 @@ public class glinternalController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('glinternal:internal:remove')")
     @Log(title = "对内担保台账", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(glinternalService.deleteglinternalByIds(ids));

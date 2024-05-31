@@ -23,9 +23,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 对外担保台账Controller
- * 
+ *
  * @author rongzi
- * @date 2024-03-12
+ * @date 2024-05-30
  */
 @RestController
 @RequestMapping("/glforeign/foreign")
@@ -96,7 +96,7 @@ public class rzglforeignController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('glforeign:foreign:remove')")
     @Log(title = "对外担保台账", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(rzglforeignService.deleterzglforeignByIds(ids));

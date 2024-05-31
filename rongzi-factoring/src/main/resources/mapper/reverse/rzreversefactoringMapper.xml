@@ -24,6 +24,8 @@
         <result property="updateTime"    column="update_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="uuid"    column="uuid"    />
+        <result property="account"    column="account"    />
+        <result property="bank"    column="bank"    />
     </resultMap>
 
     <resultMap id="rzreversefactoringrzsrc2Result" type="rzreversefactoring" extends="rzreversefactoringResult">
@@ -44,7 +46,7 @@
     </resultMap>
 
     <sql id="selectrzreversefactoringVo">
-        select id, management_id, scr_uuid, audit_id, creditor, factor, financial_institution, loan_amount, start_date, deadline, entry_name, remark, collection_account, comment, create_time, create_by, update_time, update_by, uuid from rz_reverse_factoring
+        select id, management_id, scr_uuid, audit_id, creditor, factor, financial_institution, loan_amount, start_date, deadline, entry_name, remark, collection_account, comment, create_time, create_by, update_time, update_by, uuid, account, bank from rz_reverse_factoring
     </sql>
 
     <select id="selectrzreversefactoringList" parameterType="rzreversefactoring" resultMap="rzreversefactoringResult">
@@ -64,11 +66,13 @@
             <if test="collectionAccount != null  and collectionAccount != ''"> and collection_account like concat('%', #{collectionAccount}, '%')</if>
             <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
             <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="account != null  and account != ''"> and account like concat('%', #{account}, '%')</if>
+            <if test="bank != null  and bank != ''"> and bank like concat('%', #{bank}, '%')</if>
         </where>
     </select>
 
     <select id="selectrzreversefactoringById" parameterType="Long" resultMap="rzreversefactoringrzsrc2Result">
-        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution, a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
+        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution, a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.account, a.bank,
         b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_reverse_factoring a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
@@ -96,6 +100,8 @@
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null">uuid,</if>
+            <if test="account != null">account,</if>
+            <if test="bank != null">bank,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
@@ -116,6 +122,8 @@
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null">#{uuid},</if>
+            <if test="account != null">#{account},</if>
+            <if test="bank != null">#{bank},</if>
         </trim>
     </insert>
 
@@ -140,6 +148,8 @@
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="uuid != null">uuid = #{uuid},</if>
+            <if test="account != null">account = #{account},</if>
+            <if test="bank != null">bank = #{bank},</if>
         </trim>
         where id = #{id}
     </update>

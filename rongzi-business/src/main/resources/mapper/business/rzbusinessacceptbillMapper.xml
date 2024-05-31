@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.business.mapper.rzbusinessacceptbillMapper">
-    
+
     <resultMap type="rzbusinessacceptbill" id="rzbusinessacceptbillResult">
         <result property="id"    column="id"    />
         <result property="managementId"    column="management_id"    />
@@ -23,6 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="uuid"    column="uuid"    />
+        <result property="discountedOrNot"    column="discountedOrNot"    />
+        <result property="discountedFinancialInstitutions"    column="discountedFinancialInstitutions"    />
+        <result property="discountedHandlingFee"    column="discountedHandlingFee"    />
+        <result property="assumptionOfDiscountFees"    column="assumptionOfDiscountFees"    />
     </resultMap>
 
     <resultMap id="rzbusinessacceptbillrzsrc2Result" type="rzbusinessacceptbill" extends="rzbusinessacceptbillResult">
@@ -31,6 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="rzsrc2" id="rzsrc2Result">
         <result property="id"    column="sub_id"    />
+        <result property="title"    column="sub_title"    />
+        <result property="title2"    column="sub_title2"    />
+        <result property="comment"    column="sub_comment"    />
         <result property="url"    column="sub_url"    />
         <result property="scrUuid"    column="sub_scr_uuid"    />
         <result property="projectManagementId"    column="sub_project_management_id"    />
@@ -40,12 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectrzbusinessacceptbillVo">
-        select id, management_id, scr_uuid, audit_id, payer, payee, invoice_amount, draft_date, due_date, remark, contract_number, financial_institution, comment, create_time, create_by, update_time, update_by, uuid from rz_business_accept_bill
+        select id, management_id, scr_uuid, audit_id, payer, payee, invoice_amount, draft_date, due_date, remark, contract_number, financial_institution, comment, create_time, create_by, update_time, update_by, uuid, discountedOrNot, discountedFinancialInstitutions, discountedHandlingFee, assumptionOfDiscountFees from rz_business_accept_bill
     </sql>
 
     <select id="selectrzbusinessacceptbillList" parameterType="rzbusinessacceptbill" resultMap="rzbusinessacceptbillResult">
         <include refid="selectrzbusinessacceptbillVo"/>
-        <where>  
+        <where>
             <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
             <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
             <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
@@ -59,17 +66,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
             <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
             <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="discountedOrNot != null  and discountedOrNot != ''"> and discountedOrNot = #{discountedOrNot}</if>
+            <if test="discountedFinancialInstitutions != null  and discountedFinancialInstitutions != ''"> and discountedFinancialInstitutions = #{discountedFinancialInstitutions}</if>
+            <if test="discountedHandlingFee != null  and discountedHandlingFee != ''"> and discountedHandlingFee like concat('%', #{discountedHandlingFee}, '%')</if>
+            <if test="assumptionOfDiscountFees != null  and assumptionOfDiscountFees != ''"> and assumptionOfDiscountFees like concat('%', #{assumptionOfDiscountFees}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectrzbusinessacceptbillById" parameterType="Long" resultMap="rzbusinessacceptbillrzsrc2Result">
-        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.payer, a.payee, a.invoice_amount, a.draft_date, a.due_date, a.remark, a.contract_number, a.financial_institution, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
- b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.payer, a.payee, a.invoice_amount, a.draft_date, a.due_date, a.remark, a.contract_number, a.financial_institution, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.discountedOrNot, a.discountedFinancialInstitutions, a.discountedHandlingFee, a.assumptionOfDiscountFees,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_business_accept_bill a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
     </select>
-        
+
     <insert id="insertrzbusinessacceptbill" parameterType="rzbusinessacceptbill" useGeneratedKeys="true" keyProperty="id">
         insert into rz_business_accept_bill
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,7 +101,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null">uuid,</if>
-         </trim>
+            <if test="discountedOrNot != null">discountedOrNot,</if>
+            <if test="discountedFinancialInstitutions != null">discountedFinancialInstitutions,</if>
+            <if test="discountedHandlingFee != null">discountedHandlingFee,</if>
+            <if test="assumptionOfDiscountFees != null">assumptionOfDiscountFees,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
             <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
@@ -109,7 +124,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null">#{uuid},</if>
-         </trim>
+            <if test="discountedOrNot != null">#{discountedOrNot},</if>
+            <if test="discountedFinancialInstitutions != null">#{discountedFinancialInstitutions},</if>
+            <if test="discountedHandlingFee != null">#{discountedHandlingFee},</if>
+            <if test="assumptionOfDiscountFees != null">#{assumptionOfDiscountFees},</if>
+        </trim>
     </insert>
 
     <update id="updaterzbusinessacceptbill" parameterType="rzbusinessacceptbill">
@@ -132,6 +151,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="uuid != null">uuid = #{uuid},</if>
+            <if test="discountedOrNot != null">discountedOrNot = #{discountedOrNot},</if>
+            <if test="discountedFinancialInstitutions != null">discountedFinancialInstitutions = #{discountedFinancialInstitutions},</if>
+            <if test="discountedHandlingFee != null">discountedHandlingFee = #{discountedHandlingFee},</if>
+            <if test="assumptionOfDiscountFees != null">assumptionOfDiscountFees = #{assumptionOfDiscountFees},</if>
         </trim>
         where id = #{id}
     </update>
@@ -148,14 +171,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
         );
-        delete from rz_business_accept_bill where id in 
+        delete from rz_business_accept_bill where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
     <delete id="deleterzsrc2ByScrUuids" parameterType="String">
-        delete from rz_scr where scr_uuid in 
+        delete from rz_scr where scr_uuid in
         <foreach item="scrUuid" collection="array" open="(" separator="," close=")">
             #{scrUuid}
         </foreach>
@@ -166,9 +189,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <insert id="batchrzsrc2">
-        insert into rz_scr( id, url, scr_uuid, project_management_id, type, create_time, create_by) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
+        insert into rz_scr( id, title, title2, comment, url, scr_uuid, project_management_id, type, create_time, create_by) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.title}, #{item.title2}, #{item.comment}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
         </foreach>
     </insert>
 </mapper>

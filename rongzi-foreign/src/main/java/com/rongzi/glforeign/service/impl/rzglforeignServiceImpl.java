@@ -13,19 +13,19 @@ import com.rongzi.glforeign.service.IrzglforeignService;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 对外担保台账Service业务层处理
- * 
+ *
  * @author rongzi
- * @date 2024-03-12
+ * @date 2024-05-30
  */
 @Service
-public class rzglforeignServiceImpl implements IrzglforeignService 
+public class rzglforeignServiceImpl implements IrzglforeignService
 {
     @Autowired
     private rzglforeignMapper rzglforeignMapper;
 
     /**
      * 查询对外担保台账
-     * 
+     *
      * @param id 对外担保台账主键
      * @return 对外担保台账
      */
@@ -37,7 +37,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 查询对外担保台账列表
-     * 
+     *
      * @param rzglforeign 对外担保台账
      * @return 对外担保台账
      */
@@ -49,7 +49,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 新增对外担保台账
-     * 
+     *
      * @param rzglforeign 对外担保台账
      * @return 结果
      */
@@ -65,7 +65,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 修改对外担保台账
-     * 
+     *
      * @param rzglforeign 对外担保台账
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 批量删除对外担保台账
-     * 
+     *
      * @param ids 需要删除的对外担保台账主键
      * @return 结果
      */
@@ -94,7 +94,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 删除对外担保台账信息
-     * 
+     *
      * @param id 对外担保台账主键
      * @return 结果
      */
@@ -107,7 +107,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
 
     /**
      * 新增附件表信息
-     * 
+     *
      * @param rzglforeign 对外担保台账对象
      */
     public void insertrzsrc2(rzglforeign rzglforeign)

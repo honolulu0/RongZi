@@ -5,15 +5,15 @@ import com.rongzi.glinternal.domain.glinternal;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 对内担保台账Service接口
- * 
+ *
  * @author rongzi
- * @date 2024-03-11
+ * @date 2024-05-31
  */
-public interface IglinternalService 
+public interface IglinternalService
 {
     /**
      * 查询对内担保台账
-     * 
+     *
      * @param id 对内担保台账主键
      * @return 对内担保台账
      */
@@ -21,7 +21,7 @@ public interface IglinternalService
 
     /**
      * 查询对内担保台账列表
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 对内担保台账集合
      */
@@ -29,7 +29,7 @@ public interface IglinternalService
 
     /**
      * 新增对内担保台账
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface IglinternalService
 
     /**
      * 修改对内担保台账
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface IglinternalService
 
     /**
      * 批量删除对内担保台账
-     * 
+     *
      * @param ids 需要删除的对内担保台账主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface IglinternalService
 
     /**
      * 删除对内担保台账信息
-     * 
+     *
      * @param id 对内担保台账主键
      * @return 结果
      */

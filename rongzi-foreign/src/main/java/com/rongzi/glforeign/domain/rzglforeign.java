@@ -14,7 +14,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * 对外担保台账对象 rz_gl_foreign
  *
  * @author rongzi
- * @date 2024-03-12
+ * @date 2024-05-30
  */
 public class rzglforeign extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -78,13 +78,6 @@ public class rzglforeign extends BaseEntity {
     @Excel(name = "担保余额")
     private Long guaranteeBalance;
 
-
-    /**
-     * 担保状态
-     */
-    @Excel(name = "担保状态")
-    private String danbaozhuangtai;
-
     /**
      * 开始日期
      */
@@ -98,6 +91,12 @@ public class rzglforeign extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "截止日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deadline;
+
+    /**
+     * 担保状态
+     */
+    @Excel(name = "担保状态")
+    private String danbaozhuangtai;
 
     /**
      * 保证方式：连带责任保证、某某责任保证、有追责权、意外责任、兼容责任
@@ -122,6 +121,24 @@ public class rzglforeign extends BaseEntity {
      */
     @Excel(name = "uuid")
     private String uuid;
+
+    /**
+     * 融资金额
+     */
+    @Excel(name = "融资金额")
+    private String financingAmount;
+
+    /**
+     * 担保比例
+     */
+    @Excel(name = "担保比例")
+    private String guaranteeRatio;
+
+    /**
+     * 贷款用途
+     */
+    @Excel(name = "贷款用途")
+    private String purposeOfLoan;
 
     /**
      * 附件表信息
@@ -208,14 +225,6 @@ public class rzglforeign extends BaseEntity {
         return guaranteeBalance;
     }
 
-    public String getDanbaozhuangtai() {
-        return danbaozhuangtai;
-    }
-
-    public void setDanbaozhuangtai(String danbaozhuangtai) {
-        this.danbaozhuangtai = danbaozhuangtai;
-    }
-
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -230,6 +239,14 @@ public class rzglforeign extends BaseEntity {
 
     public Date getDeadline() {
         return deadline;
+    }
+
+    public void setDanbaozhuangtai(String danbaozhuangtai) {
+        this.danbaozhuangtai = danbaozhuangtai;
+    }
+
+    public String getDanbaozhuangtai() {
+        return danbaozhuangtai;
     }
 
     public void setGuaranteeMethod(String guaranteeMethod) {
@@ -264,6 +281,30 @@ public class rzglforeign extends BaseEntity {
         return uuid;
     }
 
+    public void setFinancingAmount(String financingAmount) {
+        this.financingAmount = financingAmount;
+    }
+
+    public String getFinancingAmount() {
+        return financingAmount;
+    }
+
+    public void setGuaranteeRatio(String guaranteeRatio) {
+        this.guaranteeRatio = guaranteeRatio;
+    }
+
+    public String getGuaranteeRatio() {
+        return guaranteeRatio;
+    }
+
+    public void setPurposeOfLoan(String purposeOfLoan) {
+        this.purposeOfLoan = purposeOfLoan;
+    }
+
+    public String getPurposeOfLoan() {
+        return purposeOfLoan;
+    }
+
     public List<rzsrc2> getrzsrc2List() {
         return rzsrc2List;
     }
@@ -285,9 +326,9 @@ public class rzglforeign extends BaseEntity {
                 .append("businessType", getBusinessType())
                 .append("guaranteeAmount", getGuaranteeAmount())
                 .append("guaranteeBalance", getGuaranteeBalance())
-                .append("danbaozhuangtai", getDanbaozhuangtai())
                 .append("startDate", getStartDate())
                 .append("deadline", getDeadline())
+                .append("danbaozhuangtai", getDanbaozhuangtai())
                 .append("guaranteeMethod", getGuaranteeMethod())
                 .append("isCreditInvestigation", getIsCreditInvestigation())
                 .append("comment", getComment())
@@ -296,6 +337,9 @@ public class rzglforeign extends BaseEntity {
                 .append("updateTime", getUpdateTime())
                 .append("updateBy", getUpdateBy())
                 .append("uuid", getUuid())
+                .append("financingAmount", getFinancingAmount())
+                .append("guaranteeRatio", getGuaranteeRatio())
+                .append("purposeOfLoan", getPurposeOfLoan())
                 .append("rzsrc2List", getrzsrc2List())
                 .toString();
     }

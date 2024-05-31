@@ -13,19 +13,19 @@ import com.rongzi.glinternal.service.IglinternalService;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 对内担保台账Service业务层处理
- * 
+ *
  * @author rongzi
- * @date 2024-03-11
+ * @date 2024-05-31
  */
 @Service
-public class glinternalServiceImpl implements IglinternalService 
+public class glinternalServiceImpl implements IglinternalService
 {
     @Autowired
     private glinternalMapper glinternalMapper;
 
     /**
      * 查询对内担保台账
-     * 
+     *
      * @param id 对内担保台账主键
      * @return 对内担保台账
      */
@@ -37,7 +37,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 查询对内担保台账列表
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 对内担保台账
      */
@@ -49,7 +49,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 新增对内担保台账
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 结果
      */
@@ -65,7 +65,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 修改对内担保台账
-     * 
+     *
      * @param glinternal 对内担保台账
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 批量删除对内担保台账
-     * 
+     *
      * @param ids 需要删除的对内担保台账主键
      * @return 结果
      */
@@ -95,7 +95,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 删除对内担保台账信息
-     * 
+     *
      * @param id 对内担保台账主键
      * @return 结果
      */
@@ -109,7 +109,7 @@ public class glinternalServiceImpl implements IglinternalService
 
     /**
      * 新增附件表信息
-     * 
+     *
      * @param glinternal 对内担保台账对象
      */
     public void insertrzsrc2(glinternal glinternal)

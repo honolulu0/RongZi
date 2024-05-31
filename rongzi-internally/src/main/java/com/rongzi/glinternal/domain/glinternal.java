@@ -14,7 +14,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * 对内担保台账对象 rz_gl_internal
  *
  * @author rongzi
- * @date 2024-03-11
+ * @date 2024-05-31
  */
 public class glinternal extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -119,7 +119,26 @@ public class glinternal extends BaseEntity {
     /**
      * uuid
      */
+    @Excel(name = "uuid")
     private String uuid;
+
+    /**
+     * 融资金额
+     */
+    @Excel(name = "融资金额")
+    private String financingAmount;
+
+    /**
+     * 担保比例
+     */
+    @Excel(name = "担保比例")
+    private String guaranteeRatio;
+
+    /**
+     * 贷款用途
+     */
+    @Excel(name = "贷款用途")
+    private String purposeOfLoan;
 
     /**
      * 附件表信息
@@ -206,16 +225,16 @@ public class glinternal extends BaseEntity {
         return guaranteeBalance;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setDanbaozhuangtai(String danbaozhuangtai) {
+        this.danbaozhuangtai = danbaozhuangtai;
     }
 
     public String getDanbaozhuangtai() {
         return danbaozhuangtai;
     }
 
-    public void setDanbaozhuangtai(String danbaozhuangtai) {
-        this.danbaozhuangtai = danbaozhuangtai;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getStartDate() {
@@ -262,6 +281,30 @@ public class glinternal extends BaseEntity {
         return uuid;
     }
 
+    public void setFinancingAmount(String financingAmount) {
+        this.financingAmount = financingAmount;
+    }
+
+    public String getFinancingAmount() {
+        return financingAmount;
+    }
+
+    public void setGuaranteeRatio(String guaranteeRatio) {
+        this.guaranteeRatio = guaranteeRatio;
+    }
+
+    public String getGuaranteeRatio() {
+        return guaranteeRatio;
+    }
+
+    public void setPurposeOfLoan(String purposeOfLoan) {
+        this.purposeOfLoan = purposeOfLoan;
+    }
+
+    public String getPurposeOfLoan() {
+        return purposeOfLoan;
+    }
+
     public List<rzsrc2> getrzsrc2List() {
         return rzsrc2List;
     }
@@ -294,6 +337,9 @@ public class glinternal extends BaseEntity {
                 .append("updateTime", getUpdateTime())
                 .append("updateBy", getUpdateBy())
                 .append("uuid", getUuid())
+                .append("financingAmount", getFinancingAmount())
+                .append("guaranteeRatio", getGuaranteeRatio())
+                .append("purposeOfLoan", getPurposeOfLoan())
                 .append("rzsrc2List", getrzsrc2List())
                 .toString();
     }

@@ -13,19 +13,19 @@ import com.rongzi.bankaccept.service.IrzbankacceptbillService;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 银行承兑汇票Service业务层处理
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
 @Service
-public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService 
+public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 {
     @Autowired
     private rzbankacceptbillMapper rzbankacceptbillMapper;
 
     /**
      * 查询银行承兑汇票
-     * 
+     *
      * @param id 银行承兑汇票主键
      * @return 银行承兑汇票
      */
@@ -37,7 +37,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 查询银行承兑汇票列表
-     * 
+     *
      * @param rzbankacceptbill 银行承兑汇票
      * @return 银行承兑汇票
      */
@@ -49,7 +49,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 新增银行承兑汇票
-     * 
+     *
      * @param rzbankacceptbill 银行承兑汇票
      * @return 结果
      */
@@ -65,7 +65,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 修改银行承兑汇票
-     * 
+     *
      * @param rzbankacceptbill 银行承兑汇票
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 批量删除银行承兑汇票
-     * 
+     *
      * @param ids 需要删除的银行承兑汇票主键
      * @return 结果
      */
@@ -94,7 +94,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 删除银行承兑汇票信息
-     * 
+     *
      * @param id 银行承兑汇票主键
      * @return 结果
      */
@@ -107,7 +107,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
 
     /**
      * 新增附件表信息
-     * 
+     *
      * @param rzbankacceptbill 银行承兑汇票对象
      */
     public void insertrzsrc2(rzbankacceptbill rzbankacceptbill)

@@ -26,6 +26,9 @@
         <result property="updateTime"    column="update_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="uuid"    column="uuid"    />
+        <result property="financingAmount"    column="financingAmount"    />
+        <result property="guaranteeRatio"    column="guaranteeRatio"    />
+        <result property="purposeOfLoan"    column="purposeOfLoan"    />
     </resultMap>
 
     <resultMap id="rzglforeignrzsrc2Result" type="rzglforeign" extends="rzglforeignResult">
@@ -35,6 +38,7 @@
     <resultMap type="rzsrc2" id="rzsrc2Result">
         <result property="id"    column="sub_id"    />
         <result property="title"    column="sub_title"    />
+        <result property="title2"    column="sub_title2"    />
         <result property="comment"    column="sub_comment"    />
         <result property="url"    column="sub_url"    />
         <result property="scrUuid"    column="sub_scr_uuid"    />
@@ -45,7 +49,7 @@
     </resultMap>
 
     <sql id="selectrzglforeignVo">
-        select id, management_id, contract_id, scr_uuid, creditor, guarantor, financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline, danbaozhuangtai, guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid from rz_gl_foreign
+        select id, management_id, contract_id, scr_uuid, creditor, guarantor, financial_institution, business_type, guarantee_amount, guarantee_balance, start_date, deadline, danbaozhuangtai, guarantee_method, is_credit_investigation, comment, create_time, create_by, update_time, update_by, uuid, financingAmount, guaranteeRatio, purposeOfLoan from rz_gl_foreign
     </sql>
 
     <select id="selectrzglforeignList" parameterType="rzglforeign" resultMap="rzglforeignResult">
@@ -69,12 +73,15 @@
             <if test="createTime != null "> and create_time = #{createTime}</if>
             <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
             <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="financingAmount != null  and financingAmount != ''"> and financingAmount like concat('%', #{financingAmount}, '%')</if>
+            <if test="guaranteeRatio != null  and guaranteeRatio != ''"> and guaranteeRatio like concat('%', #{guaranteeRatio}, '%')</if>
+            <if test="purposeOfLoan != null  and purposeOfLoan != ''"> and purposeOfLoan like concat('%', #{purposeOfLoan}, '%')</if>
         </where>
     </select>
 
     <select id="selectrzglforeignById" parameterType="Long" resultMap="rzglforeignrzsrc2Result">
-        select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.danbaozhuangtai, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid,
-        b.id as sub_id, b.title as sub_title, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.danbaozhuangtai, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.financingAmount, a.guaranteeRatio, a.purposeOfLoan,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_gl_foreign a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
@@ -103,6 +110,9 @@
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null and uuid != ''">uuid,</if>
+            <if test="financingAmount != null">financingAmount,</if>
+            <if test="guaranteeRatio != null">guaranteeRatio,</if>
+            <if test="purposeOfLoan != null">purposeOfLoan,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
@@ -125,6 +135,9 @@
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null and uuid != ''">#{uuid},</if>
+            <if test="financingAmount != null">#{financingAmount},</if>
+            <if test="guaranteeRatio != null">#{guaranteeRatio},</if>
+            <if test="purposeOfLoan != null">#{purposeOfLoan},</if>
         </trim>
     </insert>
 
@@ -151,6 +164,9 @@
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="uuid != null and uuid != ''">uuid = #{uuid},</if>
+            <if test="financingAmount != null">financingAmount = #{financingAmount},</if>
+            <if test="guaranteeRatio != null">guaranteeRatio = #{guaranteeRatio},</if>
+            <if test="purposeOfLoan != null">purposeOfLoan = #{purposeOfLoan},</if>
         </trim>
         where id = #{id}
     </update>
@@ -167,14 +183,14 @@
             #{id}
         </foreach>
         );
-        delete from rz_gl_foreign where id in 
+        delete from rz_gl_foreign where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
     <delete id="deleterzsrc2ByScrUuids" parameterType="String">
-        delete from rz_scr where scr_uuid in 
+        delete from rz_scr where scr_uuid in
         <foreach item="scrUuid" collection="array" open="(" separator="," close=")">
             #{scrUuid}
         </foreach>
@@ -185,9 +201,9 @@
     </delete>
 
     <insert id="batchrzsrc2">
-        insert into rz_scr( id, url, scr_uuid, project_management_id, type, create_time, create_by) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
+        insert into rz_scr( id, title, title2, comment, url, scr_uuid, project_management_id, type, create_time, create_by) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.title}, #{item.title2}, #{item.comment}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
         </foreach>
     </insert>
 </mapper>

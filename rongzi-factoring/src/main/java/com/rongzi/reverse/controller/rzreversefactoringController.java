@@ -25,7 +25,7 @@ import com.rongzi.common.core.page.TableDataInfo;
  * 反向保理Controller
  *
  * @author rongzi
- * @date 2024-05-29
+ * @date 2024-05-30
  */
 @RestController
 @RequestMapping("/reverse/factoring")

@@ -5,15 +5,15 @@ import com.rongzi.business.domain.rzbusinessacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 商业承兑汇票Service接口
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
-public interface IrzbusinessacceptbillService 
+public interface IrzbusinessacceptbillService
 {
     /**
      * 查询商业承兑汇票
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 商业承兑汇票
      */
@@ -21,7 +21,7 @@ public interface IrzbusinessacceptbillService
 
     /**
      * 查询商业承兑汇票列表
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 商业承兑汇票集合
      */
@@ -29,7 +29,7 @@ public interface IrzbusinessacceptbillService
 
     /**
      * 新增商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface IrzbusinessacceptbillService
 
     /**
      * 修改商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface IrzbusinessacceptbillService
 
     /**
      * 批量删除商业承兑汇票
-     * 
+     *
      * @param ids 需要删除的商业承兑汇票主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface IrzbusinessacceptbillService
 
     /**
      * 删除商业承兑汇票信息
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 结果
      */

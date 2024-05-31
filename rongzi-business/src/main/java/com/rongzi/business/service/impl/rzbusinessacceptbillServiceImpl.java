@@ -13,19 +13,19 @@ import com.rongzi.business.service.IrzbusinessacceptbillService;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 商业承兑汇票Service业务层处理
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
 @Service
-public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillService 
+public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillService
 {
     @Autowired
     private rzbusinessacceptbillMapper rzbusinessacceptbillMapper;
 
     /**
      * 查询商业承兑汇票
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 商业承兑汇票
      */
@@ -37,7 +37,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 查询商业承兑汇票列表
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 商业承兑汇票
      */
@@ -49,7 +49,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 新增商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -65,7 +65,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 修改商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 批量删除商业承兑汇票
-     * 
+     *
      * @param ids 需要删除的商业承兑汇票主键
      * @return 结果
      */
@@ -94,7 +94,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 删除商业承兑汇票信息
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 结果
      */
@@ -107,7 +107,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
 
     /**
      * 新增附件表信息
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票对象
      */
     public void insertrzsrc2(rzbusinessacceptbill rzbusinessacceptbill)

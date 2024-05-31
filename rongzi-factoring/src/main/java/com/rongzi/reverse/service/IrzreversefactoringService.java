@@ -7,7 +7,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * 反向保理Service接口
  *
  * @author rongzi
- * @date 2024-05-29
+ * @date 2024-05-30
  */
 public interface IrzreversefactoringService
 {

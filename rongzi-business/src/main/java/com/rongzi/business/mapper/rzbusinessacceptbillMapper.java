@@ -5,15 +5,15 @@ import com.rongzi.business.domain.rzbusinessacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 商业承兑汇票Mapper接口
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
-public interface rzbusinessacceptbillMapper 
+public interface rzbusinessacceptbillMapper
 {
     /**
      * 查询商业承兑汇票
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 商业承兑汇票
      */
@@ -21,7 +21,7 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 查询商业承兑汇票列表
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 商业承兑汇票集合
      */
@@ -29,7 +29,7 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 新增商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 修改商业承兑汇票
-     * 
+     *
      * @param rzbusinessacceptbill 商业承兑汇票
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 删除商业承兑汇票
-     * 
+     *
      * @param id 商业承兑汇票主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 批量删除商业承兑汇票
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
@@ -61,24 +61,24 @@ public interface rzbusinessacceptbillMapper
 
     /**
      * 批量删除附件表
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
     public int deleterzsrc2ByScrUuids(Long[] ids);
-    
+
     /**
      * 批量新增附件表
-     * 
+     *
      * @param rzsrc2List 附件表列表
      * @return 结果
      */
     public int batchrzsrc2(List<rzsrc2> rzsrc2List);
-    
+
 
     /**
      * 通过商业承兑汇票主键删除附件表信息
-     * 
+     *
      * @param id 商业承兑汇票ID
      * @return 结果
      */
