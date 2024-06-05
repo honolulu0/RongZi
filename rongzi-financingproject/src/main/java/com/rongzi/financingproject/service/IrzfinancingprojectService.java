@@ -1,6 +1,9 @@
 package com.rongzi.financingproject.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.financingproject.domain.rzfinancingproject;
 
 /**
@@ -35,6 +38,14 @@ public interface IrzfinancingprojectService {
      * @return 融资项目集合
      */
     public List<rzfinancingproject> selectrzfinancingprojectList(rzfinancingproject rzfinancingproject);
+
+    /**
+     * 查询融资项目Sum
+     *
+     * @param rzfinancingproject 融资项目
+     * @return 融资项目集合
+     */
+    public Map<String, BigDecimal> selectrzfinancingprojectSum(rzfinancingproject rzfinancingproject);
 
     /**
      * 新增融资项目

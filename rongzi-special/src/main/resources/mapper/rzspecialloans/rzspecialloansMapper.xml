@@ -67,7 +67,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
         </where>
     </select>
-    
+
+    <select id="selectrzspecialloansSum" parameterType="rzspecialloans" resultType="map">
+        SELECT
+        SUM(loan_amount) AS totalLoanAmount,
+        SUM(repaid_amount) AS totalRepaidAmount,
+        SUM(balance) AS totalBalance
+        FROM rz_special_loans
+        <where>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="repaidAmount != null "> and repaid_amount = #{repaidAmount}</if>
+            <if test="balance != null "> and balance = #{balance}</if>
+            <if test="borrower != null  and borrower != ''"> and borrower = #{borrower}</if>
+            <if test="payee != null  and payee != ''"> and payee = #{payee}</if>
+            <if test="loanTerm != null  and loanTerm != ''"> and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="rate != null  and rate != ''"> and rate like concat('%', #{rate}, '%')</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
+            <if test="repaymentMethod != null  and repaymentMethod != ''"> and repayment_method = #{repaymentMethod}</if>
+            <if test="loanUse != null  and loanUse != ''"> and loan_use = #{loanUse}</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
+        </where>
+    </select>
+
     <select id="selectrzspecialloansById" parameterType="Long" resultMap="rzspecialloansrzsrc2Result">
         select a.id, a.scr_uuid, a.loan_amount, a.repaid_amount, a.balance, a.borrower, a.payee, a.loan_term, a.rate, a.contract_id, a.repayment_method, a.loan_use, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.management_id, a.loan_date, a.due_date,
  b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by

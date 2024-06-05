@@ -76,7 +76,7 @@ public class rzinternalborrowing extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 转借人 */

@@ -91,7 +91,7 @@ public class rzrepayment extends BaseEntity
     private String repaymentAccount;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     public void setId(Long id) 

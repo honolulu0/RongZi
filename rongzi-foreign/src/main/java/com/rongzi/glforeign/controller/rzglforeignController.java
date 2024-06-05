@@ -1,6 +1,8 @@
 package com.rongzi.glforeign.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,15 @@ public class rzglforeignController extends BaseController
     {
         startPage();
         List<rzglforeign> list = rzglforeignService.selectrzglforeignList(rzglforeign);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzglforeignService.selectrzglforeignSum(rzglforeign);
+
+        // 添加合计数据
+        tableDataInfo.addTotal("totalGuaranteeAmount", data.get("totalGuaranteeAmount").longValue());
+        tableDataInfo.addTotal("totalGuaranteeBalance", data.get("totalGuaranteeBalance").longValue());
+
+        return tableDataInfo;
     }
 
     /**

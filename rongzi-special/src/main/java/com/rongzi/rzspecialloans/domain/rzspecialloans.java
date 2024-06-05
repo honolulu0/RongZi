@@ -70,7 +70,7 @@ public class rzspecialloans extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 专项借款管理编号 */

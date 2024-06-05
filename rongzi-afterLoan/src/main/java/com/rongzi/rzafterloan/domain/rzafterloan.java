@@ -74,7 +74,7 @@ public class rzafterloan extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 开始日期 */

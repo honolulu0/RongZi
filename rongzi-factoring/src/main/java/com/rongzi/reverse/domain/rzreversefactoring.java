@@ -72,7 +72,7 @@ public class rzreversefactoring extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 账号 */

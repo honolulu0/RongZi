@@ -92,7 +92,7 @@ public class RzlogFinancingProject extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 记录创建时间 */

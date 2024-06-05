@@ -68,7 +68,7 @@ public class rzbusinessacceptbill extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 是否已贴现 */

@@ -47,7 +47,7 @@
         <result property="changhuanbenjin" column="changhuanbenjin"/>
         <result property="lilvbiangeng" column="lilvbiangeng"/>
         <result property="lixichanghuan" column="lixichanghuan"/>
-        <result property="zjywjnjl"    column="zjywjnjl"    />
+        <result property="zjywjnjl" column="zjywjnjl"/>
     </resultMap>
 
     <resultMap id="rzfinancingprojectrzsrc2Result" type="rzfinancingproject" extends="rzfinancingprojectResult">
@@ -73,7 +73,8 @@
         credit_enhancement_measures, repaid_amount, remaining_amount, baozhengjin, shouxufei, loan_state, zijinyongtu,
         danbaocuoshi, hdzhanghumingcheng, hdzhanghao, hdkaihuhang, comment, sx_management_id, create_time, create_by,
         update_time, update_by, uuid, principal_repayment_method, interest_repayment_method, rate_type,
-        first_repayment_date, has_repayment_plan, tiqubenjin, changhuanbenjin, lilvbiangeng, lixichanghuan , zjywjnjl from
+        first_repayment_date, has_repayment_plan, tiqubenjin, changhuanbenjin, lilvbiangeng, lixichanghuan , zjywjnjl
+        from
         rz_financing_project
     </sql>
 
@@ -137,7 +138,77 @@
             <if test="changhuanbenjin != null  and changhuanbenjin != ''">and changhuanbenjin = #{changhuanbenjin}</if>
             <if test="lilvbiangeng != null  and lilvbiangeng != ''">and lilvbiangeng = #{lilvbiangeng}</if>
             <if test="lixichanghuan != null  and lixichanghuan != ''">and lixichanghuan = #{lixichanghuan}</if>
-            <if test="zjywjnjl != null  and zjywjnjl != ''"> and zjywjnjl = #{zjywjnjl}</if>
+            <if test="zjywjnjl != null  and zjywjnjl != ''">and zjywjnjl = #{zjywjnjl}</if>
+        </where>
+    </select>
+
+    <select id="selectrzfinancingprojectSum" parameterType="rzfinancingproject" resultType="map">
+        SELECT
+        SUM(financing_amount) AS totalFinancingAmount,
+        SUM(repaid_amount) AS totalRepaidAmount,
+        SUM(remaining_amount) AS totalRemainingAmount,
+        SUM(baozhengjin) AS totalBaozhengjin,
+        SUM(shouxufei) AS totalShouxufei
+        FROM rz_financing_project
+        <where>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="shouxinjine != null  and shouxinjine != ''">and shouxinjine = #{shouxinjine}</if>
+            <if test="financingAmount != null ">and financing_amount like concat('%', #{financingAmount}, '%')</if>
+            <if test="financingType != null  and financingType != ''">and financing_type = #{financingType}</if>
+            <if test="daikuanyongtu != null  and daikuanyongtu != ''">and daikuanyongtu = #{daikuanyongtu}</if>
+            <if test="contractId != null  and contractId != ''">and contract_id like concat('%', #{contractId}, '%')
+            </if>
+            <if test="params.beginContractSigningDate != null and params.beginContractSigningDate != '' and params.endContractSigningDate != null and params.endContractSigningDate != ''">
+                and contract_signing_date between #{params.beginContractSigningDate} and
+                #{params.endContractSigningDate}
+            </if>
+            <if test="loanDate != null ">and loan_date like concat('%', #{loanDate}, '%')</if>
+            <if test="dueDate != null ">and due_date like concat('%', #{dueDate}, '%')</if>
+            <if test="rate != null  and rate != ''">and rate like concat('%', #{rate}, '%')</if>
+            <if test="loanTerm != null  and loanTerm != ''">and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="creditEnhancementMeasures != null  and creditEnhancementMeasures != ''">and
+                credit_enhancement_measures like concat('%', #{creditEnhancementMeasures}, '%')
+            </if>
+            <if test="repaidAmount != null ">and repaid_amount like concat('%', #{repaidAmount}, '%')</if>
+            <if test="remainingAmount != null ">and remaining_amount like concat('%', #{remainingAmount}, '%')</if>
+            <if test="baozhengjin != null ">and baozhengjin = #{baozhengjin}</if>
+            <if test="shouxufei != null ">and shouxufei = #{shouxufei}</if>
+            <if test="loanState != null  and loanState != ''">and loan_state = #{loanState}</if>
+            <if test="zijinyongtu != null  and zijinyongtu != ''">and zijinyongtu = #{zijinyongtu}</if>
+            <if test="danbaocuoshi != null  and danbaocuoshi != ''">and danbaocuoshi = #{danbaocuoshi}</if>
+            <if test="hdzhanghumingcheng != null  and hdzhanghumingcheng != ''">and hdzhanghumingcheng =
+                #{hdzhanghumingcheng}
+            </if>
+            <if test="hdzhanghao != null  and hdzhanghao != ''">and hdzhanghao = #{hdzhanghao}</if>
+            <if test="hdkaihuhang != null  and hdkaihuhang != ''">and hdkaihuhang = #{hdkaihuhang}</if>
+            <if test="comment != null  and comment != ''">and comment = #{comment}</if>
+            <if test="sxManagementId != null  and sxManagementId != ''">and sx_management_id = #{sxManagementId}</if>
+            <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
+            <if test="updateBy != null  and updateBy != ''">and update_by = #{updateBy}</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="principalRepaymentMethod != null  and principalRepaymentMethod != ''">and
+                principal_repayment_method = #{principalRepaymentMethod}
+            </if>
+            <if test="interestRepaymentMethod != null  and interestRepaymentMethod != ''">and interest_repayment_method
+                = #{interestRepaymentMethod}
+            </if>
+            <if test="rateType != null  and rateType != ''">and rate_type = #{rateType}</if>
+            <if test="firstRepaymentDate != null ">and first_repayment_date = #{firstRepaymentDate}</if>
+            <if test="hasRepaymentPlan != null  and hasRepaymentPlan != ''">and has_repayment_plan =
+                #{hasRepaymentPlan}
+            </if>
+            <if test="tiqubenjin != null  and tiqubenjin != ''">and tiqubenjin = #{tiqubenjin}</if>
+            <if test="changhuanbenjin != null  and changhuanbenjin != ''">and changhuanbenjin = #{changhuanbenjin}</if>
+            <if test="lilvbiangeng != null  and lilvbiangeng != ''">and lilvbiangeng = #{lilvbiangeng}</if>
+            <if test="lixichanghuan != null  and lixichanghuan != ''">and lixichanghuan = #{lixichanghuan}</if>
+            <if test="zjywjnjl != null  and zjywjnjl != ''">and zjywjnjl = #{zjywjnjl}</if>
         </where>
     </select>
 
@@ -157,7 +228,8 @@
         where a.id = #{id}
     </select>
 
-    <select id="selectrzfinancingprojectByManagementId" parameterType="String" resultMap="rzfinancingprojectrzsrc2Result">
+    <select id="selectrzfinancingprojectByManagementId" parameterType="String"
+            resultMap="rzfinancingprojectrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.borrowing_unit, a.financial_institution, a.shouxinjine,
         a.financing_amount, a.financing_type, a.daikuanyongtu, a.contract_id, a.contract_signing_date, a.loan_date,
         a.due_date, a.rate, a.loan_term, a.credit_enhancement_measures, a.repaid_amount, a.remaining_amount,
@@ -170,7 +242,7 @@
         b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_financing_project a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
-        where a.management_id  = #{managementId}
+        where a.management_id = #{managementId}
     </select>
 
     <insert id="insertrzfinancingproject" parameterType="rzfinancingproject" useGeneratedKeys="true" keyProperty="id">

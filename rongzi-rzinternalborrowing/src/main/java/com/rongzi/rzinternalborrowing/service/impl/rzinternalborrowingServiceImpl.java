@@ -1,10 +1,13 @@
 package com.rongzi.rzinternalborrowing.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.rzinternalborrowing.mapper.rzinternalborrowingMapper;
@@ -45,6 +48,18 @@ public class rzinternalborrowingServiceImpl implements IrzinternalborrowingServi
     public List<rzinternalborrowing> selectrzinternalborrowingList(rzinternalborrowing rzinternalborrowing)
     {
         return rzinternalborrowingMapper.selectrzinternalborrowingList(rzinternalborrowing);
+    }
+
+    /**
+     * 查询内部借款SUM
+     *
+     * @param rzinternalborrowing 内部借款
+     * @return 内部借款
+     */
+    @Override
+    public Map<String, BigDecimal> selectrzinternalborrowingSum(rzinternalborrowing rzinternalborrowing)
+    {
+        return rzinternalborrowingMapper.selectrzinternalborrowingSum(rzinternalborrowing);
     }
 
     /**

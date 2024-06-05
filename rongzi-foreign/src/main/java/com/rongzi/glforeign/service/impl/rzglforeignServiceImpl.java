@@ -1,16 +1,22 @@
 package com.rongzi.glforeign.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.glforeign.mapper.rzglforeignMapper;
 import com.rongzi.glforeign.domain.rzglforeign;
 import com.rongzi.glforeign.service.IrzglforeignService;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 对外担保台账Service业务层处理
  *
@@ -18,8 +24,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * @date 2024-05-30
  */
 @Service
-public class rzglforeignServiceImpl implements IrzglforeignService
-{
+public class rzglforeignServiceImpl implements IrzglforeignService {
     @Autowired
     private rzglforeignMapper rzglforeignMapper;
 
@@ -30,8 +35,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      * @return 对外担保台账
      */
     @Override
-    public rzglforeign selectrzglforeignById(Long id)
-    {
+    public rzglforeign selectrzglforeignById(Long id) {
         return rzglforeignMapper.selectrzglforeignById(id);
     }
 
@@ -42,9 +46,19 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      * @return 对外担保台账
      */
     @Override
-    public List<rzglforeign> selectrzglforeignList(rzglforeign rzglforeign)
-    {
+    public List<rzglforeign> selectrzglforeignList(rzglforeign rzglforeign) {
         return rzglforeignMapper.selectrzglforeignList(rzglforeign);
+    }
+
+    /**
+     * 查询对外担保台账SUM
+     *
+     * @param rzglforeign 对外担保台账
+     * @return 对外担保台账
+     */
+    @Override
+    public Map<String, BigDecimal> selectrzglforeignSum(rzglforeign rzglforeign) {
+        return rzglforeignMapper.selectrzglforeignSum(rzglforeign);
     }
 
     /**
@@ -55,8 +69,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      */
     @Transactional
     @Override
-    public int insertrzglforeign(rzglforeign rzglforeign)
-    {
+    public int insertrzglforeign(rzglforeign rzglforeign) {
         rzglforeign.setCreateTime(DateUtils.getNowDate());
         int rows = rzglforeignMapper.insertrzglforeign(rzglforeign);
         insertrzsrc2(rzglforeign);
@@ -71,8 +84,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      */
     @Transactional
     @Override
-    public int updaterzglforeign(rzglforeign rzglforeign)
-    {
+    public int updaterzglforeign(rzglforeign rzglforeign) {
         rzglforeign.setUpdateTime(DateUtils.getNowDate());
         rzglforeignMapper.deleterzsrc2ByScrUuid(rzglforeign.getScrUuid());
         insertrzsrc2(rzglforeign);
@@ -87,8 +99,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      */
     @Transactional
     @Override
-    public int deleterzglforeignByIds(Long[] ids)
-    {
+    public int deleterzglforeignByIds(Long[] ids) {
         return rzglforeignMapper.deleterzglforeignByIds(ids);
     }
 
@@ -100,8 +111,7 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      */
     @Transactional
     @Override
-    public int deleterzglforeignById(Long id)
-    {
+    public int deleterzglforeignById(Long id) {
         return rzglforeignMapper.deleterzglforeignById(id);
     }
 
@@ -110,21 +120,17 @@ public class rzglforeignServiceImpl implements IrzglforeignService
      *
      * @param rzglforeign 对外担保台账对象
      */
-    public void insertrzsrc2(rzglforeign rzglforeign)
-    {
+    public void insertrzsrc2(rzglforeign rzglforeign) {
         List<rzsrc2> rzsrc2List = rzglforeign.getrzsrc2List();
 //        Long id = rzglforeign.getId();
         String uuidS = rzglforeign.getScrUuid();
-        if (StringUtils.isNotNull(rzsrc2List))
-        {
+        if (StringUtils.isNotNull(rzsrc2List)) {
             List<rzsrc2> list = new ArrayList<rzsrc2>();
-            for (rzsrc2 rzsrc2 : rzsrc2List)
-            {
+            for (rzsrc2 rzsrc2 : rzsrc2List) {
                 rzsrc2.setScrUuid(uuidS);
                 list.add(rzsrc2);
             }
-            if (list.size() > 0)
-            {
+            if (list.size() > 0) {
                 rzglforeignMapper.batchrzsrc2(list);
             }
         }

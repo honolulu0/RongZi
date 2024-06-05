@@ -30,6 +30,14 @@ public interface IrzcreditmanagementService {
     public List<rzcreditmanagement> selectrzcreditmanagementList(rzcreditmanagement rzcreditmanagement);
 
     /**
+     * 查询授信管理SUM
+     *
+     * @param rzcreditmanagement 授信管理
+     * @return 授信管理集合
+     */
+    public Map<String, BigDecimal> selectrzcreditmanagementSum(rzcreditmanagement rzcreditmanagement);
+
+    /**
      * 新增授信管理
      *
      * @param rzcreditmanagement 授信管理

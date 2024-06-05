@@ -1,6 +1,8 @@
 package com.rongzi.rzspecialloans.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,16 @@ public class rzspecialloansController extends BaseController
     {
         startPage();
         List<rzspecialloans> list = rzspecialloansService.selectrzspecialloansList(rzspecialloans);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzspecialloansService.selectrzspecialloansSum(rzspecialloans);
+
+        // 添加合计数据
+        tableDataInfo.addTotal("totalLoanAmount", data.get("totalLoanAmount").longValue());
+        tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount").longValue());
+        tableDataInfo.addTotal("totalBalance", data.get("totalBalance").longValue());
+
+        return tableDataInfo;
     }
 
     /**

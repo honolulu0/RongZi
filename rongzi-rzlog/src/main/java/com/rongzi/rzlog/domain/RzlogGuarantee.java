@@ -45,7 +45,7 @@ public class RzlogGuarantee extends BaseEntity
     private String financialInstitution;
 
     /** 业务类型：股东借款、固定资产贷款、流贷贷款、银行借款、授信流资 */
-    @Excel(name = "业务类型：股东借款、固定资产贷款、流贷贷款、银行借款、授信流资")
+    @Excel(name = "业务类型")
     private String businessType;
 
     /** 担保金额 */
@@ -67,11 +67,11 @@ public class RzlogGuarantee extends BaseEntity
     private Date deadline;
 
     /** 保证方式：连带责任保证、某某责任保证、有追责权、意外责任、兼容责任 */
-    @Excel(name = "保证方式：连带责任保证、某某责任保证、有追责权、意外责任、兼容责任")
+    @Excel(name = "保证方式")
     private String guaranteeMethod;
 
     /** 是否上征信：是、否 */
-    @Excel(name = "是否上征信：是、否")
+    @Excel(name = "是否上征信")
     private String isCreditInvestigation;
 
     /** 备注 */
@@ -79,7 +79,7 @@ public class RzlogGuarantee extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 类型 */

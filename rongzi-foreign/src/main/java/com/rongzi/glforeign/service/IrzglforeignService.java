@@ -1,16 +1,19 @@
 package com.rongzi.glforeign.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.glforeign.domain.rzglforeign;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 对外担保台账Service接口
  *
  * @author rongzi
  * @date 2024-05-30
  */
-public interface IrzglforeignService
-{
+public interface IrzglforeignService {
     /**
      * 查询对外担保台账
      *
@@ -26,6 +29,8 @@ public interface IrzglforeignService
      * @return 对外担保台账集合
      */
     public List<rzglforeign> selectrzglforeignList(rzglforeign rzglforeign);
+
+    public Map<String, BigDecimal> selectrzglforeignSum(rzglforeign rzglforeign);
 
     /**
      * 新增对外担保台账

@@ -1,6 +1,8 @@
 package com.rongzi.rzinternalborrowing.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,14 @@ public class rzinternalborrowingController extends BaseController
     {
         startPage();
         List<rzinternalborrowing> list = rzinternalborrowingService.selectrzinternalborrowingList(rzinternalborrowing);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzinternalborrowingService.selectrzinternalborrowingSum(rzinternalborrowing);
+
+        // 添加合计数据
+        tableDataInfo.addTotal("totalLoanAmount", data.get("totalLoanAmount").longValue());
+
+        return tableDataInfo;
     }
 
     /**

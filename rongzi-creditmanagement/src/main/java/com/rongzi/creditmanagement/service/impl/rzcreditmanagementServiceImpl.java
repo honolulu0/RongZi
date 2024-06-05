@@ -53,6 +53,17 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
     }
 
     /**
+     * 查询授信管理SUM
+     *
+     * @param rzcreditmanagement 授信管理
+     * @return 授信管理
+     */
+    @Override
+    public Map<String, BigDecimal> selectrzcreditmanagementSum(rzcreditmanagement rzcreditmanagement) {
+        return rzcreditmanagementMapper.selectrzcreditmanagementSum(rzcreditmanagement);
+    }
+
+    /**
      * 新增授信管理
      *
      * @param rzcreditmanagement 授信管理

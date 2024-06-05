@@ -72,7 +72,7 @@ public class rzbankacceptbill extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 出票手续费 */

@@ -26,19 +26,18 @@ public class rzcreditmanagement extends BaseEntity
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 债权人/借款人 */
-    @Excel(name = "债权人/借款人")
+    @Excel(name = "借款人")
     private String creditor;
 
     /** 金融机构 */
-    @Excel(name = "金融机构")
+    @Excel(name = "债权人")
     private String financialInstitution;
 
     /** 授信类型：授信流资、低风险、项目贷、回租贷 */
-    @Excel(name = "授信类型：授信流资、低风险、项目贷、回租贷")
+    @Excel(name = "授信类型")
     private String creditType;
 
     /** 授信详情 */
@@ -72,7 +71,7 @@ public class rzcreditmanagement extends BaseEntity
     private String creditCycle;
 
     /** 授信状态：授信中、已授信 */
-    @Excel(name = "授信状态：授信中、已授信")
+    @Excel(name = "授信状态")
     private String creditState;
 
     /** 备注 */
@@ -80,7 +79,6 @@ public class rzcreditmanagement extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
     private String uuid;
 
     /** 附件表信息 */

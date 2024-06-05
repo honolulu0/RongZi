@@ -1,6 +1,9 @@
 package com.rongzi.rzspecialloans.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.rzspecialloans.domain.rzspecialloans;
 
 /**
@@ -26,6 +29,8 @@ public interface IrzspecialloansService
      * @return 专项借款集合
      */
     public List<rzspecialloans> selectrzspecialloansList(rzspecialloans rzspecialloans);
+
+    public Map<String, BigDecimal> selectrzspecialloansSum(rzspecialloans rzspecialloans);
 
     /**
      * 新增专项借款

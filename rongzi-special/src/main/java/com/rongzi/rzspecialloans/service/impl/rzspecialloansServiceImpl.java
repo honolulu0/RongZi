@@ -1,10 +1,13 @@
 package com.rongzi.rzspecialloans.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.rzspecialloans.mapper.rzspecialloansMapper;
@@ -45,6 +48,18 @@ public class rzspecialloansServiceImpl implements IrzspecialloansService
     public List<rzspecialloans> selectrzspecialloansList(rzspecialloans rzspecialloans)
     {
         return rzspecialloansMapper.selectrzspecialloansList(rzspecialloans);
+    }
+
+    /**
+     * 查询专项借款列表
+     *
+     * @param rzspecialloans 专项借款
+     * @return 专项借款
+     */
+    @Override
+    public Map<String, BigDecimal> selectrzspecialloansSum(rzspecialloans rzspecialloans)
+    {
+        return rzspecialloansMapper.selectrzspecialloansSum(rzspecialloans);
     }
 
     /**

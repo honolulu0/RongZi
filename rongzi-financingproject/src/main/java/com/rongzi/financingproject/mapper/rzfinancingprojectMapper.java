@@ -1,6 +1,8 @@
 package com.rongzi.financingproject.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.rongzi.financingproject.domain.rzfinancingproject;
 import com.rongzi.appendix.domain.rzsrc2;
@@ -32,6 +34,8 @@ public interface rzfinancingprojectMapper {
      * @return 融资项目集合
      */
     public List<rzfinancingproject> selectrzfinancingprojectList(rzfinancingproject rzfinancingproject);
+
+    public Map<String, BigDecimal> selectrzfinancingprojectSum(rzfinancingproject rzfinancingproject);
 
     /**
      * 新增融资项目
@@ -105,4 +109,5 @@ public interface rzfinancingprojectMapper {
      * @return 结果
      */
     public int deleterHuankuanmingxiByManagementId(String managementId);
+
 }

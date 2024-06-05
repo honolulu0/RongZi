@@ -1,5 +1,6 @@
 package com.rongzi.financingproject.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.rongzi.common.utils.DateUtils;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,6 +60,17 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
     @Override
     public List<rzfinancingproject> selectrzfinancingprojectList(rzfinancingproject rzfinancingproject) {
         return rzfinancingprojectMapper.selectrzfinancingprojectList(rzfinancingproject);
+    }
+
+    /**
+     * 查询融资项目SUM
+     *
+     * @param rzfinancingproject 融资项目
+     * @return 融资项目
+     */
+    @Override
+    public Map<String, BigDecimal> selectrzfinancingprojectSum(rzfinancingproject rzfinancingproject){
+        return rzfinancingprojectMapper.selectrzfinancingprojectSum(rzfinancingproject);
     }
 
     /**

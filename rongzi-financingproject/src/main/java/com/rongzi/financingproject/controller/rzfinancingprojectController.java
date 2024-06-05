@@ -1,6 +1,8 @@
 package com.rongzi.financingproject.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,18 @@ public class rzfinancingprojectController extends BaseController {
     public TableDataInfo list(rzfinancingproject rzfinancingproject) {
         startPage();
         List<rzfinancingproject> list = rzfinancingprojectService.selectrzfinancingprojectList(rzfinancingproject);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzfinancingprojectService.selectrzfinancingprojectSum(rzfinancingproject);
+
+        // 添加合计数据
+        tableDataInfo.addTotal("totalFinancingAmount", data.get("totalFinancingAmount").longValue());
+        tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount").longValue());
+        tableDataInfo.addTotal("totalRemainingAmount", data.get("totalRemainingAmount").longValue());
+        tableDataInfo.addTotal("totalBaozhengjin", data.get("totalBaozhengjin").longValue());
+        tableDataInfo.addTotal("totalShouxufei", data.get("totalShouxufei").longValue());
+
+        return tableDataInfo;
     }
 
     /**

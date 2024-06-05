@@ -1,6 +1,9 @@
 package com.rongzi.rzinternalborrowing.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.rzinternalborrowing.domain.rzinternalborrowing;
 
 /**
@@ -26,6 +29,8 @@ public interface IrzinternalborrowingService
      * @return 内部借款集合
      */
     public List<rzinternalborrowing> selectrzinternalborrowingList(rzinternalborrowing rzinternalborrowing);
+
+    public Map<String, BigDecimal> selectrzinternalborrowingSum(rzinternalborrowing rzinternalborrowing);
 
     /**
      * 新增内部借款

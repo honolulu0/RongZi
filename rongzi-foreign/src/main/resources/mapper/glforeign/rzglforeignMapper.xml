@@ -79,6 +79,36 @@
         </where>
     </select>
 
+    <select id="selectrzglforeignSum" parameterType="rzglforeign" resultType="map">
+        SELECT
+        SUM(guarantee_amount) AS totalGuaranteeAmount,
+        SUM(guarantee_balance) AS totalGuaranteeBalance
+        FROM rz_gl_foreign
+        <where>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id like concat('%', #{contractId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
+            <if test="guarantor != null  and guarantor != ''"> and guarantor = #{guarantor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
+            <if test="guaranteeAmount != null "> and guarantee_amount like concat('%', #{guaranteeAmount}, '%')</if>
+            <if test="guaranteeBalance != null "> and guarantee_balance like concat('%', #{guaranteeBalance}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
+            <if test="danbaozhuangtai != null  and danbaozhuangtai != ''"> and danbaozhuangtai = #{danbaozhuangtai}</if>
+            <if test="guaranteeMethod != null  and guaranteeMethod != ''"> and guarantee_method = #{guaranteeMethod}</if>
+            <if test="isCreditInvestigation != null  and isCreditInvestigation != ''"> and is_credit_investigation = #{isCreditInvestigation}</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="financingAmount != null  and financingAmount != ''"> and financingAmount like concat('%', #{financingAmount}, '%')</if>
+            <if test="guaranteeRatio != null  and guaranteeRatio != ''"> and guaranteeRatio like concat('%', #{guaranteeRatio}, '%')</if>
+            <if test="purposeOfLoan != null  and purposeOfLoan != ''"> and purposeOfLoan like concat('%', #{purposeOfLoan}, '%')</if>
+        </where>
+    </select>
+
     <select id="selectrzglforeignById" parameterType="Long" resultMap="rzglforeignrzsrc2Result">
         select a.id, a.management_id, a.contract_id, a.scr_uuid, a.creditor, a.guarantor, a.financial_institution, a.business_type, a.guarantee_amount, a.guarantee_balance, a.start_date, a.deadline, a.danbaozhuangtai, a.guarantee_method, a.is_credit_investigation, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.financingAmount, a.guaranteeRatio, a.purposeOfLoan,
         b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by

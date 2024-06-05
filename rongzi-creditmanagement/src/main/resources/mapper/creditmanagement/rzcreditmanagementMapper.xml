@@ -90,6 +90,45 @@
         </where>
     </select>
 
+    <select id="selectrzcreditmanagementSum" parameterType="rzcreditmanagement" resultType="map">
+        SELECT
+        SUM(credit_amount) AS total_credit_amount,
+        SUM(used_credit_amount) AS total_used_credit_amount,
+        SUM(remaining_credit_amount) AS total_remaining_credit_amount
+        FROM rz_credit_management
+        <where>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="creditor != null  and creditor != ''">and creditor like concat('%', #{creditor}, '%')</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="creditType != null  and creditType != ''">and credit_type = #{creditType}</if>
+            <if test="creditDetail != null  and creditDetail != ''">and credit_detail like concat('%', #{creditDetail},
+                '%')
+            </if>
+            <if test="creditAmount != null ">and credit_amount like concat('%', #{creditAmount}, '%')</if>
+            <if test="usedCreditAmount != null ">and used_credit_amount like concat('%', #{usedCreditAmount}, '%')</if>
+            <if test="remainingCreditAmount != null ">and remaining_credit_amount like concat('%',
+                #{remainingCreditAmount}, '%')
+            </if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''">
+                and start_date between #{params.beginStartDate} and #{params.endStartDate}
+            </if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
+                and deadline between #{params.beginDeadline} and #{params.endDeadline}
+            </if>
+            <if test="creditCycle != null  and creditCycle != ''">and credit_cycle like concat('%', #{creditCycle},
+                '%')
+            </if>
+            <if test="creditState != null  and creditState != ''">and credit_state = #{creditState}</if>
+            <if test="comment != null  and comment != ''">and comment = #{comment}</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+        </where>
+    </select>
+
     <select id="selectrzcreditmanagementById" parameterType="Long" resultMap="rzcreditmanagementrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.creditor, a.financial_institution, a.credit_type, a.credit_detail,
         a.credit_amount, a.used_credit_amount, a.remaining_credit_amount, a.start_date, a.deadline, a.credit_cycle,

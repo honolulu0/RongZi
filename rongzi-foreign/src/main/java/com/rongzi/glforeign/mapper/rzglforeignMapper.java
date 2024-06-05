@@ -1,6 +1,9 @@
 package com.rongzi.glforeign.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.glforeign.domain.rzglforeign;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,8 @@ public interface rzglforeignMapper
      * @return 对外担保台账集合
      */
     public List<rzglforeign> selectrzglforeignList(rzglforeign rzglforeign);
+
+    public Map<String, BigDecimal> selectrzglforeignSum(rzglforeign rzglforeign);
 
     /**
      * 新增对外担保台账

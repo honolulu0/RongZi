@@ -1,6 +1,8 @@
 package com.rongzi.creditmanagement.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.rongzi.creditmanagement.domain.*;
 import com.rongzi.appendix.domain.rzsrc2;
@@ -27,6 +29,14 @@ public interface rzcreditmanagementMapper {
      * @return 授信管理集合
      */
     public List<rzcreditmanagement> selectrzcreditmanagementList(rzcreditmanagement rzcreditmanagement);
+
+    /**
+     * 查询授信管理列表
+     *
+     * @param rzcreditmanagement 授信管理
+     * @return 授信管理集合
+     */
+    public Map<String, BigDecimal> selectrzcreditmanagementSum(rzcreditmanagement rzcreditmanagement);
 
     /**
      * 新增授信管理

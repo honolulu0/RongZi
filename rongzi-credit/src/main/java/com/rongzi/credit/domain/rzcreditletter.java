@@ -68,7 +68,7 @@ public class rzcreditletter extends BaseEntity
     private String comment;
 
     /** uuid */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /** 附件表信息 */

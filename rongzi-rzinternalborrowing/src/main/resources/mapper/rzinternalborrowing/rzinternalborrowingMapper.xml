@@ -65,6 +65,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sublessee != null  and sublessee != ''"> and sublessee = #{sublessee}</if>
         </where>
     </select>
+    <select id="selectrzinternalborrowingSum" parameterType="rzinternalborrowing" resultType="map">
+        SELECT
+        SUM(loan_amount) AS totalLoanAmount
+        FROM rz_internal_borrowing
+        <where>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="borrower != null  and borrower != ''"> and borrower = #{borrower}</if>
+            <if test="payee != null  and payee != ''"> and payee = #{payee}</if>
+            <if test="params.beginBorrowDate != null and params.beginBorrowDate != '' and params.endBorrowDate != null and params.endBorrowDate != ''"> and borrow_date between #{params.beginBorrowDate} and #{params.endBorrowDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
+            <if test="loanTerm != null  and loanTerm != ''"> and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="rate != null  and rate != ''"> and rate like concat('%', #{rate}, '%')</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id = #{contractId}</if>
+            <if test="repaymentMethod != null  and repaymentMethod != ''"> and repayment_method = #{repaymentMethod}</if>
+            <if test="loanUse != null  and loanUse != ''"> and loan_use = #{loanUse}</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="sublessee != null  and sublessee != ''"> and sublessee = #{sublessee}</if>
+        </where>
+    </select>
     
     <select id="selectrzinternalborrowingById" parameterType="Long" resultMap="rzinternalborrowingrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.loan_amount, a.borrower, a.payee, a.borrow_date, a.due_date, a.loan_term, a.rate, a.contract_id, a.repayment_method, a.loan_use, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.sublessee,

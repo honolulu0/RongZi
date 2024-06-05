@@ -43,7 +43,7 @@ public class rzsrc2 extends BaseEntity
     private String projectManagementId;
 
     /** 种类筛选：下拉（融资项目、政府专项债、专项借款、内部借款、企业借款、对内担保、对外担保、银行承兑汇票、商业承兑汇票、信用证、反向保理、贷后管理、授信管理） */
-    @Excel(name = "种类筛选：下拉", readConverterExp = "融=资项目、政府专项债、专项借款、内部借款、企业借款、对内担保、对外担保、银行承兑汇票、商业承兑汇票、信用证、反向保理、贷后管理、授信管理")
+    @Excel(name = "种类筛选", readConverterExp = "融=资项目、政府专项债、专项借款、内部借款、企业借款、对内担保、对外担保、银行承兑汇票、商业承兑汇票、信用证、反向保理、贷后管理、授信管理")
     private String type;
 
     public void setId(Long id)

@@ -63,7 +63,7 @@ public class rzglforeign extends BaseEntity {
     /**
      * 业务类型：股东借款、固定资产贷款、流贷贷款、银行借款、授信流资
      */
-    @Excel(name = "业务类型：股东借款、固定资产贷款、流贷贷款、银行借款、授信流资")
+    @Excel(name = "业务类型")
     private String businessType;
 
     /**
@@ -101,13 +101,13 @@ public class rzglforeign extends BaseEntity {
     /**
      * 保证方式：连带责任保证、某某责任保证、有追责权、意外责任、兼容责任
      */
-    @Excel(name = "保证方式：连带责任保证、某某责任保证、有追责权、意外责任、兼容责任")
+    @Excel(name = "保证方式")
     private String guaranteeMethod;
 
     /**
      * 是否上征信：是、否
      */
-    @Excel(name = "是否上征信：是、否")
+    @Excel(name = "是否上征信")
     private String isCreditInvestigation;
 
     /**
@@ -119,7 +119,7 @@ public class rzglforeign extends BaseEntity {
     /**
      * uuid
      */
-    @Excel(name = "uuid")
+    
     private String uuid;
 
     /**

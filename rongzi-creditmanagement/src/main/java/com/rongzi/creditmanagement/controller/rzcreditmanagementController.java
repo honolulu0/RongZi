@@ -45,7 +45,16 @@ public class rzcreditmanagementController extends BaseController {
     public TableDataInfo list(rzcreditmanagement rzcreditmanagement) {
         startPage();
         List<rzcreditmanagement> list = rzcreditmanagementService.selectrzcreditmanagementList(rzcreditmanagement);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzcreditmanagementService.selectrzcreditmanagementSum(rzcreditmanagement);
+
+        // 添加合计数据
+        tableDataInfo.addTotal("totalCreditAmount", data.get("total_credit_amount").longValue());
+        tableDataInfo.addTotal("totalUsedCreditAmount", data.get("total_used_credit_amount").longValue());
+        tableDataInfo.addTotal("totalRemainingCreditAmount", data.get("total_remaining_credit_amount").longValue());
+
+        return tableDataInfo;
     }
 
     /**

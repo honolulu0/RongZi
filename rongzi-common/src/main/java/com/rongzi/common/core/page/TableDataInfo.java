@@ -1,12 +1,14 @@
 package com.rongzi.common.core.page;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 表格分页数据对象
- * 
- * @author rongzi
+ *
+ * @autho rongzi
  */
 public class TableDataInfo implements Serializable
 {
@@ -24,23 +26,28 @@ public class TableDataInfo implements Serializable
     /** 消息内容 */
     private String msg;
 
+    /** 合计数据 */
+    private Map<String, Long> totals;
+
     /**
      * 表格数据对象
      */
     public TableDataInfo()
     {
+        this.totals = new HashMap<>();
     }
 
     /**
      * 分页
-     * 
+     *
      * @param list 列表数据
      * @param total 总记录数
      */
-    public TableDataInfo(List<?> list, int total)
+    public TableDataInfo(List<?> list, long total)
     {
         this.rows = list;
         this.total = total;
+        this.totals = new HashMap<>();
     }
 
     public long getTotal()
@@ -81,5 +88,20 @@ public class TableDataInfo implements Serializable
     public void setMsg(String msg)
     {
         this.msg = msg;
+    }
+
+    public Map<String, Long> getTotals()
+    {
+        return totals;
+    }
+
+    public void setTotals(Map<String, Long> totals)
+    {
+        this.totals = totals;
+    }
+
+    public void addTotal(String key, Long value)
+    {
+        this.totals.put(key, value);
     }
 }

@@ -57,7 +57,7 @@ public class rzgovernmentspecialbonds extends BaseEntity {
     /**
      * 偿还方式：先息后本
      */
-    @Excel(name = "偿还方式：先息后本")
+    @Excel(name = "偿还方式")
     private String repaymentMethod;
 
     /**
@@ -99,7 +99,7 @@ public class rzgovernmentspecialbonds extends BaseEntity {
     /**
      * uuid
      */
-    @Excel(name = "uuid")
+
     private String uuid;
 
     /**
