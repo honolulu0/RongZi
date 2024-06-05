@@ -101,7 +101,7 @@ public class rzfinancingproject extends BaseEntity {
     /**
      * 年利率
      */
-    @Excel(name = "年利率")
+//    @Excel(name = "年利率")
     private String rate;
 
     /**

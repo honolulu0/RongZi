@@ -61,7 +61,7 @@ public class rzrepayment extends BaseEntity
     private String margin;
 
     /** 利率 */
-    @Excel(name = "利率")
+//    @Excel(name = "利率")
     private String rate;
 
     /** 借款日期 */

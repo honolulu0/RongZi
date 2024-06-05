@@ -66,7 +66,7 @@ public class RzhkjhMingxi extends BaseEntity
     private String benjinshengyu;
 
     /** 利率 */
-    @Excel(name = "利率")
+//    @Excel(name = "利率")
     private String lilv;
 
     /** 备注 */

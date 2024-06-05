@@ -80,11 +80,11 @@ public class rzbankacceptbill extends BaseEntity
     private String ticketProcessingFee;
 
     /** 保证金比例 */
-    @Excel(name = "保证金比例")
+//    @Excel(name = "保证金比例")
     private String marginLevel;
 
     /** 保证金利率 */
-    @Excel(name = "保证金利率")
+//    @Excel(name = "保证金利率")
     private String marginInterestRate;
 
     /** 保证金收益金额 */

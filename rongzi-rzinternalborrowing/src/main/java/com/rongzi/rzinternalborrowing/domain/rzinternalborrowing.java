@@ -56,7 +56,7 @@ public class rzinternalborrowing extends BaseEntity
     private String loanTerm;
 
     /** 利率 */
-    @Excel(name = "利率")
+//    @Excel(name = "利率")
     private String rate;
 
     /** 合同编号 */

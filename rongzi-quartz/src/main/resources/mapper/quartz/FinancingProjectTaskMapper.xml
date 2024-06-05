@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rongzi.quartz.mapper.FinancingProjectTaskMapper">
+
+    <!-- Step 1: 创建临时表并插入数据 -->
+    <update id="createTempRepaidAmount">
+        CREATE TEMPORARY TABLE temp_repaid_amount AS
+        SELECT
+        id,
+        SUM(CAST(JSON_EXTRACT(t.value, '$.amount') AS UNSIGNED)) AS total_repaid_amount
+        FROM
+        rz_financing_project,
+        JSON_TABLE(changhuanbenjin, '$[*]' COLUMNS (
+        value JSON PATH '$',
+        date VARCHAR(255) PATH '$.date',
+        amount INT PATH '$.amount'
+        )) AS t
+        WHERE
+        DATE_FORMAT(t.date, '%Y-%m-%d') &lt;= CURDATE()
+        AND has_repayment_plan = '有'
+        AND financing_amount &lt;&gt; repaid_amount
+        GROUP BY
+        id;
+    </update>
+
+    <!-- Step 2: 更新repaid_amount字段，并处理loan_state和remaining_amount -->
+    <update id="updateRepaidAmountAndState">
+        UPDATE rz_financing_project rp
+        JOIN temp_repaid_amount tra
+        ON rp.id = tra.id
+        SET
+        rp.repaid_amount = tra.total_repaid_amount,
+        rp.loan_state = CASE
+        WHEN tra.total_repaid_amount = rp.financing_amount THEN '已结清'
+        ELSE '未结清'
+        END,
+        rp.remaining_amount = rp.financing_amount - tra.total_repaid_amount;
+    </update>
+
+    <!-- Step 3: 删除临时表 -->
+    <update id="dropTempRepaidAmount">
+        DROP TEMPORARY TABLE temp_repaid_amount;
+    </update>
+
+</mapper>

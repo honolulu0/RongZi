@@ -131,7 +131,7 @@ public class glinternal extends BaseEntity {
     /**
      * 担保比例
      */
-    @Excel(name = "担保比例")
+//    @Excel(name = "担保比例")
     private String guaranteeRatio;
 
     /**

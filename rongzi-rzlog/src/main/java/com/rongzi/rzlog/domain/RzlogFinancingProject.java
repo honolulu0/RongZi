@@ -64,7 +64,7 @@ public class RzlogFinancingProject extends BaseEntity
     private Date dueDate;
 
     /** 利率 */
-    @Excel(name = "利率")
+//    @Excel(name = "利率")
     private String rate;
 
     /** 借款期限 */

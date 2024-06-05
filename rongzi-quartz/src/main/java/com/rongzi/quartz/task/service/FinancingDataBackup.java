@@ -11,6 +11,7 @@ public class FinancingDataBackup {
     private FundDataBackupMapper fundDataBackupMapper;
 
     public void processData() {
+        //融资和担保的每日历史记录
         deleteData();
         insertData();
     }

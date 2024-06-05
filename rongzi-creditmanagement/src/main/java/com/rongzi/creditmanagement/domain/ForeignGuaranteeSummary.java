@@ -14,8 +14,6 @@ public class ForeignGuaranteeSummary {
                 return totalGuaranteeAmount;
             }
 
-
-
     }
 
     public void setTotalGuaranteeAmount(BigDecimal totalGuaranteeAmount) {

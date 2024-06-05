@@ -1,6 +1,7 @@
 package com.rongzi.quartz.task;
 
 import com.rongzi.quartz.task.service.FinancingDataBackup;
+import com.rongzi.quartz.task.service.FinancingProjectTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.rongzi.common.utils.StringUtils;
@@ -15,6 +16,8 @@ public class RyTask {
 
     @Autowired
     private FinancingDataBackup financingDataBackup;
+    @Autowired
+    private FinancingProjectTask financingProjectTask;
 
 
     public void ryMultipleParams(String s, Boolean b, Long l, Double d, Integer i) {
@@ -31,6 +34,9 @@ public class RyTask {
 
 
     public void financingDataBackup() {
+        //先更新每日的融资余额等信息，再记录每天的融资担保等记录
+        financingProjectTask.updateFinancingProjectAmountData();
         financingDataBackup.processData();
+
     }
 }

@@ -76,11 +76,11 @@ public class rzreversefactoring extends BaseEntity
     private String uuid;
 
     /** 账号 */
-    @Excel(name = "账号")
+    @Excel(name = "回款账号")
     private String account;
 
     /** 开户行 */
-    @Excel(name = "开户行")
+    @Excel(name = "回款开户行")
     private String bank;
 
     /** 附件表信息 */

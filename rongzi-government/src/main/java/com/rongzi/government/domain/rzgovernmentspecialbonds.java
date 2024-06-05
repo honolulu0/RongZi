@@ -45,7 +45,7 @@ public class rzgovernmentspecialbonds extends BaseEntity {
     /**
      * 利率
      */
-    @Excel(name = "利率")
+//    @Excel(name = "利率")
     private String rate;
 
     /**
