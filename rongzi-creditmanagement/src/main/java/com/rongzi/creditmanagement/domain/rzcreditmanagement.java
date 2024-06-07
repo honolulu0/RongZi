@@ -22,7 +22,7 @@ public class rzcreditmanagement extends BaseEntity
     private Long id;
 
     /** 授信管理管理编号 */
-    @Excel(name = "授信管理管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /** 数据唯一编号 */

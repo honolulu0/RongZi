@@ -21,11 +21,11 @@ public class rzrepayment extends BaseEntity
     private Long id;
 
     /** 还款计划管理编号 */
-    @Excel(name = "还款计划管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 借款单位 */
@@ -41,11 +41,11 @@ public class rzrepayment extends BaseEntity
     private String fundingInstitution;
 
     /** 借款用途：流贷贷款、并购贷、反向保理、商业承兑、银行承兑 */
-    @Excel(name = "借款用途：流贷贷款、并购贷、反向保理、商业承兑、银行承兑")
+    @Excel(name = "借款用途")
     private String loanUse;
 
     /** 增信措施：固定融资、固定资产 */
-    @Excel(name = "增信措施：固定融资、固定资产")
+    @Excel(name = "增信措施")
     private String creditEnhancementMeasures;
 
     /** 借款金额 */
@@ -79,11 +79,11 @@ public class rzrepayment extends BaseEntity
     private String loanTerm;
 
     /** 本金偿还方式：先息后本 */
-    @Excel(name = "本金偿还方式：先息后本")
+    @Excel(name = "本金偿还方式")
     private String principalRepaymentMethod;
 
     /** 利息偿还方式：先息后本 */
-    @Excel(name = "利息偿还方式：先息后本")
+    @Excel(name = "利息偿还方式")
     private String interestRepaymentMethod;
 
     /** 还款账户 */

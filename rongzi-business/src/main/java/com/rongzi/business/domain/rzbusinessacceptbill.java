@@ -22,11 +22,11 @@ public class rzbusinessacceptbill extends BaseEntity
     private Long id;
 
     /** 商业承兑管理编号 */
-    @Excel(name = "商业承兑管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 审核id */

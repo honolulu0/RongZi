@@ -22,11 +22,10 @@ public class rzinternalborrowing extends BaseEntity
     private Long id;
 
     /** 内部借款管理编号 */
-    @Excel(name = "内部借款管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 借款金额 */
@@ -64,11 +63,11 @@ public class rzinternalborrowing extends BaseEntity
     private String contractId;
 
     /** 还款方式：先息后本 */
-    @Excel(name = "还款方式：先息后本")
+    @Excel(name = "还款方式")
     private String repaymentMethod;
 
     /** 借款用途：保交楼、城中村改造 */
-    @Excel(name = "借款用途：保交楼、城中村改造")
+    @Excel(name = "借款用途")
     private String loanUse;
 
     /** 备注 */

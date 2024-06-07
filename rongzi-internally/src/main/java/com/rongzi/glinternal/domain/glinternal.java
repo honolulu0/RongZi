@@ -27,7 +27,7 @@ public class glinternal extends BaseEntity {
     /**
      * 对内担保管理编号
      */
-    @Excel(name = "对内担保管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /**
@@ -39,7 +39,7 @@ public class glinternal extends BaseEntity {
     /**
      * 数据唯一编号
      */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /**

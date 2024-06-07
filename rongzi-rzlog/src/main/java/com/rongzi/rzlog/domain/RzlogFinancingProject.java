@@ -21,11 +21,11 @@ public class RzlogFinancingProject extends BaseEntity
     private Long id;
 
     /** 贷后项目管理编号 */
-    @Excel(name = "贷后项目管理编号")
+    @Excel(name = "管理编号")
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 借款单位 */

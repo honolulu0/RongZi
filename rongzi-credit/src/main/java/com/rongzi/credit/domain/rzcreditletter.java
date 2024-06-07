@@ -26,7 +26,7 @@ public class rzcreditletter extends BaseEntity
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 审核id */

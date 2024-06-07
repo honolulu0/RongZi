@@ -29,7 +29,7 @@ public class RzlogGuarantee extends BaseEntity
     private String contractId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 借款人 */

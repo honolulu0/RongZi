@@ -27,7 +27,7 @@ public class rzgovernmentspecialbonds extends BaseEntity {
     /**
      * 数据唯一编号
      */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /**

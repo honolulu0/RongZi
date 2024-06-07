@@ -26,7 +26,7 @@ public class rzafterloan extends BaseEntity
     private String managementId;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 金融机构 */

@@ -35,7 +35,7 @@ public class rzsrc2 extends BaseEntity
     private String url;
 
     /** 数据唯一编号 */
-    @Excel(name = "数据唯一编号")
+    //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
     /** 各个项目管理编号 */
