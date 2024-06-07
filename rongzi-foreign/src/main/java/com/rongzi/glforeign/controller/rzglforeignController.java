@@ -50,8 +50,14 @@ public class rzglforeignController extends BaseController
         Map<String, BigDecimal> data = rzglforeignService.selectrzglforeignSum(rzglforeign);
 
         // 添加合计数据
-        tableDataInfo.addTotal("totalGuaranteeAmount", data.get("totalGuaranteeAmount").longValue());
-        tableDataInfo.addTotal("totalGuaranteeBalance", data.get("totalGuaranteeBalance").longValue());
+        if (data != null) {
+            tableDataInfo.addTotal("totalGuaranteeAmount", data.get("totalGuaranteeAmount") != null ? data.get("totalGuaranteeAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalGuaranteeBalance", data.get("totalGuaranteeBalance") != null ? data.get("totalGuaranteeBalance").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalGuaranteeAmount", 0L);
+            tableDataInfo.addTotal("totalGuaranteeBalance", 0L);
+        }
+
 
         return tableDataInfo;
     }

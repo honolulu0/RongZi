@@ -48,11 +48,20 @@ public class rzfinancingprojectController extends BaseController {
         Map<String, BigDecimal> data = rzfinancingprojectService.selectrzfinancingprojectSum(rzfinancingproject);
 
         // 添加合计数据
-        tableDataInfo.addTotal("totalFinancingAmount", data.get("totalFinancingAmount").longValue());
-        tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount").longValue());
-        tableDataInfo.addTotal("totalRemainingAmount", data.get("totalRemainingAmount").longValue());
-        tableDataInfo.addTotal("totalBaozhengjin", data.get("totalBaozhengjin").longValue());
-        tableDataInfo.addTotal("totalShouxufei", data.get("totalShouxufei").longValue());
+        if (data != null) {
+            tableDataInfo.addTotal("totalFinancingAmount", data.get("totalFinancingAmount") != null ? data.get("totalFinancingAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount") != null ? data.get("totalRepaidAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalRemainingAmount", data.get("totalRemainingAmount") != null ? data.get("totalRemainingAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalBaozhengjin", data.get("totalBaozhengjin") != null ? data.get("totalBaozhengjin").longValue() : 0L);
+            tableDataInfo.addTotal("totalShouxufei", data.get("totalShouxufei") != null ? data.get("totalShouxufei").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalFinancingAmount", 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", 0L);
+            tableDataInfo.addTotal("totalRemainingAmount", 0L);
+            tableDataInfo.addTotal("totalBaozhengjin", 0L);
+            tableDataInfo.addTotal("totalShouxufei", 0L);
+        }
+
 
         return tableDataInfo;
     }

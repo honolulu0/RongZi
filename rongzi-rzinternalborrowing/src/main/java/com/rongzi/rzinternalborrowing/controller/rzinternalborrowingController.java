@@ -50,7 +50,7 @@ public class rzinternalborrowingController extends BaseController
         Map<String, BigDecimal> data = rzinternalborrowingService.selectrzinternalborrowingSum(rzinternalborrowing);
 
         // 添加合计数据
-        tableDataInfo.addTotal("totalLoanAmount", data.get("totalLoanAmount").longValue());
+        tableDataInfo.addTotal("totalLoanAmount", data != null && data.get("totalLoanAmount") != null ? data.get("totalLoanAmount").longValue() : 0L);
 
         return tableDataInfo;
     }

@@ -50,9 +50,17 @@ public class rzspecialloansController extends BaseController
         Map<String, BigDecimal> data = rzspecialloansService.selectrzspecialloansSum(rzspecialloans);
 
         // 添加合计数据
-        tableDataInfo.addTotal("totalLoanAmount", data.get("totalLoanAmount").longValue());
-        tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount").longValue());
-        tableDataInfo.addTotal("totalBalance", data.get("totalBalance").longValue());
+
+        if (data != null) {
+            tableDataInfo.addTotal("totalLoanAmount", data.get("totalLoanAmount") != null ? data.get("totalLoanAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", data.get("totalRepaidAmount") != null ? data.get("totalRepaidAmount").longValue() : 0L);
+            tableDataInfo.addTotal("totalBalance", data.get("totalBalance") != null ? data.get("totalBalance").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalLoanAmount", 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", 0L);
+            tableDataInfo.addTotal("totalBalance", 0L);
+        }
+
 
         return tableDataInfo;
     }

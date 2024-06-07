@@ -28,11 +28,6 @@
             <groupId>com.rongzi</groupId>
             <artifactId>rongzi-appendix</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.rongzi</groupId>
-            <artifactId>rongzi-appendix</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>

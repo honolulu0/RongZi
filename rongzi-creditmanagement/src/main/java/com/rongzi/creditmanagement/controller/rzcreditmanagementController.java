@@ -50,9 +50,16 @@ public class rzcreditmanagementController extends BaseController {
         Map<String, BigDecimal> data = rzcreditmanagementService.selectrzcreditmanagementSum(rzcreditmanagement);
 
         // 添加合计数据
-        tableDataInfo.addTotal("totalCreditAmount", data.get("total_credit_amount").longValue());
-        tableDataInfo.addTotal("totalUsedCreditAmount", data.get("total_used_credit_amount").longValue());
-        tableDataInfo.addTotal("totalRemainingCreditAmount", data.get("total_remaining_credit_amount").longValue());
+        if (data != null) {
+            tableDataInfo.addTotal("totalCreditAmount", data.get("total_credit_amount") != null ? data.get("total_credit_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalUsedCreditAmount", data.get("total_used_credit_amount") != null ? data.get("total_used_credit_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalRemainingCreditAmount", data.get("total_remaining_credit_amount") != null ? data.get("total_remaining_credit_amount").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalCreditAmount", 0L);
+            tableDataInfo.addTotal("totalUsedCreditAmount", 0L);
+            tableDataInfo.addTotal("totalRemainingCreditAmount", 0L);
+        }
+
 
         return tableDataInfo;
     }
