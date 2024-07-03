@@ -20,8 +20,8 @@
         )) AS t
         WHERE
         DATE_FORMAT(t.date, '%Y-%m-%d') &lt;= CURDATE()
+        AND DATE_FORMAT(due_date, '%Y-%m-%d') &gt;= CURDATE()
         AND has_repayment_plan = '有'
-        AND financing_amount &lt;&gt; repaid_amount
         GROUP BY
         id;
     </update>
