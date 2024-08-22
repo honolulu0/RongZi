@@ -1,6 +1,9 @@
 package com.rongzi.business.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.business.domain.rzbusinessacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,8 @@ public interface IrzbusinessacceptbillService
      * @return 商业承兑汇票集合
      */
     public List<rzbusinessacceptbill> selectrzbusinessacceptbillList(rzbusinessacceptbill rzbusinessacceptbill);
+
+    public Map<String, BigDecimal> selectRzBusinessAcceptBillSum(rzbusinessacceptbill rzbusinessacceptbill);
 
     /**
      * 新增商业承兑汇票

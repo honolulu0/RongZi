@@ -1,6 +1,8 @@
 package com.rongzi.glinternal.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,22 @@ public class glinternalController extends BaseController
     {
         startPage();
         List<glinternal> list = glinternalService.selectglinternalList(glinternal);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = glinternalService.selectGlInternalSum(glinternal);
+
+        // 添加合计数据
+        if (data != null) {
+            tableDataInfo.addTotal("totalGuaranteeAmount", data.get("total_guarantee_amount") != null ? data.get("total_guarantee_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalGuaranteeBalance", data.get("total_guarantee_balance") != null ? data.get("total_guarantee_balance").longValue() : 0L);
+//            tableDataInfo.addTotal("totalFinancingAmount", data.get("total_financing_amount") != null ? data.get("total_financing_amount").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalGuaranteeAmount", 0L);
+            tableDataInfo.addTotal("totalGuaranteeBalance", 0L);
+//            tableDataInfo.addTotal("totalFinancingAmount", 0L);
+        }
+
+        return tableDataInfo;
     }
 
     /**

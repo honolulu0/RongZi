@@ -1,10 +1,13 @@
 package com.rongzi.business.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.business.mapper.rzbusinessacceptbillMapper;
@@ -45,6 +48,11 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
     public List<rzbusinessacceptbill> selectrzbusinessacceptbillList(rzbusinessacceptbill rzbusinessacceptbill)
     {
         return rzbusinessacceptbillMapper.selectrzbusinessacceptbillList(rzbusinessacceptbill);
+    }
+    @Override
+    public Map<String, BigDecimal> selectRzBusinessAcceptBillSum(rzbusinessacceptbill rzbusinessacceptbill)
+    {
+        return rzbusinessacceptbillMapper.selectRzBusinessAcceptBillSum(rzbusinessacceptbill);
     }
 
     /**

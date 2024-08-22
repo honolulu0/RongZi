@@ -71,6 +71,33 @@
         </where>
     </select>
 
+
+    <select id="selectrzreversefactoringSum" parameterType="rzreversefactoring" resultType="map">
+        SELECT
+        SUM(loan_amount) AS total_loan_amount
+        FROM
+        rz_reverse_factoring
+        <where>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
+            <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
+            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
+            <if test="factor != null  and factor != ''"> and factor = #{factor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
+            <if test="entryName != null  and entryName != ''"> and entry_name like concat('%', #{entryName}, '%')</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+            <if test="collectionAccount != null  and collectionAccount != ''"> and collection_account like concat('%', #{collectionAccount}, '%')</if>
+            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="account != null  and account != ''"> and account like concat('%', #{account}, '%')</if>
+            <if test="bank != null  and bank != ''"> and bank like concat('%', #{bank}, '%')</if>
+        </where>
+    </select>
+
+
     <select id="selectrzreversefactoringById" parameterType="Long" resultMap="rzreversefactoringrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution, a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.account, a.bank,
         b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by

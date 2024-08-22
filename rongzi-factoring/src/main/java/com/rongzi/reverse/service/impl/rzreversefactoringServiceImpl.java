@@ -1,16 +1,22 @@
 package com.rongzi.reverse.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.reverse.mapper.rzreversefactoringMapper;
 import com.rongzi.reverse.domain.rzreversefactoring;
 import com.rongzi.reverse.service.IrzreversefactoringService;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 反向保理Service业务层处理
  *
@@ -18,8 +24,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * @date 2024-05-30
  */
 @Service
-public class rzreversefactoringServiceImpl implements IrzreversefactoringService
-{
+public class rzreversefactoringServiceImpl implements IrzreversefactoringService {
     @Autowired
     private rzreversefactoringMapper rzreversefactoringMapper;
 
@@ -30,8 +35,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      * @return 反向保理
      */
     @Override
-    public rzreversefactoring selectrzreversefactoringById(Long id)
-    {
+    public rzreversefactoring selectrzreversefactoringById(Long id) {
         return rzreversefactoringMapper.selectrzreversefactoringById(id);
     }
 
@@ -42,9 +46,13 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      * @return 反向保理
      */
     @Override
-    public List<rzreversefactoring> selectrzreversefactoringList(rzreversefactoring rzreversefactoring)
-    {
+    public List<rzreversefactoring> selectrzreversefactoringList(rzreversefactoring rzreversefactoring) {
         return rzreversefactoringMapper.selectrzreversefactoringList(rzreversefactoring);
+    }
+
+    @Override
+    public Map<String, BigDecimal> selectrzreversefactoringSum(rzreversefactoring rzreversefactoring) {
+        return rzreversefactoringMapper.selectrzreversefactoringSum(rzreversefactoring);
     }
 
     /**
@@ -55,8 +63,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      */
     @Transactional
     @Override
-    public int insertrzreversefactoring(rzreversefactoring rzreversefactoring)
-    {
+    public int insertrzreversefactoring(rzreversefactoring rzreversefactoring) {
         rzreversefactoring.setCreateTime(DateUtils.getNowDate());
         int rows = rzreversefactoringMapper.insertrzreversefactoring(rzreversefactoring);
         insertrzsrc2(rzreversefactoring);
@@ -71,8 +78,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      */
     @Transactional
     @Override
-    public int updaterzreversefactoring(rzreversefactoring rzreversefactoring)
-    {
+    public int updaterzreversefactoring(rzreversefactoring rzreversefactoring) {
         rzreversefactoring.setUpdateTime(DateUtils.getNowDate());
         rzreversefactoringMapper.deleterzsrc2ByScrUuid(rzreversefactoring.getScrUuid());
         insertrzsrc2(rzreversefactoring);
@@ -87,8 +93,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      */
     @Transactional
     @Override
-    public int deleterzreversefactoringByIds(Long[] ids)
-    {
+    public int deleterzreversefactoringByIds(Long[] ids) {
         return rzreversefactoringMapper.deleterzreversefactoringByIds(ids);
     }
 
@@ -100,8 +105,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      */
     @Transactional
     @Override
-    public int deleterzreversefactoringById(Long id)
-    {
+    public int deleterzreversefactoringById(Long id) {
         return rzreversefactoringMapper.deleterzreversefactoringById(id);
     }
 
@@ -110,21 +114,17 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
      *
      * @param rzreversefactoring 反向保理对象
      */
-    public void insertrzsrc2(rzreversefactoring rzreversefactoring)
-    {
+    public void insertrzsrc2(rzreversefactoring rzreversefactoring) {
         List<rzsrc2> rzsrc2List = rzreversefactoring.getrzsrc2List();
 //        Long id = rzreversefactoring.getId();
         String uuidS = rzreversefactoring.getScrUuid();
-        if (StringUtils.isNotNull(rzsrc2List))
-        {
+        if (StringUtils.isNotNull(rzsrc2List)) {
             List<rzsrc2> list = new ArrayList<rzsrc2>();
-            for (rzsrc2 rzsrc2 : rzsrc2List)
-            {
+            for (rzsrc2 rzsrc2 : rzsrc2List) {
                 rzsrc2.setScrUuid(uuidS);
                 list.add(rzsrc2);
             }
-            if (list.size() > 0)
-            {
+            if (list.size() > 0) {
                 rzreversefactoringMapper.batchrzsrc2(list);
             }
         }

@@ -1,6 +1,8 @@
 package com.rongzi.government.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,28 @@ public class rzgovernmentspecialbondsController extends BaseController
     {
         startPage();
         List<rzgovernmentspecialbonds> list = rzgovernmentspecialbondsService.selectrzgovernmentspecialbondsList(rzgovernmentspecialbonds);
-        return getDataTable(list);
+
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzgovernmentspecialbondsService.selectrzgovernmentspecialbondsSum(rzgovernmentspecialbonds);
+
+        // 添加合计数据
+        if (data != null) {
+            tableDataInfo.addTotal("totalApprovedAmount", data.get("total_approved_amount") != null ? data.get("total_approved_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalAccumulatedAmountReceived", data.get("total_accumulated_amount_received") != null ? data.get("total_accumulated_amount_received").longValue() : 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", data.get("total_repaid_amount") != null ? data.get("total_repaid_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalRemainingAmount", data.get("total_remaining_amount") != null ? data.get("total_remaining_amount").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalApprovedAmount", 0L);
+            tableDataInfo.addTotal("totalAccumulatedAmountReceived", 0L);
+            tableDataInfo.addTotal("totalRepaidAmount", 0L);
+            tableDataInfo.addTotal("totalRemainingAmount", 0L);
+        }
+
+        return tableDataInfo;
+
     }
+
 
     /**
      * 导出政府专项债列表

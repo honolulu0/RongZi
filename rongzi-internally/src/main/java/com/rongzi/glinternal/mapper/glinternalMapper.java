@@ -1,6 +1,9 @@
 package com.rongzi.glinternal.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.glinternal.domain.glinternal;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,9 @@ public interface glinternalMapper
      * @return 对内担保台账集合
      */
     public List<glinternal> selectglinternalList(glinternal glinternal);
+
+    public Map<String, BigDecimal> selectGlInternalSum(glinternal glinternal);
+
 
     /**
      * 新增对内担保台账

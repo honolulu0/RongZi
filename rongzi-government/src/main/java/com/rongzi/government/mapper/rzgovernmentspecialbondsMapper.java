@@ -1,6 +1,9 @@
 package com.rongzi.government.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.government.domain.rzgovernmentspecialbonds;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,9 @@ public interface rzgovernmentspecialbondsMapper
      * @return 政府专项债集合
      */
     public List<rzgovernmentspecialbonds> selectrzgovernmentspecialbondsList(rzgovernmentspecialbonds rzgovernmentspecialbonds);
+
+
+    public Map<String, BigDecimal> selectrzgovernmentspecialbondsSum(rzgovernmentspecialbonds rzgovernmentspecialbonds);
 
     /**
      * 新增政府专项债

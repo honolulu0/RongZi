@@ -1,6 +1,9 @@
 package com.rongzi.reverse.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.reverse.domain.rzreversefactoring;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,8 @@ public interface rzreversefactoringMapper
      * @return 反向保理集合
      */
     public List<rzreversefactoring> selectrzreversefactoringList(rzreversefactoring rzreversefactoring);
+
+    public Map<String, BigDecimal> selectrzreversefactoringSum(rzreversefactoring rzreversefactoring);
 
     /**
      * 新增反向保理

@@ -67,7 +67,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
         </where>
     </select>
-    
+
+
+    <select id="selectrzgovernmentspecialbondsSum" parameterType="rzgovernmentspecialbonds"  resultType="map">
+        SELECT
+        SUM(approved_amount) AS total_approved_amount,
+        SUM(accumulated_amount_received) AS total_accumulated_amount_received,
+        SUM(repaid_amount) AS total_repaid_amount,
+        SUM(remaining_amount) AS total_remaining_amount
+        FROM rz_government_special_bonds
+        <where>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="bondName != null  and bondName != ''"> and bond_name like concat('%', #{bondName}, '%')</if>
+            <if test="bondSize != null  and bondSize != ''"> and bond_size = #{bondSize}</if>
+            <if test="rate != null  and rate != ''"> and rate = #{rate}</if>
+            <if test="bondDuration != null  and bondDuration != ''"> and bond_duration = #{bondDuration}</if>
+            <if test="repaymentMethod != null  and repaymentMethod != ''"> and repayment_method = #{repaymentMethod}</if>
+            <if test="approvedAmount != null "> and approved_amount = #{approvedAmount}</if>
+            <if test="accumulatedAmountReceived != null "> and accumulated_amount_received like concat('%', #{accumulatedAmountReceived}, '%')</if>
+            <if test="repaidAmount != null "> and repaid_amount = #{repaidAmount}</if>
+            <if test="remainingAmount != null "> and remaining_amount = #{remainingAmount}</if>
+            <if test="issuingEntity != null  and issuingEntity != ''"> and Issuing_entity = #{issuingEntity}</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
+        </where>
+    </select>
+
     <select id="selectrzgovernmentspecialbondsById" parameterType="Long" resultMap="rzgovernmentspecialbondsrzsrc2Result">
         select a.id, a.scr_uuid, a.bond_name, a.bond_size, a.rate, a.bond_duration, a.repayment_method, a.approved_amount, a.accumulated_amount_received, a.repaid_amount, a.remaining_amount, a.Issuing_entity, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.management_id,
         a.loan_date, a.due_date,b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by

@@ -181,6 +181,8 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
         Map<String, BigDecimal> financeBalance = new HashMap<>();
         //正常情况下    融资项目 = 金融负债+政府专项债+专项借款
         //由于融资项目里没有包含 政府专项债 专项借款 所以 融资项目就是 金融负债
+
+
         if (financingSummary != null) {
 
             financeBalance.put("金融负债", financingSummary.getTotalRemainingAmount());

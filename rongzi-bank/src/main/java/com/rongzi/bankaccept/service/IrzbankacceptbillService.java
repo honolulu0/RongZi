@@ -1,6 +1,9 @@
 package com.rongzi.bankaccept.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.bankaccept.domain.rzbankacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
@@ -26,6 +29,8 @@ public interface IrzbankacceptbillService
      * @return 银行承兑汇票集合
      */
     public List<rzbankacceptbill> selectrzbankacceptbillList(rzbankacceptbill rzbankacceptbill);
+
+    public Map<String, BigDecimal> selectrzbankacceptbillSum(rzbankacceptbill rzbankacceptbill);
 
     /**
      * 新增银行承兑汇票

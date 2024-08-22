@@ -1,10 +1,13 @@
 package com.rongzi.government.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.government.domain.rzgovernmentspecialbonds;
 
 /**
- * 政府专项债Service接口
+ * 政府政府专项债Service接口
  * 
  * @author rongzi
  * @date 2024-03-23
@@ -26,6 +29,9 @@ public interface IrzgovernmentspecialbondsService
      * @return 政府专项债集合
      */
     public List<rzgovernmentspecialbonds> selectrzgovernmentspecialbondsList(rzgovernmentspecialbonds rzgovernmentspecialbonds);
+
+
+    public Map<String, BigDecimal> selectrzgovernmentspecialbondsSum(rzgovernmentspecialbonds rzgovernmentspecialbonds);
 
     /**
      * 新增政府专项债

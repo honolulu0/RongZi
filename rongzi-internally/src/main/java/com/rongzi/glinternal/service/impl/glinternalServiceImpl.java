@@ -1,16 +1,22 @@
 package com.rongzi.glinternal.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.glinternal.mapper.glinternalMapper;
 import com.rongzi.glinternal.domain.glinternal;
 import com.rongzi.glinternal.service.IglinternalService;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 对内担保台账Service业务层处理
  *
@@ -18,8 +24,7 @@ import com.rongzi.appendix.domain.rzsrc2;
  * @date 2024-05-31
  */
 @Service
-public class glinternalServiceImpl implements IglinternalService
-{
+public class glinternalServiceImpl implements IglinternalService {
     @Autowired
     private glinternalMapper glinternalMapper;
 
@@ -30,8 +35,7 @@ public class glinternalServiceImpl implements IglinternalService
      * @return 对内担保台账
      */
     @Override
-    public glinternal selectglinternalById(Long id)
-    {
+    public glinternal selectglinternalById(Long id) {
         return glinternalMapper.selectglinternalById(id);
     }
 
@@ -42,9 +46,13 @@ public class glinternalServiceImpl implements IglinternalService
      * @return 对内担保台账
      */
     @Override
-    public List<glinternal> selectglinternalList(glinternal glinternal)
-    {
+    public List<glinternal> selectglinternalList(glinternal glinternal) {
         return glinternalMapper.selectglinternalList(glinternal);
+    }
+
+    @Override
+    public Map<String, BigDecimal> selectGlInternalSum(glinternal glinternal) {
+        return glinternalMapper.selectGlInternalSum(glinternal);
     }
 
     /**
@@ -55,8 +63,7 @@ public class glinternalServiceImpl implements IglinternalService
      */
     @Transactional
     @Override
-    public int insertglinternal(glinternal glinternal)
-    {
+    public int insertglinternal(glinternal glinternal) {
         glinternal.setCreateTime(DateUtils.getNowDate());
         int rows = glinternalMapper.insertglinternal(glinternal);
         insertrzsrc2(glinternal);
@@ -71,8 +78,7 @@ public class glinternalServiceImpl implements IglinternalService
      */
     @Transactional
     @Override
-    public int updateglinternal(glinternal glinternal)
-    {
+    public int updateglinternal(glinternal glinternal) {
         glinternal.setUpdateTime(DateUtils.getNowDate());
         glinternalMapper.deleterzsrc2ByScrUuid(glinternal.getScrUuid());
         insertrzsrc2(glinternal);
@@ -87,8 +93,7 @@ public class glinternalServiceImpl implements IglinternalService
      */
     @Transactional
     @Override
-    public int deleteglinternalByIds(Long[] ids)
-    {
+    public int deleteglinternalByIds(Long[] ids) {
 //        glinternalMapper.deleterzsrc2ByScrUuids(ids);
         return glinternalMapper.deleteglinternalByIds(ids);
     }
@@ -101,8 +106,7 @@ public class glinternalServiceImpl implements IglinternalService
      */
     @Transactional
     @Override
-    public int deleteglinternalById(Long id)
-    {
+    public int deleteglinternalById(Long id) {
 //        glinternalMapper.deleterzsrc2ByScrUuid(id);
         return glinternalMapper.deleteglinternalById(id);
     }
@@ -112,21 +116,17 @@ public class glinternalServiceImpl implements IglinternalService
      *
      * @param glinternal 对内担保台账对象
      */
-    public void insertrzsrc2(glinternal glinternal)
-    {
+    public void insertrzsrc2(glinternal glinternal) {
         List<rzsrc2> rzsrc2List = glinternal.getrzsrc2List();
 //        Long id = glinternal.getId();
         String uuidS = glinternal.getScrUuid();
-        if (StringUtils.isNotNull(rzsrc2List))
-        {
+        if (StringUtils.isNotNull(rzsrc2List)) {
             List<rzsrc2> list = new ArrayList<rzsrc2>();
-            for (rzsrc2 rzsrc2 : rzsrc2List)
-            {
+            for (rzsrc2 rzsrc2 : rzsrc2List) {
                 rzsrc2.setScrUuid(uuidS);
                 list.add(rzsrc2);
             }
-            if (list.size() > 0)
-            {
+            if (list.size() > 0) {
                 glinternalMapper.batchrzsrc2(list);
             }
         }

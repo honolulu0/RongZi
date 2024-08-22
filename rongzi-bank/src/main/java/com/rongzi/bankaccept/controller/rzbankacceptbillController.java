@@ -1,6 +1,8 @@
 package com.rongzi.bankaccept.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,22 @@ public class rzbankacceptbillController extends BaseController
     {
         startPage();
         List<rzbankacceptbill> list = rzbankacceptbillService.selectrzbankacceptbillList(rzbankacceptbill);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzbankacceptbillService.selectrzbankacceptbillSum(rzbankacceptbill);
+
+        // 添加合计数据
+        if (data != null) {
+            tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
+//            tableDataInfo.addTotal("totalTicketProcessingFee", data.get("total_ticket_processing_fee") != null ? data.get("total_ticket_processing_fee").longValue() : 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalInvoiceAmount", 0L);
+//            tableDataInfo.addTotal("totalTicketProcessingFee", 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
+        }
+
+        return tableDataInfo;
     }
 
     /**

@@ -83,6 +83,38 @@
         </where>
     </select>
 
+    <select id="selectrzbankacceptbillSum" parameterType="rzbankacceptbill" resultType="map">
+        SELECT
+        SUM(invoice_amount) AS total_invoice_amount
+        FROM rz_bank_accept_bill
+        <where>
+            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
+            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
+            <if test="drawer != null  and drawer != ''"> and drawer = #{drawer}</if>
+            <if test="payee != null  and payee != ''"> and payee = #{payee}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
+            <if test="invoiceAmount != null "> and invoice_amount like concat('%', #{invoiceAmount}, '%')</if>
+            <if test="params.beginDraftDate != null and params.beginDraftDate != '' and params.endDraftDate != null and params.endDraftDate != ''"> and draft_date between #{params.beginDraftDate} and #{params.endDraftDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+            <if test="acceptAgreementId != null  and acceptAgreementId != ''"> and accept_agreement_id like concat('%', #{acceptAgreementId}, '%')</if>
+            <if test="entryName != null  and entryName != ''"> and entry_name like concat('%', #{entryName}, '%')</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
+            <if test="ticketProcessingFee != null  and ticketProcessingFee != ''"> and ticketProcessingFee like concat('%', #{ticketProcessingFee}, '%')</if>
+            <if test="marginLevel != null  and marginLevel != ''"> and marginLevel like concat('%', #{marginLevel}, '%')</if>
+            <if test="marginInterestRate != null  and marginInterestRate != ''"> and marginInterestRate like concat('%', #{marginInterestRate}, '%')</if>
+            <if test="marginIncomeAmount != null  and marginIncomeAmount != ''"> and marginIncomeAmount like concat('%', #{marginIncomeAmount}, '%')</if>
+            <if test="discountedOrNot != null  and discountedOrNot != ''"> and discountedOrNot = #{discountedOrNot}</if>
+            <if test="discountedFinancialInstitutions != null  and discountedFinancialInstitutions != ''"> and discountedFinancialInstitutions = #{discountedFinancialInstitutions}</if>
+            <if test="discountedHandlingFee != null  and discountedHandlingFee != ''"> and discountedHandlingFee like concat('%', #{discountedHandlingFee}, '%')</if>
+            <if test="assumptionOfDiscountFees != null  and assumptionOfDiscountFees != ''"> and assumptionOfDiscountFees like concat('%', #{assumptionOfDiscountFees}, '%')</if>
+        </where>
+    </select>
+
+
+
     <select id="selectrzbankacceptbillById" parameterType="Long" resultMap="rzbankacceptbillrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.audit_id, a.drawer, a.payee, a.financial_institution, a.invoice_amount, a.draft_date, a.due_date, a.remark, a.accept_agreement_id, a.entry_name, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.ticketProcessingFee, a.marginLevel, a.marginInterestRate, a.marginIncomeAmount, a.discountedOrNot, a.discountedFinancialInstitutions, a.discountedHandlingFee, a.assumptionOfDiscountFees,
         b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by

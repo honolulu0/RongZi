@@ -1,16 +1,19 @@
 package com.rongzi.business.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.business.domain.rzbusinessacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 商业承兑汇票Mapper接口
  *
  * @author rongzi
  * @date 2024-05-30
  */
-public interface rzbusinessacceptbillMapper
-{
+public interface rzbusinessacceptbillMapper {
     /**
      * 查询商业承兑汇票
      *
@@ -26,6 +29,9 @@ public interface rzbusinessacceptbillMapper
      * @return 商业承兑汇票集合
      */
     public List<rzbusinessacceptbill> selectrzbusinessacceptbillList(rzbusinessacceptbill rzbusinessacceptbill);
+
+    public Map<String, BigDecimal> selectRzBusinessAcceptBillSum(rzbusinessacceptbill rzbusinessacceptbill);
+
 
     /**
      * 新增商业承兑汇票

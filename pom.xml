@@ -10,7 +10,7 @@
 
     <name>rongzi</name>
     <url>http://www.rongzi.vip</url>
-    <description>森烨管理系统</description>
+    <description>管理系统</description>
 
     <properties>
         <rongzi.version>3.8.6</rongzi.version>

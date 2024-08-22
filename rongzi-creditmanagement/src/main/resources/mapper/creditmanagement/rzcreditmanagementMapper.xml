@@ -253,20 +253,13 @@
 
 
     <!--    授信管理汇总-->
+    <!--    and DATE_FORMAT(rcm.deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND
+            rcm.start_date &lt;= NOW() 不再做时间检查，只检查状态-->
+
     <select id="selectCreditManagementSummary" parameterType="String" resultMap="creditManagementSummaryResultMap">
 
-        SELECT
-        sd.dict_label AS credit_type,
-        SUM(rcm.credit_amount) AS total_amount,
-        SUM(rcm.remaining_credit_amount) AS total_remaining_amount
-        FROM
-        rz_credit_management rcm
-        INNER JOIN
-        sys_dict_data sd ON rcm.credit_type = sd.dict_label
-        WHERE
-        rcm.credit_state =#{creditState} and DATE_FORMAT(rcm.deadline, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND
-        rcm.start_date &lt;= NOW()
-        GROUP BY sd.dict_value
+        SELECT rcm.credit_type AS credit_type, SUM(rcm.credit_amount) AS total_amount, SUM(rcm.remaining_credit_amount) AS total_remaining_amount
+        FROM rz_credit_management rcm  WHERE rcm.credit_state =#{creditState} GROUP BY rcm.credit_type
 
     </select>
 
