@@ -181,6 +181,30 @@
     </delete>
 
 
+
+<!-- 根据 manager_id所有项目唯一  批量插入还款明细数据-->
+
+    <insert id="batchhuankuanmingxi">
+        insert into rzhkjh_mingxi(manager_id, qishu, riqi,borrowing_unit,financial_institution,huankuanjine,
+        changhuanben, zhifulixi, benjinshengyu,lilv,
+        comment, create_time, create_by, update_time, update_by,daikuanyongtu,shouxufei) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.managerId}, #{item.qishu}, #{item.riqi}, #{item.borrowingUnit}, #{item.financialInstitution},
+            #{item.huankuanjine}, #{item.changhuanben},
+            #{item.zhifulixi}, #{item.benjinshengyu}, #{item.lilv}, #{item.comment}, #{item.createTime},
+            #{item.createBy},
+            #{item.updateTime}, #{item.updateBy}, #{item.daikuanyongtu}, #{item.shouxufei})
+        </foreach>
+    </insert>
+
+
+    <delete id="deleterHuankuanmingxiByManagementId" parameterType="String">
+        delete from rzhkjh_mingxi where manager_id = #{managementId}
+    </delete>
+
+
+
+
     <!--    下面是汇总信息，勿替换-->
 
 
@@ -249,4 +273,6 @@
         FROM rzhkjh_mingxi
         WHERE DATE_FORMAT(riqi, '%Y-%m') = #{specifiedYearMonth}
     </select>
+
+
 </mapper>

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.rongzi.common.utils.DateUtils;
+import com.rongzi.huankuanjihua.HuankuanmingxiBatchOperationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ import com.rongzi.appendix.domain.rzsrc2;
 public class rzreversefactoringServiceImpl implements IrzreversefactoringService {
     @Autowired
     private rzreversefactoringMapper rzreversefactoringMapper;
+
+
+    @Autowired
+    private HuankuanmingxiBatchOperationUtils huankuanmingxiBatchOperationUtils;
 
     /**
      * 查询反向保理
@@ -67,6 +72,7 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
         rzreversefactoring.setCreateTime(DateUtils.getNowDate());
         int rows = rzreversefactoringMapper.insertrzreversefactoring(rzreversefactoring);
         insertrzsrc2(rzreversefactoring);
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzreversefactoring.getHuankuanmingxi2List(), rzreversefactoring.getManagementId());
         return rows;
     }
 
@@ -82,6 +88,9 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
         rzreversefactoring.setUpdateTime(DateUtils.getNowDate());
         rzreversefactoringMapper.deleterzsrc2ByScrUuid(rzreversefactoring.getScrUuid());
         insertrzsrc2(rzreversefactoring);
+
+        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzreversefactoring.getManagementId());
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzreversefactoring.getHuankuanmingxi2List(), rzreversefactoring.getManagementId());
         return rzreversefactoringMapper.updaterzreversefactoring(rzreversefactoring);
     }
 

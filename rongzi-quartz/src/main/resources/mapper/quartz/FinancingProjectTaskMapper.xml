@@ -42,7 +42,7 @@
 
     <!-- Step 3: 删除临时表 -->
     <update id="dropTempRepaidAmount">
-        DROP TEMPORARY TABLE temp_repaid_amount;
+        DROP TEMPORARY TABLE IF EXISTS temp_repaid_amount;
     </update>
 
 </mapper>

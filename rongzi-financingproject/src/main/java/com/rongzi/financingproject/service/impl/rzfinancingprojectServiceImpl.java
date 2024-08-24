@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.rongzi.common.utils.DateUtils;
-import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
+import com.rongzi.huankuanjihua.HuankuanmingxiBatchOperationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +28,9 @@ import com.rongzi.appendix.domain.rzsrc2;
 public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService {
     @Autowired
     private rzfinancingprojectMapper rzfinancingprojectMapper;
+
+    @Autowired
+    private HuankuanmingxiBatchOperationUtils huankuanmingxiBatchOperationUtils;
 
     /**
      * 查询融资项目
@@ -69,7 +72,7 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
      * @return 融资项目
      */
     @Override
-    public Map<String, BigDecimal> selectrzfinancingprojectSum(rzfinancingproject rzfinancingproject){
+    public Map<String, BigDecimal> selectrzfinancingprojectSum(rzfinancingproject rzfinancingproject) {
         return rzfinancingprojectMapper.selectrzfinancingprojectSum(rzfinancingproject);
     }
 
@@ -85,7 +88,7 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
         rzfinancingproject.setCreateTime(DateUtils.getNowDate());
         int rows = rzfinancingprojectMapper.insertrzfinancingproject(rzfinancingproject);
         insertrzsrc2(rzfinancingproject);
-        inserthuankuanmingxi2(rzfinancingproject);
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzfinancingproject.getHuankuanmingxi2List(), rzfinancingproject.getManagementId());
         return rows;
     }
 
@@ -101,8 +104,8 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
         rzfinancingproject.setUpdateTime(DateUtils.getNowDate());
         rzfinancingprojectMapper.deleterzsrc2ByScrUuid(rzfinancingproject.getScrUuid());
         insertrzsrc2(rzfinancingproject);
-        rzfinancingprojectMapper.deleterHuankuanmingxiByManagementId(rzfinancingproject.getManagementId());
-        inserthuankuanmingxi2(rzfinancingproject);
+        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzfinancingproject.getManagementId());
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzfinancingproject.getHuankuanmingxi2List(), rzfinancingproject.getManagementId());
         return rzfinancingprojectMapper.updaterzfinancingproject(rzfinancingproject);
     }
 
@@ -151,24 +154,5 @@ public class rzfinancingprojectServiceImpl implements IrzfinancingprojectService
         }
     }
 
-    /**
-     * 新增附件表信息
-     *
-     * @param rzfinancingproject 融资项目对象
-     */
-    public void inserthuankuanmingxi2(rzfinancingproject rzfinancingproject) {
-        List<RzhkjhMingxi> huankuanmingxi2List = rzfinancingproject.getHuankuanmingxi2List();
-        String managementId = rzfinancingproject.getManagementId();
-        if (StringUtils.isNotNull(huankuanmingxi2List)) {
-            List<RzhkjhMingxi> list = new ArrayList<RzhkjhMingxi>();
-            for (RzhkjhMingxi huankuanmingxi : huankuanmingxi2List) {
-                huankuanmingxi.setManagerId(managementId);
-                list.add(huankuanmingxi);
-            }
-            if (list.size() > 0) {
-                rzfinancingprojectMapper.batchhuankuanmingxi(list);
-            }
-        }
-    }
 
 }

@@ -71,6 +71,22 @@ public interface RzhkjhMingxiMapper
      */
     public int deleteRzhkjhMingxiByIds(Long[] ids);
 
+    /**
+     * 批量新还款计划明细表
+     *
+     * @param huankuanmingxi2List 附件表列表
+     * @return 结果
+     */
+    public int batchhuankuanmingxi(List<RzhkjhMingxi> huankuanmingxi2List);
+
+    /**
+     * 通过融资项目主键删除附件表信息
+     *
+     * @param managementId 融资项目managementId
+     * @return 结果
+     */
+    public int deleterHuankuanmingxiByManagementId(String managementId);
+
 
     public List<PaymentSummary> selectPaymentSummary(String startDate,String endDate);
 

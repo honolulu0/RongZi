@@ -3,6 +3,7 @@ package com.rongzi.rzinternalborrowing.domain;
 import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.rongzi.common.annotation.Excel;
@@ -82,10 +83,13 @@ public class rzinternalborrowing extends BaseEntity
     @Excel(name = "转借人")
     private String sublessee;
 
+
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
 
-    public void setId(Long id) 
+
+
+    public void setId(Long id)
     {
         this.id = id;
     }
