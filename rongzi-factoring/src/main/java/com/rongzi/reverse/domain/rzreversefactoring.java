@@ -47,7 +47,7 @@ public class rzreversefactoring extends BaseEntity
     private String financialInstitution;
 
     /** 放贷金额 */
-    @Excel(name = "放贷金额")
+    @Excel(name = "放贷金额", cellType = Excel.ColumnType.BIGINT, scale = 2)
     private Long loanAmount;
 
     /** 开始日期 */
@@ -83,6 +83,22 @@ public class rzreversefactoring extends BaseEntity
     /** 开户行 */
     @Excel(name = "回款开户行")
     private String bank;
+
+    /** 办理收费 */
+    @Excel(name = "办理收费", cellType = Excel.ColumnType.BIGINT, scale = 2)
+    private Long banlishoufei;
+
+    /** 到期收费 */
+    @Excel(name = "到期收费", cellType = Excel.ColumnType.BIGINT, scale = 2)
+    private Long daoqishoufei;
+
+    /** 支付利息 */
+    @Excel(name = "支付利息", cellType = Excel.ColumnType.BIGINT, scale = 2)
+    private Long zhifulixi;
+
+    /** 资金用途 */
+    @Excel(name = "资金用途")
+    private String zijinyongtu;
 
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
@@ -251,6 +267,44 @@ public class rzreversefactoring extends BaseEntity
         return rzsrc2List;
     }
 
+
+    public void setBanlishoufei(Long banlishoufei)
+    {
+        this.banlishoufei = banlishoufei;
+    }
+
+    public Long getBanlishoufei()
+    {
+        return banlishoufei;
+    }
+    public void setDaoqishoufei(Long daoqishoufei)
+    {
+        this.daoqishoufei = daoqishoufei;
+    }
+
+    public Long getDaoqishoufei()
+    {
+        return daoqishoufei;
+    }
+    public void setZhifulixi(Long zhifulixi)
+    {
+        this.zhifulixi = zhifulixi;
+    }
+
+    public Long getZhifulixi()
+    {
+        return zhifulixi;
+    }
+    public void setZijinyongtu(String zijinyongtu)
+    {
+        this.zijinyongtu = zijinyongtu;
+    }
+
+    public String getZijinyongtu()
+    {
+        return zijinyongtu;
+    }
+
     public void setrzsrc2List(List<rzsrc2> rzsrc2List)
     {
         this.rzsrc2List = rzsrc2List;
@@ -280,6 +334,10 @@ public class rzreversefactoring extends BaseEntity
                 .append("uuid", getUuid())
                 .append("account", getAccount())
                 .append("bank", getBank())
+                .append("banlishoufei", getBanlishoufei())
+                .append("daoqishoufei", getDaoqishoufei())
+                .append("zhifulixi", getZhifulixi())
+                .append("zijinyongtu", getZijinyongtu())
                 .append("rzsrc2List", getrzsrc2List())
                 .toString();
     }

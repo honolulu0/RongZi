@@ -5,69 +5,91 @@
 <mapper namespace="com.rongzi.reverse.mapper.rzreversefactoringMapper">
 
     <resultMap type="rzreversefactoring" id="rzreversefactoringResult">
-        <result property="id"    column="id"    />
-        <result property="managementId"    column="management_id"    />
-        <result property="scrUuid"    column="scr_uuid"    />
-        <result property="auditId"    column="audit_id"    />
-        <result property="creditor"    column="creditor"    />
-        <result property="factor"    column="factor"    />
-        <result property="financialInstitution"    column="financial_institution"    />
-        <result property="loanAmount"    column="loan_amount"    />
-        <result property="startDate"    column="start_date"    />
-        <result property="deadline"    column="deadline"    />
-        <result property="entryName"    column="entry_name"    />
-        <result property="remark"    column="remark"    />
-        <result property="collectionAccount"    column="collection_account"    />
-        <result property="comment"    column="comment"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="uuid"    column="uuid"    />
-        <result property="account"    column="account"    />
-        <result property="bank"    column="bank"    />
+        <result property="id" column="id"/>
+        <result property="managementId" column="management_id"/>
+        <result property="scrUuid" column="scr_uuid"/>
+        <result property="auditId" column="audit_id"/>
+        <result property="creditor" column="creditor"/>
+        <result property="factor" column="factor"/>
+        <result property="financialInstitution" column="financial_institution"/>
+        <result property="loanAmount" column="loan_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="deadline" column="deadline"/>
+        <result property="entryName" column="entry_name"/>
+        <result property="remark" column="remark"/>
+        <result property="collectionAccount" column="collection_account"/>
+        <result property="comment" column="comment"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="uuid" column="uuid"/>
+        <result property="account" column="account"/>
+        <result property="bank" column="bank"/>
+        <result property="banlishoufei" column="banlishoufei"/>
+        <result property="daoqishoufei" column="daoqishoufei"/>
+        <result property="zhifulixi" column="zhifulixi"/>
+        <result property="zijinyongtu" column="zijinyongtu"/>
     </resultMap>
 
     <resultMap id="rzreversefactoringrzsrc2Result" type="rzreversefactoring" extends="rzreversefactoringResult">
-        <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result" />
+        <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result"/>
     </resultMap>
 
     <resultMap type="rzsrc2" id="rzsrc2Result">
-        <result property="id"    column="sub_id"    />
-        <result property="title"    column="sub_title"    />
-        <result property="title2"    column="sub_title2"    />
-        <result property="comment"    column="sub_comment"    />
-        <result property="url"    column="sub_url"    />
-        <result property="scrUuid"    column="sub_scr_uuid"    />
-        <result property="projectManagementId"    column="sub_project_management_id"    />
-        <result property="type"    column="sub_type"    />
-        <result property="createTime"    column="sub_create_time"    />
-        <result property="createBy"    column="sub_create_by"    />
+        <result property="id" column="sub_id"/>
+        <result property="title" column="sub_title"/>
+        <result property="title2" column="sub_title2"/>
+        <result property="comment" column="sub_comment"/>
+        <result property="url" column="sub_url"/>
+        <result property="scrUuid" column="sub_scr_uuid"/>
+        <result property="projectManagementId" column="sub_project_management_id"/>
+        <result property="type" column="sub_type"/>
+        <result property="createTime" column="sub_create_time"/>
+        <result property="createBy" column="sub_create_by"/>
     </resultMap>
 
     <sql id="selectrzreversefactoringVo">
-        select id, management_id, scr_uuid, audit_id, creditor, factor, financial_institution, loan_amount, start_date, deadline, entry_name, remark, collection_account, comment, create_time, create_by, update_time, update_by, uuid, account, bank from rz_reverse_factoring
+        select id, management_id, scr_uuid, audit_id, creditor, factor, financial_institution, loan_amount, start_date,
+        deadline, entry_name, remark, collection_account, comment, create_time, create_by, update_time, update_by, uuid,
+        account, bank, banlishoufei, daoqishoufei, zhifulixi, zijinyongtu from rz_reverse_factoring
     </sql>
+
 
     <select id="selectrzreversefactoringList" parameterType="rzreversefactoring" resultMap="rzreversefactoringResult">
         <include refid="selectrzreversefactoringVo"/>
         <where>
-            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
-            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
-            <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
-            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
-            <if test="factor != null  and factor != ''"> and factor = #{factor}</if>
-            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
-            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
-            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
-            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
-            <if test="entryName != null  and entryName != ''"> and entry_name like concat('%', #{entryName}, '%')</if>
-            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
-            <if test="collectionAccount != null  and collectionAccount != ''"> and collection_account like concat('%', #{collectionAccount}, '%')</if>
-            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
-            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
-            <if test="account != null  and account != ''"> and account like concat('%', #{account}, '%')</if>
-            <if test="bank != null  and bank != ''"> and bank like concat('%', #{bank}, '%')</if>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid = #{scrUuid}</if>
+            <if test="auditId != null ">and audit_id like concat('%', #{auditId}, '%')</if>
+            <if test="creditor != null  and creditor != ''">and creditor = #{creditor}</if>
+            <if test="factor != null  and factor != ''">and factor = #{factor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="loanAmount != null ">and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''">
+                and start_date between #{params.beginStartDate} and #{params.endStartDate}
+            </if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
+                and deadline between #{params.beginDeadline} and #{params.endDeadline}
+            </if>
+            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '未过期'">and deadline &gt;=
+                CURDATE()
+            </if>
+            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '已过期'">and deadline &lt; CURDATE()
+            </if>
+            <if test="entryName != null  and entryName != ''">and entry_name like concat('%', #{entryName}, '%')</if>
+            <if test="remark != null  and remark != ''">and remark = #{remark}</if>
+            <if test="collectionAccount != null  and collectionAccount != ''">and collection_account like concat('%',
+                #{collectionAccount}, '%')
+            </if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="account != null  and account != ''">and account like concat('%', #{account}, '%')</if>
+            <if test="bank != null  and bank != ''">and bank like concat('%', #{bank}, '%')</if>
         </where>
     </select>
 
@@ -78,31 +100,52 @@
         FROM
         rz_reverse_factoring
         <where>
-            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
-            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid = #{scrUuid}</if>
-            <if test="auditId != null "> and audit_id like concat('%', #{auditId}, '%')</if>
-            <if test="creditor != null  and creditor != ''"> and creditor = #{creditor}</if>
-            <if test="factor != null  and factor != ''"> and factor = #{factor}</if>
-            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
-            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
-            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
-            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
-            <if test="entryName != null  and entryName != ''"> and entry_name like concat('%', #{entryName}, '%')</if>
-            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
-            <if test="collectionAccount != null  and collectionAccount != ''"> and collection_account like concat('%', #{collectionAccount}, '%')</if>
-            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
-            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
-            <if test="account != null  and account != ''"> and account like concat('%', #{account}, '%')</if>
-            <if test="bank != null  and bank != ''"> and bank like concat('%', #{bank}, '%')</if>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid = #{scrUuid}</if>
+            <if test="auditId != null ">and audit_id like concat('%', #{auditId}, '%')</if>
+            <if test="creditor != null  and creditor != ''">and creditor = #{creditor}</if>
+            <if test="factor != null  and factor != ''">and factor = #{factor}</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="loanAmount != null ">and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''">
+                and start_date between #{params.beginStartDate} and #{params.endStartDate}
+            </if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
+                and deadline between #{params.beginDeadline} and #{params.endDeadline}
+            </if>
+            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '未过期'">and deadline &gt;=
+                CURDATE()
+            </if>
+            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '已过期'">and deadline &lt; CURDATE()
+            </if>
+            <if test="entryName != null  and entryName != ''">and entry_name like concat('%', #{entryName}, '%')</if>
+            <if test="remark != null  and remark != ''">and remark = #{remark}</if>
+            <if test="collectionAccount != null  and collectionAccount != ''">and collection_account like concat('%',
+                #{collectionAccount}, '%')
+            </if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="account != null  and account != ''">and account like concat('%', #{account}, '%')</if>
+            <if test="bank != null  and bank != ''">and bank like concat('%', #{bank}, '%')</if>
         </where>
     </select>
 
 
+
     <select id="selectrzreversefactoringById" parameterType="Long" resultMap="rzreversefactoringrzsrc2Result">
-        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution, a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.account, a.bank,
-        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution,
+        a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time,
+        a.create_by, a.update_time, a.update_by, a.uuid, a.account, a.bank, a.banlishoufei, a.daoqishoufei, a.zhifulixi,
+        a.zijinyongtu,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url,
+        b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type,
+        b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_reverse_factoring a
-        left join rz_scr b on b.scr_uuid = a.scr_uuid
+        left join rz_scr b on b.scr_uuid = a.id
         where a.id = #{id}
     </select>
 
@@ -129,6 +172,10 @@
             <if test="uuid != null">uuid,</if>
             <if test="account != null">account,</if>
             <if test="bank != null">bank,</if>
+            <if test="banlishoufei != null">banlishoufei,</if>
+            <if test="daoqishoufei != null">daoqishoufei,</if>
+            <if test="zhifulixi != null">zhifulixi,</if>
+            <if test="zijinyongtu != null">zijinyongtu,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
@@ -151,6 +198,10 @@
             <if test="uuid != null">#{uuid},</if>
             <if test="account != null">#{account},</if>
             <if test="bank != null">#{bank},</if>
+            <if test="banlishoufei != null">#{banlishoufei},</if>
+            <if test="daoqishoufei != null">#{daoqishoufei},</if>
+            <if test="zhifulixi != null">#{zhifulixi},</if>
+            <if test="zijinyongtu != null">#{zijinyongtu},</if>
         </trim>
     </insert>
 
@@ -162,7 +213,9 @@
             <if test="auditId != null">audit_id = #{auditId},</if>
             <if test="creditor != null and creditor != ''">creditor = #{creditor},</if>
             <if test="factor != null and factor != ''">factor = #{factor},</if>
-            <if test="financialInstitution != null and financialInstitution != ''">financial_institution = #{financialInstitution},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution =
+                #{financialInstitution},
+            </if>
             <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
             <if test="startDate != null">start_date = #{startDate},</if>
             <if test="deadline != null">deadline = #{deadline},</if>
@@ -177,6 +230,10 @@
             <if test="uuid != null">uuid = #{uuid},</if>
             <if test="account != null">account = #{account},</if>
             <if test="bank != null">bank = #{bank},</if>
+            <if test="banlishoufei != null">banlishoufei = #{banlishoufei},</if>
+            <if test="daoqishoufei != null">daoqishoufei = #{daoqishoufei},</if>
+            <if test="zhifulixi != null">zhifulixi = #{zhifulixi},</if>
+            <if test="zijinyongtu != null">zijinyongtu = #{zijinyongtu},</if>
         </trim>
         where id = #{id}
     </update>
@@ -211,9 +268,11 @@
     </delete>
 
     <insert id="batchrzsrc2">
-        insert into rz_scr( id, title, title2, comment, url, scr_uuid, project_management_id, type, create_time, create_by) values
+        insert into rz_scr( id, title, title2, comment, url, scr_uuid, project_management_id, type, create_time,
+        create_by) values
         <foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.title}, #{item.title2}, #{item.comment}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
+            ( #{item.id}, #{item.title}, #{item.title2}, #{item.comment}, #{item.url}, #{item.scrUuid},
+            #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
         </foreach>
     </insert>
 </mapper>
