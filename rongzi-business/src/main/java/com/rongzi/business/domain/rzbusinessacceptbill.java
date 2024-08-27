@@ -3,6 +3,7 @@ package com.rongzi.business.domain;
 import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rongzi.huankuanjihua.domain.RzhkjhMingxi;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.rongzi.common.annotation.Excel;
@@ -89,6 +90,18 @@ public class rzbusinessacceptbill extends BaseEntity
 
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
+    /**
+     * 还款明细
+     */
+    private List<RzhkjhMingxi> huankuanmingxi2List;
+
+    public List<RzhkjhMingxi> getHuankuanmingxi2List() {
+        return huankuanmingxi2List;
+    }
+
+    public void setHuankuanmingxi2List(List<RzhkjhMingxi> huankuanmingxi2List) {
+        this.huankuanmingxi2List = huankuanmingxi2List;
+    }
 
     public void setId(Long id)
     {

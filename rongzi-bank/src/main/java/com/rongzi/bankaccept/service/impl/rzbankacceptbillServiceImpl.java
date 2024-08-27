@@ -3,6 +3,7 @@ package com.rongzi.bankaccept.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import com.rongzi.common.utils.DateUtils;
+import com.rongzi.huankuanjihua.HuankuanmingxiBatchOperationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
     @Autowired
     private rzbankacceptbillMapper rzbankacceptbillMapper;
 
+    @Autowired
+    private HuankuanmingxiBatchOperationUtils huankuanmingxiBatchOperationUtils;
     /**
      * 查询银行承兑汇票
      *
@@ -68,6 +71,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
         rzbankacceptbill.setCreateTime(DateUtils.getNowDate());
         int rows = rzbankacceptbillMapper.insertrzbankacceptbill(rzbankacceptbill);
         insertrzsrc2(rzbankacceptbill);
+        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzbankacceptbill.getManagementId());
         return rows;
     }
 
@@ -84,6 +88,8 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
         rzbankacceptbill.setUpdateTime(DateUtils.getNowDate());
         rzbankacceptbillMapper.deleterzsrc2ByScrUuid(rzbankacceptbill.getScrUuid());
         insertrzsrc2(rzbankacceptbill);
+        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzbankacceptbill.getManagementId());
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzbankacceptbill.getHuankuanmingxi2List(), rzbankacceptbill.getManagementId());
         return rzbankacceptbillMapper.updaterzbankacceptbill(rzbankacceptbill);
     }
 
