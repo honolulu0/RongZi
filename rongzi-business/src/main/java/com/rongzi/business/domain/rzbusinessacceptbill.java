@@ -31,7 +31,7 @@ public class rzbusinessacceptbill extends BaseEntity
     private String scrUuid;
 
     /** 审核id */
-    @Excel(name = "审核id")
+//    @Excel(name = "审核id")
     private Long auditId;
 
     /** 付款人 */

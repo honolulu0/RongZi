@@ -40,7 +40,7 @@ public class rzbankacceptbill extends BaseEntity {
     /**
      * 审核id
      */
-    @Excel(name = "审核id")
+//    @Excel(name = "审核id")
     private Long auditId;
 
     /**
