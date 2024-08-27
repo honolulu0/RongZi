@@ -25,9 +25,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 商业承兑汇票Controller
- *
+ * 
  * @author rongzi
- * @date 2024-05-30
+ * @date 2024-08-27
  */
 @RestController
 @RequestMapping("/business/bill")
@@ -47,16 +47,19 @@ public class rzbusinessacceptbillController extends BaseController
         List<rzbusinessacceptbill> list = rzbusinessacceptbillService.selectrzbusinessacceptbillList(rzbusinessacceptbill);
         TableDataInfo tableDataInfo = getDataTable(list);
 
-        Map<String, BigDecimal> data = rzbusinessacceptbillService.selectRzBusinessAcceptBillSum(rzbusinessacceptbill);
+        Map<String, BigDecimal> data = rzbusinessacceptbillService.selectrzbusinessacceptbillSum(rzbusinessacceptbill);
 
         // 添加合计数据
         if (data != null) {
             tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
-//            tableDataInfo.addTotal("totalDiscountedHandlingFee", data.get("total_discounted_handling_fee") != null ? data.get("total_discounted_handling_fee").longValue() : 0L);
+//            tableDataInfo.addTotal("totalTicketProcessingFee", data.get("total_ticket_processing_fee") != null ? data.get("total_ticket_processing_fee").longValue() : 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
         } else {
             tableDataInfo.addTotal("totalInvoiceAmount", 0L);
-//            tableDataInfo.addTotal("totalDiscountedHandlingFee", 0L);
+//            tableDataInfo.addTotal("totalTicketProcessingFee", 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
         }
+
 
         return tableDataInfo;
     }
@@ -111,7 +114,7 @@ public class rzbusinessacceptbillController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('business:bill:remove')")
     @Log(title = "商业承兑汇票", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{ids}")
+	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(rzbusinessacceptbillService.deleterzbusinessacceptbillByIds(ids));
