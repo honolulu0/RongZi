@@ -1,83 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rongzi.rzafterloan.mapper.rzafterloanMapper">
-    
+
     <resultMap type="rzafterloan" id="rzafterloanResult">
-        <result property="id"    column="id"    />
-        <result property="managementId"    column="management_id"    />
-        <result property="scrUuid"    column="scr_uuid"    />
-        <result property="financialInstitution"    column="financial_institution"    />
-        <result property="loanAmount"    column="loan_amount"    />
-        <result property="borrowingUnit"    column="borrowing_unit"    />
-        <result property="loanTerm"    column="loan_term"    />
-        <result property="afterLoanState"    column="after_loan_state"    />
-        <result property="quantitativeContent"    column="quantitative_content"    />
-        <result property="quantitativeGoals"    column="quantitative_goals"    />
-        <result property="currentImplementation"    column="current_implementation"    />
-        <result property="remainingQuantity"    column="remaining_quantity"    />
-        <result property="progressDescription"    column="progress_description"    />
-        <result property="comment"    column="comment"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="uuid"    column="uuid"    />
-        <result property="startDate"    column="start_date"    />
-        <result property="deadline"    column="deadline"    />
-        <result property="creditCycle"    column="credit_cycle"    />
+        <result property="id" column="id"/>
+        <result property="managementId" column="management_id"/>
+        <result property="scrUuid" column="scr_uuid"/>
+        <result property="financialInstitution" column="financial_institution"/>
+        <result property="loanAmount" column="loan_amount"/>
+        <result property="borrowingUnit" column="borrowing_unit"/>
+        <result property="loanTerm" column="loan_term"/>
+        <result property="afterLoanState" column="after_loan_state"/>
+        <result property="quantitativeContent" column="quantitative_content"/>
+        <result property="quantitativeGoals" column="quantitative_goals"/>
+        <result property="currentImplementation" column="current_implementation"/>
+        <result property="remainingQuantity" column="remaining_quantity"/>
+        <result property="progressDescription" column="progress_description"/>
+        <result property="comment" column="comment"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="uuid" column="uuid"/>
+        <result property="startDate" column="start_date"/>
+        <result property="deadline" column="deadline"/>
+        <result property="creditCycle" column="credit_cycle"/>
     </resultMap>
 
     <resultMap id="rzafterloanrzsrc2Result" type="rzafterloan" extends="rzafterloanResult">
-        <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result" />
+        <collection property="rzsrc2List" notNullColumn="sub_id" javaType="java.util.List" resultMap="rzsrc2Result"/>
     </resultMap>
 
     <resultMap type="rzsrc2" id="rzsrc2Result">
-        <result property="id"    column="sub_id"    />
-        <result property="url"    column="sub_url"    />
-        <result property="scrUuid"    column="sub_scr_uuid"    />
-        <result property="projectManagementId"    column="sub_project_management_id"    />
-        <result property="type"    column="sub_type"    />
-        <result property="createTime"    column="sub_create_time"    />
-        <result property="createBy"    column="sub_create_by"    />
+        <result property="id" column="sub_id"/>
+        <result property="url" column="sub_url"/>
+        <result property="scrUuid" column="sub_scr_uuid"/>
+        <result property="projectManagementId" column="sub_project_management_id"/>
+        <result property="type" column="sub_type"/>
+        <result property="createTime" column="sub_create_time"/>
+        <result property="createBy" column="sub_create_by"/>
     </resultMap>
 
     <sql id="selectrzafterloanVo">
-        select id, management_id, scr_uuid, financial_institution, loan_amount, borrowing_unit, loan_term, after_loan_state, quantitative_content, quantitative_goals, current_implementation, remaining_quantity, progress_description, comment, create_time, create_by, update_time, update_by, uuid, start_date, deadline, credit_cycle from rz_after_loan
+        select id, management_id, scr_uuid, financial_institution, loan_amount, borrowing_unit, loan_term,
+        after_loan_state, quantitative_content, quantitative_goals, current_implementation, remaining_quantity,
+        progress_description, comment, create_time, create_by, update_time, update_by, uuid, start_date, deadline,
+        credit_cycle from rz_after_loan
     </sql>
 
     <select id="selectrzafterloanList" parameterType="rzafterloan" resultMap="rzafterloanResult">
         <include refid="selectrzafterloanVo"/>
-        <where>  
-            <if test="managementId != null  and managementId != ''"> and management_id like concat('%', #{managementId}, '%')</if>
-            <if test="scrUuid != null  and scrUuid != ''"> and scr_uuid like concat('%', #{scrUuid}, '%')</if>
-            <if test="financialInstitution != null  and financialInstitution != ''"> and financial_institution = #{financialInstitution}</if>
-            <if test="loanAmount != null "> and loan_amount like concat('%', #{loanAmount}, '%')</if>
-            <if test="borrowingUnit != null  and borrowingUnit != ''"> and borrowing_unit = #{borrowingUnit}</if>
-            <if test="loanTerm != null  and loanTerm != ''"> and loan_term like concat('%', #{loanTerm}, '%')</if>
-            <if test="afterLoanState != null  and afterLoanState != ''"> and after_loan_state = #{afterLoanState}</if>
-            <if test="quantitativeContent != null  and quantitativeContent != ''"> and quantitative_content like concat('%', #{quantitativeContent}, '%')</if>
-            <if test="quantitativeGoals != null  and quantitativeGoals != ''"> and quantitative_goals like concat('%', #{quantitativeGoals}, '%')</if>
-            <if test="currentImplementation != null  and currentImplementation != ''"> and current_implementation like concat('%', #{currentImplementation}, '%')</if>
-            <if test="remainingQuantity != null  and remainingQuantity != ''"> and remaining_quantity like concat('%', #{remainingQuantity}, '%')</if>
-            <if test="progressDescription != null  and progressDescription != ''"> and progress_description like concat('%', #{progressDescription}, '%')</if>
-            <if test="comment != null  and comment != ''"> and comment like concat('%', #{comment}, '%')</if>
-            <if test="uuid != null  and uuid != ''"> and uuid = #{uuid}</if>
-            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''"> and start_date between #{params.beginStartDate} and #{params.endStartDate}</if>
-            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''"> and deadline between #{params.beginDeadline} and #{params.endDeadline}</if>
-            <if test="creditCycle != null  and creditCycle != ''"> and credit_cycle like concat('%', #{creditCycle}, '%')</if>
+        <where>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="loanAmount != null ">and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
+            <if test="loanTerm != null  and loanTerm != ''">and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="afterLoanState != null  and afterLoanState != ''">and after_loan_state = #{afterLoanState}</if>
+            <if test="quantitativeContent != null  and quantitativeContent != ''">and quantitative_content like
+                concat('%', #{quantitativeContent}, '%')
+            </if>
+            <if test="quantitativeGoals != null  and quantitativeGoals != ''">and quantitative_goals like concat('%',
+                #{quantitativeGoals}, '%')
+            </if>
+            <if test="currentImplementation != null  and currentImplementation != ''">and current_implementation like
+                concat('%', #{currentImplementation}, '%')
+            </if>
+            <if test="remainingQuantity != null  and remainingQuantity != ''">and remaining_quantity like concat('%',
+                #{remainingQuantity}, '%')
+            </if>
+            <if test="progressDescription != null  and progressDescription != ''">and progress_description like
+                concat('%', #{progressDescription}, '%')
+            </if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''">
+                and start_date between #{params.beginStartDate} and #{params.endStartDate}
+            </if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
+                and deadline between #{params.beginDeadline} and #{params.endDeadline}
+            </if>
+            <if test="creditCycle != null  and creditCycle != ''">and credit_cycle like concat('%', #{creditCycle},
+                '%')
+            </if>
         </where>
     </select>
-    
+
+
+    <select id="selectRzAfterLoanSum" parameterType="rzafterloan" resultType="map">
+        SELECT
+        SUM(loan_amount) AS total_loan_amount
+        FROM rz_after_loan
+        <where>
+            <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
+                '%')
+            </if>
+            <if test="scrUuid != null  and scrUuid != ''">and scr_uuid like concat('%', #{scrUuid}, '%')</if>
+            <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
+                #{financialInstitution}
+            </if>
+            <if test="loanAmount != null ">and loan_amount like concat('%', #{loanAmount}, '%')</if>
+            <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
+            <if test="loanTerm != null  and loanTerm != ''">and loan_term like concat('%', #{loanTerm}, '%')</if>
+            <if test="afterLoanState != null  and afterLoanState != ''">and after_loan_state = #{afterLoanState}</if>
+            <if test="quantitativeContent != null  and quantitativeContent != ''">and quantitative_content like
+                concat('%', #{quantitativeContent}, '%')
+            </if>
+            <if test="quantitativeGoals != null  and quantitativeGoals != ''">and quantitative_goals like concat('%',
+                #{quantitativeGoals}, '%')
+            </if>
+            <if test="currentImplementation != null  and currentImplementation != ''">and current_implementation like
+                concat('%', #{currentImplementation}, '%')
+            </if>
+            <if test="remainingQuantity != null  and remainingQuantity != ''">and remaining_quantity like concat('%',
+                #{remainingQuantity}, '%')
+            </if>
+            <if test="progressDescription != null  and progressDescription != ''">and progress_description like
+                concat('%', #{progressDescription}, '%')
+            </if>
+            <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="params.beginStartDate != null and params.beginStartDate != '' and params.endStartDate != null and params.endStartDate != ''">
+                and start_date between #{params.beginStartDate} and #{params.endStartDate}
+            </if>
+            <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
+                and deadline between #{params.beginDeadline} and #{params.endDeadline}
+            </if>
+            <if test="creditCycle != null  and creditCycle != ''">and credit_cycle like concat('%', #{creditCycle},
+                '%')
+            </if>
+        </where>
+    </select>
+
+
     <select id="selectrzafterloanById" parameterType="Long" resultMap="rzafterloanrzsrc2Result">
-        select a.id, a.management_id, a.scr_uuid, a.financial_institution, a.loan_amount, a.borrowing_unit, a.loan_term, a.after_loan_state, a.quantitative_content, a.quantitative_goals, a.current_implementation, a.remaining_quantity, a.progress_description, a.comment, a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.start_date, a.deadline, a.credit_cycle,
- b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
+        select a.id, a.management_id, a.scr_uuid, a.financial_institution, a.loan_amount, a.borrowing_unit, a.loan_term,
+        a.after_loan_state, a.quantitative_content, a.quantitative_goals, a.current_implementation,
+        a.remaining_quantity, a.progress_description, a.comment, a.create_time, a.create_by, a.update_time, a.update_by,
+        a.uuid, a.start_date, a.deadline, a.credit_cycle,
+        b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as
+        sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_after_loan a
         left join rz_scr b on b.scr_uuid = a.scr_uuid
         where a.id = #{id}
     </select>
-        
+
     <insert id="insertrzafterloan" parameterType="rzafterloan" useGeneratedKeys="true" keyProperty="id">
         insert into rz_after_loan
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="startDate != null">start_date,</if>
             <if test="deadline != null">deadline,</if>
             <if test="creditCycle != null">credit_cycle,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
             <if test="scrUuid != null and scrUuid != ''">#{scrUuid},</if>
@@ -125,7 +199,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="startDate != null">#{startDate},</if>
             <if test="deadline != null">#{deadline},</if>
             <if test="creditCycle != null">#{creditCycle},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updaterzafterloan" parameterType="rzafterloan">
@@ -133,16 +207,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">management_id = #{managementId},</if>
             <if test="scrUuid != null and scrUuid != ''">scr_uuid = #{scrUuid},</if>
-            <if test="financialInstitution != null and financialInstitution != ''">financial_institution = #{financialInstitution},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution =
+                #{financialInstitution},
+            </if>
             <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
             <if test="borrowingUnit != null and borrowingUnit != ''">borrowing_unit = #{borrowingUnit},</if>
             <if test="loanTerm != null and loanTerm != ''">loan_term = #{loanTerm},</if>
             <if test="afterLoanState != null and afterLoanState != ''">after_loan_state = #{afterLoanState},</if>
-            <if test="quantitativeContent != null and quantitativeContent != ''">quantitative_content = #{quantitativeContent},</if>
-            <if test="quantitativeGoals != null and quantitativeGoals != ''">quantitative_goals = #{quantitativeGoals},</if>
-            <if test="currentImplementation != null and currentImplementation != ''">current_implementation = #{currentImplementation},</if>
-            <if test="remainingQuantity != null and remainingQuantity != ''">remaining_quantity = #{remainingQuantity},</if>
-            <if test="progressDescription != null and progressDescription != ''">progress_description = #{progressDescription},</if>
+            <if test="quantitativeContent != null and quantitativeContent != ''">quantitative_content =
+                #{quantitativeContent},
+            </if>
+            <if test="quantitativeGoals != null and quantitativeGoals != ''">quantitative_goals =
+                #{quantitativeGoals},
+            </if>
+            <if test="currentImplementation != null and currentImplementation != ''">current_implementation =
+                #{currentImplementation},
+            </if>
+            <if test="remainingQuantity != null and remainingQuantity != ''">remaining_quantity =
+                #{remainingQuantity},
+            </if>
+            <if test="progressDescription != null and progressDescription != ''">progress_description =
+                #{progressDescription},
+            </if>
             <if test="comment != null">comment = #{comment},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
@@ -168,14 +254,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
         );
-        delete from rz_after_loan where id in 
+        delete from rz_after_loan where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
     <delete id="deleterzsrc2ByScrUuids" parameterType="String">
-        delete from rz_scr where scr_uuid in 
+        delete from rz_scr where scr_uuid in
         <foreach item="scrUuid" collection="array" open="(" separator="," close=")">
             #{scrUuid}
         </foreach>
@@ -187,8 +273,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="batchrzsrc2">
         insert into rz_scr( id, url, scr_uuid, project_management_id, type, create_time, create_by) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime}, #{item.createBy})
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.url}, #{item.scrUuid}, #{item.projectManagementId}, #{item.type}, #{item.createTime},
+            #{item.createBy})
         </foreach>
     </insert>
 </mapper>

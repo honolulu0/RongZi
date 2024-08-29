@@ -1,10 +1,13 @@
 package com.rongzi.rzafterloan.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.rongzi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.rongzi.rzafterloan.mapper.rzafterloanMapper;
@@ -45,6 +48,12 @@ public class rzafterloanServiceImpl implements IrzafterloanService
     public List<rzafterloan> selectrzafterloanList(rzafterloan rzafterloan)
     {
         return rzafterloanMapper.selectrzafterloanList(rzafterloan);
+    }
+
+    @Override
+    public Map<String, BigDecimal> selectRzAfterLoanSum(rzafterloan rzafterloan)
+    {
+        return rzafterloanMapper.selectRzAfterLoanSum(rzafterloan);
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.rongzi.rzafterloan.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,19 @@ public class rzafterloanController extends BaseController
     {
         startPage();
         List<rzafterloan> list = rzafterloanService.selectrzafterloanList(rzafterloan);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzafterloanService.selectRzAfterLoanSum(rzafterloan);
+
+        // 添加合计数据
+        if (data != null) {
+            tableDataInfo.addTotal("totalLoanAmount", data.get("total_loan_amount") != null ? data.get("total_loan_amount").longValue() : 0L);
+            // 你可以根据需要添加其他汇总字段
+        } else {
+            tableDataInfo.addTotal("totalLoanAmount", 0L);
+        }
+
+        return tableDataInfo;
     }
 
     /**

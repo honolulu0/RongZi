@@ -99,8 +99,8 @@
                 and contract_signing_date between #{params.beginContractSigningDate} and
                 #{params.endContractSigningDate}
             </if>
-            <if test="loanDate != null ">and loan_date like concat('%', #{loanDate}, '%')</if>
-            <if test="dueDate != null ">and due_date like concat('%', #{dueDate}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
             <if test="rate != null  and rate != ''">and rate like concat('%', #{rate}, '%')</if>
             <if test="loanTerm != null  and loanTerm != ''">and loan_term like concat('%', #{loanTerm}, '%')</if>
             <if test="creditEnhancementMeasures != null  and creditEnhancementMeasures != ''">and
@@ -169,8 +169,8 @@
                 and contract_signing_date between #{params.beginContractSigningDate} and
                 #{params.endContractSigningDate}
             </if>
-            <if test="loanDate != null ">and loan_date like concat('%', #{loanDate}, '%')</if>
-            <if test="dueDate != null ">and due_date like concat('%', #{dueDate}, '%')</if>
+            <if test="params.beginLoanDate != null and params.beginLoanDate != '' and params.endLoanDate != null and params.endLoanDate != ''"> and loan_date between #{params.beginLoanDate} and #{params.endLoanDate}</if>
+            <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''"> and due_date between #{params.beginDueDate} and #{params.endDueDate}</if>
             <if test="rate != null  and rate != ''">and rate like concat('%', #{rate}, '%')</if>
             <if test="loanTerm != null  and loanTerm != ''">and loan_term like concat('%', #{loanTerm}, '%')</if>
             <if test="creditEnhancementMeasures != null  and creditEnhancementMeasures != ''">and

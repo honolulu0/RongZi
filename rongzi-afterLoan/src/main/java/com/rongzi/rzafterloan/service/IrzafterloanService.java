@@ -1,19 +1,21 @@
 package com.rongzi.rzafterloan.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.rongzi.rzafterloan.domain.rzafterloan;
 
 /**
  * 贷后管理Service接口
- * 
+ *
  * @author rongzi
  * @date 2024-03-20
  */
-public interface IrzafterloanService 
-{
+public interface IrzafterloanService {
     /**
      * 查询贷后管理
-     * 
+     *
      * @param id 贷后管理主键
      * @return 贷后管理
      */
@@ -21,15 +23,17 @@ public interface IrzafterloanService
 
     /**
      * 查询贷后管理列表
-     * 
+     *
      * @param rzafterloan 贷后管理
      * @return 贷后管理集合
      */
     public List<rzafterloan> selectrzafterloanList(rzafterloan rzafterloan);
 
+    public Map<String, BigDecimal> selectRzAfterLoanSum(rzafterloan rzafterloan);
+
     /**
      * 新增贷后管理
-     * 
+     *
      * @param rzafterloan 贷后管理
      * @return 结果
      */
@@ -37,7 +41,7 @@ public interface IrzafterloanService
 
     /**
      * 修改贷后管理
-     * 
+     *
      * @param rzafterloan 贷后管理
      * @return 结果
      */
@@ -45,7 +49,7 @@ public interface IrzafterloanService
 
     /**
      * 批量删除贷后管理
-     * 
+     *
      * @param ids 需要删除的贷后管理主键集合
      * @return 结果
      */
@@ -53,7 +57,7 @@ public interface IrzafterloanService
 
     /**
      * 删除贷后管理信息
-     * 
+     *
      * @param id 贷后管理主键
      * @return 结果
      */

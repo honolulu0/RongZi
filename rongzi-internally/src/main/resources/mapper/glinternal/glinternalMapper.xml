@@ -81,7 +81,7 @@
 
     <select id="selectGlInternalSum" parameterType="glinternal" resultType="map">
         SELECT
-        SUM(guarantee_amount) AS total_guarantee_amount,
+        SUM(guarantee_amount) AS total_guarantee_amount
 <!--        SUM(guarantee_balance) AS total_guarantee_balance,-->
 <!--        SUM(financingAmount) AS total_financing_amount-->
         FROM rz_gl_internal
