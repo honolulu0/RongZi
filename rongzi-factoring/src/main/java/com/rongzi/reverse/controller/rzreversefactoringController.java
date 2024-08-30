@@ -83,6 +83,13 @@ public class rzreversefactoringController extends BaseController
         return success(rzreversefactoringService.selectrzreversefactoringById(id));
     }
 
+    @PreAuthorize("@ss.hasPermi('reverse:factoring:query')")
+    @GetMapping(value = "/managementId/{managementId}")
+    public AjaxResult getInfoByManagementId(@PathVariable("managementId") String managementId) {
+        return success(rzreversefactoringService.selectrzreversefactoringByManagementId(managementId));
+    }
+
+
     /**
      * 新增反向保理
      */

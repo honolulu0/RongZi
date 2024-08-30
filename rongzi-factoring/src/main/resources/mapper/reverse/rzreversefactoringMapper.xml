@@ -135,7 +135,6 @@
     </select>
 
 
-
     <select id="selectrzreversefactoringById" parameterType="Long" resultMap="rzreversefactoringrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution,
         a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time,
@@ -147,6 +146,20 @@
         from rz_reverse_factoring a
         left join rz_scr b on b.scr_uuid = a.id
         where a.id = #{id}
+    </select>
+
+    <select id="selectrzreversefactoringByManagementId" parameterType="String"
+            resultMap="rzreversefactoringrzsrc2Result">
+        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.creditor, a.factor, a.financial_institution,
+        a.loan_amount, a.start_date, a.deadline, a.entry_name, a.remark, a.collection_account, a.comment, a.create_time,
+        a.create_by, a.update_time, a.update_by, a.uuid, a.account, a.bank, a.banlishoufei, a.daoqishoufei, a.zhifulixi,
+        a.zijinyongtu,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url,
+        b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type,
+        b.create_time as sub_create_time, b.create_by as sub_create_by
+        from rz_reverse_factoring a
+        left join rz_scr b on b.scr_uuid = a.id
+        where a.management_id = #{managementId}
     </select>
 
     <insert id="insertrzreversefactoring" parameterType="rzreversefactoring" useGeneratedKeys="true" keyProperty="id">

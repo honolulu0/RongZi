@@ -6,14 +6,14 @@ import java.util.Map;
 
 import com.rongzi.reverse.domain.rzreversefactoring;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 反向保理Mapper接口
  *
  * @author rongzi
  * @date 2024-05-30
  */
-public interface rzreversefactoringMapper
-{
+public interface rzreversefactoringMapper {
     /**
      * 查询反向保理
      *
@@ -21,6 +21,9 @@ public interface rzreversefactoringMapper
      * @return 反向保理
      */
     public rzreversefactoring selectrzreversefactoringById(Long id);
+
+    public rzreversefactoring selectrzreversefactoringByManagementId(String managementId);
+
 
     /**
      * 查询反向保理列表

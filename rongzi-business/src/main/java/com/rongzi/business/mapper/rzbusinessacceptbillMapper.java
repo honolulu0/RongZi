@@ -23,6 +23,9 @@ public interface rzbusinessacceptbillMapper
      */
     public rzbusinessacceptbill selectrzbusinessacceptbillById(Long id);
 
+    public rzbusinessacceptbill selectrzbusinessacceptbillByManagementId(String managementId);
+
+
     /**
      * 查询商业承兑汇票列表
      * 

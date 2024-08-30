@@ -21,6 +21,7 @@ public interface IrzbankacceptbillService
      * @return 银行承兑汇票
      */
     public rzbankacceptbill selectrzbankacceptbillById(Long id);
+    public rzbankacceptbill selectrzbankacceptbillByManagementId(String managementId);
 
     /**
      * 查询银行承兑汇票列表

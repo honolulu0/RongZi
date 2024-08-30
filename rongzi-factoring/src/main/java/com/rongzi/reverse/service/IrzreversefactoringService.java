@@ -21,6 +21,7 @@ public interface IrzreversefactoringService
      * @return 反向保理
      */
     public rzreversefactoring selectrzreversefactoringById(Long id);
+    public rzreversefactoring selectrzreversefactoringByManagementId(String managementId);
 
     /**
      * 查询反向保理列表

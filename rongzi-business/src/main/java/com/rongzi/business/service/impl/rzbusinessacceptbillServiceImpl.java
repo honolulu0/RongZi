@@ -43,6 +43,11 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
     {
         return rzbusinessacceptbillMapper.selectrzbusinessacceptbillById(id);
     }
+    @Override
+    public rzbusinessacceptbill selectrzbusinessacceptbillByManagementId(String managementId)
+    {
+        return rzbusinessacceptbillMapper.selectrzbusinessacceptbillByManagementId(managementId);
+    }
 
 
     /**

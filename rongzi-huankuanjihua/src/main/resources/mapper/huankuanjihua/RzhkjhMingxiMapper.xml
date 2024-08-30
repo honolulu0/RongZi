@@ -8,6 +8,7 @@
     <resultMap type="RzhkjhMingxi" id="RzhkjhMingxiResult">
         <result property="id" column="id"/>
         <result property="managerId" column="manager_id"/>
+        <result property="xiangmuleixing" column="xiangmuleixing"/>
         <result property="borrowingUnit" column="borrowing_unit"/>
         <result property="financialInstitution" column="financial_institution"/>
         <result property="daikuanyongtu" column="daikuanyongtu"/>
@@ -27,7 +28,8 @@
     </resultMap>
 
     <sql id="selectRzhkjhMingxiVo">
-        select id, manager_id, borrowing_unit, financial_institution, daikuanyongtu, qishu, riqi, huankuanjine,
+        select id, manager_id, xiangmuleixing, borrowing_unit, financial_institution, daikuanyongtu, qishu, riqi,
+        huankuanjine,
         changhuanben, zhifulixi, shouxufei, benjinshengyu, lilv, comment, create_time, create_by, update_time, update_by
         from rzhkjh_mingxi
     </sql>
@@ -37,6 +39,9 @@
         <where>
             1=1 and huankuanjine != 0
             <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
+            <if test="xiangmuleixing != null  and xiangmuleixing != ''">and xiangmuleixing like concat('%',
+                #{xiangmuleixing}, '%')
+            </if>
             <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
             <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
                 #{financialInstitution}
@@ -64,14 +69,18 @@
 
 
     <sql id="totalRzhkjhMingxiVo">
-        select sum(huankuanjine) total_huankuanjine, sum(changhuanben) total_changhuanben,sum(zhifulixi) total_zhifulixi,sum(shouxufei) total_shouxufei
+        select sum(huankuanjine) total_huankuanjine, sum(changhuanben) total_changhuanben,sum(zhifulixi)
+        total_zhifulixi,sum(shouxufei) total_shouxufei
         from rzhkjh_mingxi
     </sql>
 
-    <select id="totalRzhkjhMingxi" parameterType="RzhkjhMingxi"  resultType="TotalRzhkjhMingxi">
+    <select id="totalRzhkjhMingxi" parameterType="RzhkjhMingxi" resultType="TotalRzhkjhMingxi">
         <include refid="totalRzhkjhMingxiVo"/>
         <where>
             <if test="managerId != null  and managerId != ''">and manager_id = #{managerId}</if>
+            <if test="xiangmuleixing != null  and xiangmuleixing != ''">and xiangmuleixing like concat('%',
+                #{xiangmuleixing}, '%')
+            </if>
             <if test="borrowingUnit != null  and borrowingUnit != ''">and borrowing_unit = #{borrowingUnit}</if>
             <if test="financialInstitution != null  and financialInstitution != ''">and financial_institution =
                 #{financialInstitution}
@@ -107,6 +116,7 @@
         insert into rzhkjh_mingxi
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="managerId != null">manager_id,</if>
+            <if test="xiangmuleixing != null">xiangmuleixing,</if>
             <if test="borrowingUnit != null">borrowing_unit,</if>
             <if test="financialInstitution != null">financial_institution,</if>
             <if test="daikuanyongtu != null">daikuanyongtu,</if>
@@ -126,6 +136,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managerId != null">#{managerId},</if>
+            <if test="xiangmuleixing != null">#{xiangmuleixing},</if>
             <if test="borrowingUnit != null">#{borrowingUnit},</if>
             <if test="financialInstitution != null">#{financialInstitution},</if>
             <if test="daikuanyongtu != null">#{daikuanyongtu},</if>
@@ -149,6 +160,7 @@
         update rzhkjh_mingxi
         <trim prefix="SET" suffixOverrides=",">
             <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="xiangmuleixing != null">xiangmuleixing = #{xiangmuleixing},</if>
             <if test="borrowingUnit != null">borrowing_unit = #{borrowingUnit},</if>
             <if test="financialInstitution != null">financial_institution = #{financialInstitution},</if>
             <if test="daikuanyongtu != null">daikuanyongtu = #{daikuanyongtu},</if>
@@ -181,8 +193,7 @@
     </delete>
 
 
-
-<!-- 根据 manager_id所有项目唯一  批量插入还款明细数据-->
+    <!-- 根据 manager_id所有项目唯一  批量插入还款明细数据-->
 
     <insert id="batchhuankuanmingxi">
         insert into rzhkjh_mingxi(manager_id, qishu, riqi,borrowing_unit,financial_institution,huankuanjine,
@@ -201,31 +212,24 @@
     <delete id="deleterHuankuanmingxiByManagementId" parameterType="String">
         delete from rzhkjh_mingxi where manager_id = #{managementId}
     </delete>
-
-
-
-
-    <!--    下面是汇总信息，勿替换-->
-
-
+    <!--    下面是汇总信息，勿替换- 按月汇总 还款明细-->
     <resultMap id="paymentSummaryMap" type="PaymentSummary">
         <result property="month" column="month"/>
         <result property="totalInterest" column="total_interest" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
         <result property="totalPrincipal" column="total_principal" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result property="totalShouxufei" column="total_shouxufei" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
     </resultMap>
 
     <select id="selectPaymentSummary" resultMap="paymentSummaryMap">
         SELECT
         DATE_FORMAT(riqi, '%Y-%m') AS month,
         SUM(IFNULL(CAST(zhifulixi AS DECIMAL), 0)) AS total_interest,
-        SUM(IFNULL(CAST(changhuanben AS DECIMAL), 0)) AS total_principal
+        SUM(IFNULL(CAST(changhuanben AS DECIMAL), 0)) AS total_principal,
+        SUM(IFNULL(CAST(shouxufei AS DECIMAL), 0)) AS total_shouxufei
         FROM rzhkjh_mingxi
         WHERE 1=1
-        <if test="param1 != null">
-            AND DATE_FORMAT(riqi, '%Y-%m') &gt;= #{param1}
-        </if>
-        <if test="param2 != null">
-            AND DATE_FORMAT(riqi, '%Y-%m') &lt;= #{param2}
+        <if test="param1 != null and param1 != '' and param2 != null and param2 != ''">
+            AND DATE_FORMAT(riqi, '%Y-%m') BETWEEN #{param1} AND #{param2}
         </if>
         GROUP BY DATE_FORMAT(riqi, '%Y-%m') order by riqi
     </select>
@@ -253,7 +257,7 @@
     </select>
 
     <select id="selectFinancialSummaryByDate" parameterType="string" resultMap="financialSummaryMap">
-<!--        筛选传入月份，但是小于传入日期的数据-->
+        <!--        筛选传入月份，但是小于传入日期的数据-->
         SELECT
         SUM(IFNULL(CAST(changhuanben AS DECIMAL(10,2)), 0)) AS total_principal,
         SUM(IFNULL(CAST(zhifulixi AS DECIMAL(10,2)), 0)) AS total_interest,
@@ -262,7 +266,8 @@
         SUM(IF(DATE(riqi) &lt;= CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_paid_interest,
         SUM(IF(DATE(riqi) &gt; CURDATE(), IFNULL(CAST(zhifulixi AS DECIMAL), 0), 0)) AS total_unpaid_interest
         FROM rzhkjh_mingxi
-        WHERE DATE_FORMAT(riqi, '%Y-%m') = DATE_FORMAT( #{specifiedDate}, '%Y-%m')  and DATE_FORMAT(riqi, '%Y-%m-%d') &lt;= #{specifiedDate}
+        WHERE DATE_FORMAT(riqi, '%Y-%m') = DATE_FORMAT( #{specifiedDate}, '%Y-%m') and DATE_FORMAT(riqi, '%Y-%m-%d')
+        &lt;= #{specifiedDate}
     </select>
 
 

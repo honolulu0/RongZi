@@ -6,14 +6,14 @@ import java.util.Map;
 
 import com.rongzi.bankaccept.domain.rzbankacceptbill;
 import com.rongzi.appendix.domain.rzsrc2;
+
 /**
  * 银行承兑汇票Mapper接口
  *
  * @author rongzi
  * @date 2024-05-30
  */
-public interface rzbankacceptbillMapper
-{
+public interface rzbankacceptbillMapper {
     /**
      * 查询银行承兑汇票
      *
@@ -21,6 +21,8 @@ public interface rzbankacceptbillMapper
      * @return 银行承兑汇票
      */
     public rzbankacceptbill selectrzbankacceptbillById(Long id);
+
+    public rzbankacceptbill selectrzbankacceptbillByManagementId(String managementId);
 
     /**
      * 查询银行承兑汇票列表

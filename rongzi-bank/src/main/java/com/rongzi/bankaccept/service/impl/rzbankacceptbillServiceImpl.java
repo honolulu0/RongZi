@@ -40,6 +40,11 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
     {
         return rzbankacceptbillMapper.selectrzbankacceptbillById(id);
     }
+    @Override
+    public rzbankacceptbill selectrzbankacceptbillByManagementId(String managementId)
+    {
+        return rzbankacceptbillMapper.selectrzbankacceptbillByManagementId(managementId);
+    }
 
     /**
      * 查询银行承兑汇票列表

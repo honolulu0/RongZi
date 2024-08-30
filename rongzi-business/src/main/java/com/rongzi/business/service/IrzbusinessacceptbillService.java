@@ -21,6 +21,7 @@ public interface IrzbusinessacceptbillService
      * @return 商业承兑汇票
      */
     public rzbusinessacceptbill selectrzbusinessacceptbillById(Long id);
+    public rzbusinessacceptbill selectrzbusinessacceptbillByManagementId(String managementId);
 
     /**
      * 查询商业承兑汇票列表

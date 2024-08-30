@@ -44,6 +44,11 @@ public class rzreversefactoringServiceImpl implements IrzreversefactoringService
         return rzreversefactoringMapper.selectrzreversefactoringById(id);
     }
 
+    @Override
+    public rzreversefactoring selectrzreversefactoringByManagementId(String managementId) {
+        return rzreversefactoringMapper.selectrzreversefactoringByManagementId(managementId);
+    }
+
     /**
      * 查询反向保理列表
      *

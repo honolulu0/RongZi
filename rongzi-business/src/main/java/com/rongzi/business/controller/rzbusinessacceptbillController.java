@@ -86,7 +86,11 @@ public class rzbusinessacceptbillController extends BaseController
     {
         return success(rzbusinessacceptbillService.selectrzbusinessacceptbillById(id));
     }
-
+    @PreAuthorize("@ss.hasPermi('business:bill:query')")
+    @GetMapping(value = "/managementId/{managementId}")
+    public AjaxResult getInfoByManagementId(@PathVariable("managementId") String managementId) {
+        return success(rzbusinessacceptbillService.selectrzbusinessacceptbillByManagementId(managementId));
+    }
     /**
      * 新增商业承兑汇票
      */

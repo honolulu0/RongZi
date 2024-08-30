@@ -194,6 +194,20 @@
         where a.id = #{id}
     </select>
 
+    <select id="selectrzbusinessacceptbillByManagementId" parameterType="String" resultMap="rzbusinessacceptbillrzsrc2Result">
+        select a.id, a.management_id, a.scr_uuid, a.audit_id, a.drawer, a.payee, a.financial_institution,
+        a.invoice_amount, a.draft_date, a.due_date, a.remark, a.accept_agreement_id, a.entry_name, a.comment,
+        a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.ticketProcessingFee, a.marginLevel,
+        a.marginInterestRate, a.marginIncomeAmount, a.discountedOrNot, a.discountedFinancialInstitutions,
+        a.discountedHandlingFee, a.assumptionOfDiscountFees, a.zhifulixi, a.changkouedu, a.tiexianlilv, a.zijinyongtu,
+        b.id as sub_id, b.title as sub_title, b.title2 as sub_title2, b.comment as sub_comment, b.url as sub_url,
+        b.scr_uuid as sub_scr_uuid, b.project_management_id as sub_project_management_id, b.type as sub_type,
+        b.create_time as sub_create_time, b.create_by as sub_create_by
+        from rz_business_accept_bill a
+        left join rz_scr b on b.scr_uuid = a.id
+        where a.management_id = #{managementId}
+    </select>
+
     <insert id="insertrzbusinessacceptbill" parameterType="rzbusinessacceptbill" useGeneratedKeys="true" keyProperty="id">
         insert into rz_business_accept_bill
         <trim prefix="(" suffix=")" suffixOverrides=",">

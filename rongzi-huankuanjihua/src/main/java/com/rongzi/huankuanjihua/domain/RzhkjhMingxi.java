@@ -24,6 +24,11 @@ public class RzhkjhMingxi extends BaseEntity
     @Excel(name = "管理编号")
     private String managerId;
 
+    /** 项目类型 */
+    @Excel(name = "项目类型")
+    private String xiangmuleixing;
+
+
     /** 借款人 */
     @Excel(name = "借款人")
     private String borrowingUnit;
@@ -91,6 +96,15 @@ public class RzhkjhMingxi extends BaseEntity
     {
         return managerId;
     }
+
+    public String getXiangmuleixing() {
+        return xiangmuleixing;
+    }
+
+    public void setXiangmuleixing(String xiangmuleixing) {
+        this.xiangmuleixing = xiangmuleixing;
+    }
+
     public void setBorrowingUnit(String borrowingUnit)
     {
         this.borrowingUnit = borrowingUnit;
@@ -205,6 +219,7 @@ public class RzhkjhMingxi extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("managerId", getManagerId())
+                .append("xiangmuleixing", getXiangmuleixing())
                 .append("borrowingUnit", getBorrowingUnit())
                 .append("financialInstitution", getFinancialInstitution())
                 .append("daikuanyongtu", getDaikuanyongtu())

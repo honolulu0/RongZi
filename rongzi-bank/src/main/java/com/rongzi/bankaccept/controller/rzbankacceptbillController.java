@@ -86,6 +86,13 @@ public class rzbankacceptbillController extends BaseController
         return success(rzbankacceptbillService.selectrzbankacceptbillById(id));
     }
 
+    @PreAuthorize("@ss.hasPermi('bankaccept:bank:query')")
+    @GetMapping(value = "/managementId/{managementId}")
+    public AjaxResult getInfoByManagementId(@PathVariable("managementId") String managementId) {
+        return success(rzbankacceptbillService.selectrzbankacceptbillByManagementId(managementId));
+    }
+
+
     /**
      * 新增银行承兑汇票
      */
