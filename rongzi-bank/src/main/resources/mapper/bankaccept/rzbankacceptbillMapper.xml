@@ -122,7 +122,8 @@
 
     <select id="selectrzbankacceptbillSum" parameterType="rzbankacceptbill" resultType="map">
         SELECT
-        SUM(invoice_amount) AS total_invoice_amount
+        SUM(invoice_amount) AS total_invoice_amount,
+        SUM(changkouedu) AS total_changkouedu
         FROM rz_bank_accept_bill
         <where>
             <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},

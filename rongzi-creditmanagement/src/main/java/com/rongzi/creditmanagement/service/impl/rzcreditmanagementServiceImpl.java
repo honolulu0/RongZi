@@ -160,44 +160,37 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
 
     public Map<String, Map<String, BigDecimal>> getFinanceSummary() {
         RzFinancingProjectSummary financingSummary = rzcreditmanagementMapper.selectRzFinancingProjectSummary();
-        GovernmentSpecialBondsSummary bondsSummary = rzcreditmanagementMapper.selectGovernmentSpecialBondsSummary();
-        SpecialLoansSummary loansSummary = rzcreditmanagementMapper.selectSpecialLoansSummary();
+        RzReverseFactoringSummary factioringSummary = rzcreditmanagementMapper.selectRzReverseFactoringSummary();
+        BillSummary bussSummary = rzcreditmanagementMapper.selectRzBusinessAcceptBillSummary();
+        BillSummary bankSummary = rzcreditmanagementMapper.selectRzBankAcceptBillSummary();
 
         Map<String, Map<String, BigDecimal>> result = new HashMap<>();
         Map<String, BigDecimal> financedAmount = new HashMap<>();
-        if (financingSummary != null) {
-
-            financedAmount.put("金融负债", financingSummary.getTotalFinancingAmount());
-        }
-
-        if (bondsSummary != null) {
-            financedAmount.put("政府专项债", bondsSummary.getTotalApprovedAmount());
-        }
-        if (loansSummary != null) {
-
-            financedAmount.put("专项借款", loansSummary.getTotalLoanAmount());
-        }
-
         Map<String, BigDecimal> financeBalance = new HashMap<>();
-        //正常情况下    融资项目 = 金融负债+政府专项债+专项借款
-        //由于融资项目里没有包含 政府专项债 专项借款 所以 融资项目就是 金融负债
-
 
         if (financingSummary != null) {
 
-            financeBalance.put("金融负债", financingSummary.getTotalRemainingAmount());
+            financedAmount.put("有息贷款", financingSummary.getTotalFinancingAmount());
+            financeBalance.put("有息贷款", financingSummary.getTotalRemainingAmount());
         }
 
-        if (bondsSummary != null) {
-
-            financeBalance.put("政府专项债", bondsSummary.getTotalRemainingAmount());
+        if (factioringSummary != null) {
+            financedAmount.put("反向保理", factioringSummary.getTotalLoanAmount());
+            financeBalance.put("反向保理", factioringSummary.getTotalInProgressLoanAmount());
         }
 
-        if (loansSummary != null) {
-
-            financeBalance.put("专项借款", loansSummary.getTotalBalance());
+        if (bussSummary != null) {
+            financedAmount.put("商业承兑", bussSummary.getTotalChangkouedu());
+            financeBalance.put("商业承兑", bussSummary.getTotalInProgressChangkouedu());
+        }
+        if (bankSummary != null) {
+            financedAmount.put("银行承兑", bankSummary.getTotalChangkouedu());
+            financeBalance.put("银行承兑", bankSummary.getTotalInProgressChangkouedu());
         }
 
+
+//        2.已融资金额：已融资金额=所有有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有金额含已结清的，只要融入的都算；敞口额度=票面金额*（1-保证金比例）。
+//        3.融资余额：金融负债余额=未到期的有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有未结清或未到期的金额；敞口额度=票面金额*（1-保证金比例）。-->
 
         result.put("已融资金额", financedAmount);
         result.put("融资余额", financeBalance);

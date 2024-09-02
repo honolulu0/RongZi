@@ -110,4 +110,9 @@ public interface rzcreditmanagementMapper {
 
     public ForeignGuaranteeSummary selectForeignGuaranteeSummary();
 
+    RzReverseFactoringSummary selectRzReverseFactoringSummary();
+
+    BillSummary selectRzBusinessAcceptBillSummary();
+
+    BillSummary selectRzBankAcceptBillSummary();
 }

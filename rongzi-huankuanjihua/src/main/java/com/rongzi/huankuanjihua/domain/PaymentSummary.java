@@ -9,6 +9,8 @@ public class PaymentSummary {
     private BigDecimal totalInterest;
     private BigDecimal totalPrincipal;
 
+    private BigDecimal totalShouxufei;
+
     public String getMonth() {
         return month;
     }
@@ -33,12 +35,21 @@ public class PaymentSummary {
         this.totalPrincipal = totalPrincipal;
     }
 
+    public BigDecimal getTotalShouxufei() {
+        return totalShouxufei;
+    }
+
+    public void setTotalShouxufei(BigDecimal totalShouxufei) {
+        this.totalShouxufei = totalShouxufei;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("month", month)
                 .append("totalInterest", totalInterest)
                 .append("totalPrincipal", totalPrincipal)
+                .append("totalShouxufei", totalShouxufei)
                 .toString();
     }
 }

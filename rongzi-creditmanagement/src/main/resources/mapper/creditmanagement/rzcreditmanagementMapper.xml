@@ -258,34 +258,66 @@
 
     <select id="selectCreditManagementSummary" parameterType="String" resultMap="creditManagementSummaryResultMap">
 
-        SELECT rcm.credit_type AS credit_type, SUM(rcm.credit_amount) AS total_amount, SUM(rcm.remaining_credit_amount) AS total_remaining_amount
-        FROM rz_credit_management rcm  WHERE rcm.credit_state =#{creditState} GROUP BY rcm.credit_type
+        SELECT rcm.credit_type AS credit_type, SUM(rcm.credit_amount) AS total_amount, SUM(rcm.remaining_credit_amount)
+        AS total_remaining_amount
+        FROM rz_credit_management rcm WHERE rcm.credit_state =#{creditState} GROUP BY rcm.credit_type
 
     </select>
 
 
+    <!--
+    2.已融资金额：已融资金额=所有有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有金额含已结清的，只要融入的都算；敞口额度=票面金额*（1-保证金比例）。
+    3.融资余额：金融负债余额=未到期的有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有未结清或未到期的金额；敞口额度=票面金额*（1-保证金比例）。-->
     <!--融资管理-->
     <select id="selectRzFinancingProjectSummary" resultType="RzFinancingProjectSummary">
-        SELECT SUM(financing_amount) AS totalFinancingAmount,
-        SUM(remaining_amount) AS totalRemainingAmount
-        FROM rz_financing_project WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND
-        loan_date &lt;= NOW();
+        SELECT
+        SUM(financing_amount) AS totalFinancingAmount,
+        SUM(CASE WHEN loan_state = '未结清' THEN financing_amount ELSE 0 END) AS totalInProgressFinancingAmount,
+        SUM(CASE WHEN loan_state = '未结清' THEN remaining_amount ELSE 0 END) AS totalRemainingAmount
+        FROM
+        rz_financing_project;
     </select>
 
-    <!--    政府专项债-->
-    <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">
-        SELECT SUM(approved_amount) AS totalApprovedAmount,
-        SUM(remaining_amount) AS totalRemainingAmount
-        FROM rz_government_special_bonds WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND
-        loan_date &lt;= NOW();
+    <!--反向保理 rz_business_accept_bill-->
+    <select id="selectRzReverseFactoringSummary" resultType="RzReverseFactoringSummary">
+        SELECT
+        SUM(loan_amount) AS totalLoanAmount,
+        SUM(CASE WHEN deadline >= CURDATE() THEN loan_amount ELSE 0 END) AS totalInProgressLoanAmount
+        FROM
+        rz_reverse_factoring;
     </select>
-    <!--专项借款-->
-    <select id="selectSpecialLoansSummary" resultType="SpecialLoansSummary">
-        SELECT SUM(loan_amount) AS totalLoanAmount,
-        SUM(balance) AS totalBalance
-        FROM rz_special_loans WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date
-        &lt;= NOW();
+
+    <!--商业承兑 rz_business_accept_bill-->
+    <select id="selectRzBusinessAcceptBillSummary" resultType="BillSummary">
+        SELECT
+        SUM(changkouedu) AS totalChangkouedu,
+        SUM(CASE WHEN due_date >= CURDATE() THEN changkouedu ELSE 0 END) AS totalInProgressChangkouedu
+        FROM rz_business_accept_bill;
     </select>
+
+    <!--银行承兑 RzBankAcceptBill-->
+    <select id="selectRzBankAcceptBillSummary" resultType="BillSummary">
+        SELECT
+        SUM(changkouedu) AS totalChangkouedu,
+        SUM(CASE WHEN due_date >= CURDATE() THEN changkouedu ELSE 0 END) AS totalInProgressChangkouedu
+        FROM rz_bank_accept_bill;
+    </select>
+
+
+    <!--    &lt;!&ndash;    政府专项债&ndash;&gt;-->
+    <!--    <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">-->
+    <!--        SELECT SUM(approved_amount) AS totalApprovedAmount,-->
+    <!--        SUM(remaining_amount) AS totalRemainingAmount-->
+    <!--        FROM rz_government_special_bonds WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND-->
+    <!--        loan_date &lt;= NOW();-->
+    <!--    </select>-->
+    <!--    &lt;!&ndash;专项借款&ndash;&gt;-->
+    <!--    <select id="selectSpecialLoansSummary" resultType="SpecialLoansSummary">-->
+    <!--        SELECT SUM(loan_amount) AS totalLoanAmount,-->
+    <!--        SUM(balance) AS totalBalance-->
+    <!--        FROM rz_special_loans WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date-->
+    <!--        &lt;= NOW();-->
+    <!--    </select>-->
 
 
     <select id="selectInternalGuaranteeSummary" resultType="InternalGuaranteeSummary">

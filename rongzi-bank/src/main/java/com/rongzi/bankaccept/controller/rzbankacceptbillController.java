@@ -52,11 +52,11 @@ public class rzbankacceptbillController extends BaseController
         // 添加合计数据
         if (data != null) {
             tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
-//            tableDataInfo.addTotal("totalTicketProcessingFee", data.get("total_ticket_processing_fee") != null ? data.get("total_ticket_processing_fee").longValue() : 0L);
+            tableDataInfo.addTotal("totalChangkouedu", data.get("total_changkouedu") != null ? data.get("total_changkouedu").longValue() : 0L);
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
         } else {
             tableDataInfo.addTotal("totalInvoiceAmount", 0L);
-//            tableDataInfo.addTotal("totalTicketProcessingFee", 0L);
+            tableDataInfo.addTotal("totalChangkouedu", 0L);
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
         }
 

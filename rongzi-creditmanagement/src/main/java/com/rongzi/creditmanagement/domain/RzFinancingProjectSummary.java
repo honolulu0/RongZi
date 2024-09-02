@@ -6,6 +6,8 @@ public class RzFinancingProjectSummary {
     private BigDecimal totalFinancingAmount;
     private BigDecimal totalRemainingAmount;
 
+    private BigDecimal totalInProgressFinancingAmount;
+
     public BigDecimal getTotalFinancingAmount() {
         return totalFinancingAmount;
     }
@@ -21,5 +23,13 @@ public class RzFinancingProjectSummary {
     public void setTotalRemainingAmount(BigDecimal totalRemainingAmount) {
         this.totalRemainingAmount = totalRemainingAmount;
     }
-// Getters and Setters
+
+    public BigDecimal getTotalInProgressFinancingAmount() {
+        return totalInProgressFinancingAmount;
+    }
+
+    public void setTotalInProgressFinancingAmount(BigDecimal totalInProgressFinancingAmount) {
+        this.totalInProgressFinancingAmount = totalInProgressFinancingAmount;
+    }
+    // Getters and Setters
 }

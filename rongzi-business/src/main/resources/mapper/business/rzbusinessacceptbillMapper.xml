@@ -63,7 +63,8 @@
         tiexianlilv, zijinyongtu from rz_business_accept_bill
     </sql>
 
-    <select id="selectrzbusinessacceptbillList" parameterType="rzbusinessacceptbill" resultMap="rzbusinessacceptbillResult">
+    <select id="selectrzbusinessacceptbillList" parameterType="rzbusinessacceptbill"
+            resultMap="rzbusinessacceptbillResult">
         <include refid="selectrzbusinessacceptbillVo"/>
         <where>
             <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
@@ -122,7 +123,8 @@
 
     <select id="selectrzbusinessacceptbillSum" parameterType="rzbusinessacceptbill" resultType="map">
         SELECT
-        SUM(invoice_amount) AS total_invoice_amount
+        SUM(invoice_amount) AS total_invoice_amount,
+        SUM(changkouedu) AS total_changkouedu
         FROM rz_business_accept_bill
         <where>
             <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
@@ -194,7 +196,8 @@
         where a.id = #{id}
     </select>
 
-    <select id="selectrzbusinessacceptbillByManagementId" parameterType="String" resultMap="rzbusinessacceptbillrzsrc2Result">
+    <select id="selectrzbusinessacceptbillByManagementId" parameterType="String"
+            resultMap="rzbusinessacceptbillrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.audit_id, a.drawer, a.payee, a.financial_institution,
         a.invoice_amount, a.draft_date, a.due_date, a.remark, a.accept_agreement_id, a.entry_name, a.comment,
         a.create_time, a.create_by, a.update_time, a.update_by, a.uuid, a.ticketProcessingFee, a.marginLevel,
@@ -208,7 +211,8 @@
         where a.management_id = #{managementId}
     </select>
 
-    <insert id="insertrzbusinessacceptbill" parameterType="rzbusinessacceptbill" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertrzbusinessacceptbill" parameterType="rzbusinessacceptbill" useGeneratedKeys="true"
+            keyProperty="id">
         insert into rz_business_accept_bill
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">management_id,</if>
@@ -284,12 +288,16 @@
             <if test="auditId != null">audit_id = #{auditId},</if>
             <if test="drawer != null and drawer != ''">drawer = #{drawer},</if>
             <if test="payee != null and payee != ''">payee = #{payee},</if>
-            <if test="financialInstitution != null and financialInstitution != ''">financial_institution = #{financialInstitution},</if>
+            <if test="financialInstitution != null and financialInstitution != ''">financial_institution =
+                #{financialInstitution},
+            </if>
             <if test="invoiceAmount != null">invoice_amount = #{invoiceAmount},</if>
             <if test="draftDate != null">draft_date = #{draftDate},</if>
             <if test="dueDate != null">due_date = #{dueDate},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
-            <if test="acceptAgreementId != null and acceptAgreementId != ''">accept_agreement_id = #{acceptAgreementId},</if>
+            <if test="acceptAgreementId != null and acceptAgreementId != ''">accept_agreement_id =
+                #{acceptAgreementId},
+            </if>
             <if test="entryName != null and entryName != ''">entry_name = #{entryName},</if>
             <if test="comment != null">comment = #{comment},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
@@ -302,7 +310,9 @@
             <if test="marginInterestRate != null">marginInterestRate = #{marginInterestRate},</if>
             <if test="marginIncomeAmount != null">marginIncomeAmount = #{marginIncomeAmount},</if>
             <if test="discountedOrNot != null">discountedOrNot = #{discountedOrNot},</if>
-            <if test="discountedFinancialInstitutions != null">discountedFinancialInstitutions = #{discountedFinancialInstitutions},</if>
+            <if test="discountedFinancialInstitutions != null">discountedFinancialInstitutions =
+                #{discountedFinancialInstitutions},
+            </if>
             <if test="discountedHandlingFee != null">discountedHandlingFee = #{discountedHandlingFee},</if>
             <if test="assumptionOfDiscountFees != null">assumptionOfDiscountFees = #{assumptionOfDiscountFees},</if>
             <if test="zhifulixi != null">zhifulixi = #{zhifulixi},</if>
