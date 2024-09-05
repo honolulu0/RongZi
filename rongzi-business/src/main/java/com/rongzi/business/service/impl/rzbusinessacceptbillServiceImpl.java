@@ -80,8 +80,7 @@ public class rzbusinessacceptbillServiceImpl implements IrzbusinessacceptbillSer
         rzbusinessacceptbill.setCreateTime(DateUtils.getNowDate());
         int rows = rzbusinessacceptbillMapper.insertrzbusinessacceptbill(rzbusinessacceptbill);
         insertrzsrc2(rzbusinessacceptbill);
-        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzbusinessacceptbill.getManagementId());
-
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzbusinessacceptbill.getHuankuanmingxi2List(), rzbusinessacceptbill.getManagementId());
         return rows;
     }
 

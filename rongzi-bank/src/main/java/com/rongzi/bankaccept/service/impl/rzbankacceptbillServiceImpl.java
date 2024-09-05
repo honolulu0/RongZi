@@ -76,7 +76,7 @@ public class rzbankacceptbillServiceImpl implements IrzbankacceptbillService
         rzbankacceptbill.setCreateTime(DateUtils.getNowDate());
         int rows = rzbankacceptbillMapper.insertrzbankacceptbill(rzbankacceptbill);
         insertrzsrc2(rzbankacceptbill);
-        huankuanmingxiBatchOperationUtils.deleterHuankuanmingxiByManagementId(rzbankacceptbill.getManagementId());
+        huankuanmingxiBatchOperationUtils.batchinserthuankuanmingxi(rzbankacceptbill.getHuankuanmingxi2List(), rzbankacceptbill.getManagementId());
         return rows;
     }
 
