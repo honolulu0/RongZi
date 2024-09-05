@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,7 @@ import com.rongzi.common.core.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/reverse/factoring")
-public class rzreversefactoringController extends BaseController
-{
+public class rzreversefactoringController extends BaseController {
     @Autowired
     private IrzreversefactoringService rzreversefactoringService;
 
@@ -41,8 +41,7 @@ public class rzreversefactoringController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('reverse:factoring:list')")
     @GetMapping("/list")
-    public TableDataInfo list(rzreversefactoring rzreversefactoring)
-    {
+    public TableDataInfo list(rzreversefactoring rzreversefactoring) {
         startPage();
         List<rzreversefactoring> list = rzreversefactoringService.selectrzreversefactoringList(rzreversefactoring);
         TableDataInfo tableDataInfo = getDataTable(list);
@@ -52,9 +51,13 @@ public class rzreversefactoringController extends BaseController
         // 添加合计数据
         if (data != null) {
             tableDataInfo.addTotal("totalLoanAmount", data.get("total_loan_amount") != null ? data.get("total_loan_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalBanlishoufei", data.get("total_banlishoufei") != null ? data.get("total_banlishoufei").longValue() : 0L);
+            tableDataInfo.addTotal("totalDaoqishoufei", data.get("total_daoqishoufei") != null ? data.get("total_daoqishoufei").longValue() : 0L);
             // 你可以根据需要添加其他合计数据
         } else {
             tableDataInfo.addTotal("totalLoanAmount", 0L);
+            tableDataInfo.addTotal("totalBanlishoufei", 0L);
+            tableDataInfo.addTotal("totalDaoqishoufei", 0L);
         }
 
         return tableDataInfo;
@@ -66,8 +69,7 @@ public class rzreversefactoringController extends BaseController
     @PreAuthorize("@ss.hasPermi('reverse:factoring:export')")
     @Log(title = "反向保理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, rzreversefactoring rzreversefactoring)
-    {
+    public void export(HttpServletResponse response, rzreversefactoring rzreversefactoring) {
         List<rzreversefactoring> list = rzreversefactoringService.selectrzreversefactoringList(rzreversefactoring);
         ExcelUtil<rzreversefactoring> util = new ExcelUtil<rzreversefactoring>(rzreversefactoring.class);
         util.exportExcel(response, list, "反向保理数据");
@@ -78,8 +80,7 @@ public class rzreversefactoringController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('reverse:factoring:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(rzreversefactoringService.selectrzreversefactoringById(id));
     }
 
@@ -96,8 +97,7 @@ public class rzreversefactoringController extends BaseController
     @PreAuthorize("@ss.hasPermi('reverse:factoring:add')")
     @Log(title = "反向保理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody rzreversefactoring rzreversefactoring)
-    {
+    public AjaxResult add(@RequestBody rzreversefactoring rzreversefactoring) {
         return toAjax(rzreversefactoringService.insertrzreversefactoring(rzreversefactoring));
     }
 
@@ -107,8 +107,7 @@ public class rzreversefactoringController extends BaseController
     @PreAuthorize("@ss.hasPermi('reverse:factoring:edit')")
     @Log(title = "反向保理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody rzreversefactoring rzreversefactoring)
-    {
+    public AjaxResult edit(@RequestBody rzreversefactoring rzreversefactoring) {
         return toAjax(rzreversefactoringService.updaterzreversefactoring(rzreversefactoring));
     }
 
@@ -118,8 +117,7 @@ public class rzreversefactoringController extends BaseController
     @PreAuthorize("@ss.hasPermi('reverse:factoring:remove')")
     @Log(title = "反向保理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rzreversefactoringService.deleterzreversefactoringByIds(ids));
     }
 }

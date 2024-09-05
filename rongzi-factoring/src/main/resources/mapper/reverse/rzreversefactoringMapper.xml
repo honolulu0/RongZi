@@ -96,7 +96,9 @@
 
     <select id="selectrzreversefactoringSum" parameterType="rzreversefactoring" resultType="map">
         SELECT
-        SUM(loan_amount) AS total_loan_amount
+        SUM(loan_amount) AS total_loan_amount,
+        SUM(banlishoufei) AS total_banlishoufei,
+        SUM(daoqishoufei) AS total_daoqishoufei
         FROM
         rz_reverse_factoring
         <where>
