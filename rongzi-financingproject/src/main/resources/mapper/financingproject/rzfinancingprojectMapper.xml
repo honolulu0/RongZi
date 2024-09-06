@@ -404,11 +404,18 @@
     </update>
 
     <delete id="deleterzfinancingprojectById" parameterType="Long">
-        delete from rz_financing_project where id = #{id};
         delete from rz_scr where scr_uuid = (select scr_uuid from rz_financing_project where id = #{id});
+        delete from rzhkjh_mingxi where manager_id = (select management_id from rz_financing_project where id = #{id});
+        delete from rz_financing_project where id = #{id};
     </delete>
 
     <delete id="deleterzfinancingprojectByIds" parameterType="String">
+        delete from rzhkjh_mingxi where manager_id in
+        (select management_id from rz_financing_project where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        );
         delete from rz_scr where scr_uuid in
         (select scr_uuid from rz_financing_project where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">

@@ -321,11 +321,18 @@
     </update>
 
     <delete id="deleterzbankacceptbillById" parameterType="Long">
-        delete from rz_bank_accept_bill where id = #{id};
         delete from rz_scr where scr_uuid = (select scr_uuid from rz_bank_accept_bill where id = #{id});
+        delete from rzhkjh_mingxi where manager_id = (select management_id from rz_bank_accept_bill where id = #{id});
+        delete from rz_bank_accept_bill where id = #{id};
     </delete>
 
     <delete id="deleterzbankacceptbillByIds" parameterType="String">
+        delete from rzhkjh_mingxi where manager_id in
+        (select management_id from rz_bank_accept_bill where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        );
         delete from rz_scr where scr_uuid in
         (select scr_uuid from rz_bank_accept_bill where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">

@@ -254,11 +254,19 @@
     </update>
 
     <delete id="deleterzreversefactoringById" parameterType="Long">
-        delete from rz_reverse_factoring where id = #{id};
         delete from rz_scr where scr_uuid = (select scr_uuid from rz_reverse_factoring where id = #{id});
+        delete from rzhkjh_mingxi where manager_id = (select management_id from rz_reverse_factoring where id = #{id});
+        delete from rz_reverse_factoring where id = #{id};
+
     </delete>
 
     <delete id="deleterzreversefactoringByIds" parameterType="String">
+        delete from rzhkjh_mingxi where manager_id in
+        (select management_id from rz_reverse_factoring where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        );
         delete from rz_scr where scr_uuid in
         (select scr_uuid from rz_reverse_factoring where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
