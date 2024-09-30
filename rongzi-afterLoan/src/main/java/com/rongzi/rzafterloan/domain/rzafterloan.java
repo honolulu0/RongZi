@@ -29,6 +29,13 @@ public class rzafterloan extends BaseEntity
     //@Excel(name = "数据唯一编号")
     private String scrUuid;
 
+    @Excel(name = "项目名称")
+    private String projectName;
+
+    /** 借款人 */
+    @Excel(name = "借款人")
+    private String borrowingUnit;
+
     /** 金融机构 */
     @Excel(name = "金融机构")
     private String financialInstitution;
@@ -37,20 +44,16 @@ public class rzafterloan extends BaseEntity
     @Excel(name = "借款金额")
     private Long loanAmount;
 
-    /** 借款单位 */
-    @Excel(name = "借款单位")
-    private String borrowingUnit;
 
     /** 借款期限 */
-    @Excel(name = "借款期限")
     private String loanTerm;
 
     /** 贷后状态跟踪：未完结、已完结 */
     @Excel(name = "贷后状态跟踪：未完结、已完结")
     private String afterLoanState;
 
-    /** 量化内容 */
-    @Excel(name = "量化内容")
+    /** 贷后事项 */
+    @Excel(name = "贷后事项")
     private String quantitativeContent;
 
     /** 量化目标 */
@@ -79,7 +82,6 @@ public class rzafterloan extends BaseEntity
 
     /** 开始日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "开始日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date startDate;
 
     /** 截止日期 */
@@ -87,9 +89,6 @@ public class rzafterloan extends BaseEntity
     @Excel(name = "截止日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deadline;
 
-    /** 授信周期 */
-    @Excel(name = "授信周期")
-    private String creditCycle;
 
     /** 附件表信息 */
     private List<rzsrc2> rzsrc2List;
@@ -247,14 +246,14 @@ public class rzafterloan extends BaseEntity
     {
         return deadline;
     }
-    public void setCreditCycle(String creditCycle) 
+    public void setprojectName(String projectName) 
     {
-        this.creditCycle = creditCycle;
+        this.projectName = projectName;
     }
 
-    public String getCreditCycle() 
+    public String getprojectName() 
     {
-        return creditCycle;
+        return projectName;
     }
 
     public List<rzsrc2> getrzsrc2List()
@@ -291,7 +290,7 @@ public class rzafterloan extends BaseEntity
             .append("uuid", getUuid())
             .append("startDate", getStartDate())
             .append("deadline", getDeadline())
-            .append("creditCycle", getCreditCycle())
+            .append("projectName", getprojectName())
             .append("rzsrc2List", getrzsrc2List())
             .toString();
     }

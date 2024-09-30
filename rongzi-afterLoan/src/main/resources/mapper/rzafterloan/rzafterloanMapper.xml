@@ -26,7 +26,7 @@
         <result property="uuid" column="uuid"/>
         <result property="startDate" column="start_date"/>
         <result property="deadline" column="deadline"/>
-        <result property="creditCycle" column="credit_cycle"/>
+        <result property="projectName" column="project_name"/>
     </resultMap>
 
     <resultMap id="rzafterloanrzsrc2Result" type="rzafterloan" extends="rzafterloanResult">
@@ -47,7 +47,7 @@
         select id, management_id, scr_uuid, financial_institution, loan_amount, borrowing_unit, loan_term,
         after_loan_state, quantitative_content, quantitative_goals, current_implementation, remaining_quantity,
         progress_description, comment, create_time, create_by, update_time, update_by, uuid, start_date, deadline,
-        credit_cycle from rz_after_loan
+        project_name from rz_after_loan
     </sql>
 
     <select id="selectrzafterloanList" parameterType="rzafterloan" resultMap="rzafterloanResult">
@@ -87,7 +87,7 @@
             <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
                 and deadline between #{params.beginDeadline} and #{params.endDeadline}
             </if>
-            <if test="creditCycle != null  and creditCycle != ''">and credit_cycle like concat('%', #{creditCycle},
+            <if test="projectName != null  and projectName != ''">and project_name like concat('%', #{projectName},
                 '%')
             </if>
         </where>
@@ -133,7 +133,7 @@
             <if test="params.beginDeadline != null and params.beginDeadline != '' and params.endDeadline != null and params.endDeadline != ''">
                 and deadline between #{params.beginDeadline} and #{params.endDeadline}
             </if>
-            <if test="creditCycle != null  and creditCycle != ''">and credit_cycle like concat('%', #{creditCycle},
+            <if test="projectName != null  and projectName != ''">and project_name like concat('%', #{projectName},
                 '%')
             </if>
         </where>
@@ -144,7 +144,7 @@
         select a.id, a.management_id, a.scr_uuid, a.financial_institution, a.loan_amount, a.borrowing_unit, a.loan_term,
         a.after_loan_state, a.quantitative_content, a.quantitative_goals, a.current_implementation,
         a.remaining_quantity, a.progress_description, a.comment, a.create_time, a.create_by, a.update_time, a.update_by,
-        a.uuid, a.start_date, a.deadline, a.credit_cycle,
+        a.uuid, a.start_date, a.deadline, a.project_name,
         b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as
         sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_after_loan a
@@ -175,7 +175,7 @@
             <if test="uuid != null">uuid,</if>
             <if test="startDate != null">start_date,</if>
             <if test="deadline != null">deadline,</if>
-            <if test="creditCycle != null">credit_cycle,</if>
+            <if test="projectName != null">project_name,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
@@ -198,7 +198,7 @@
             <if test="uuid != null">#{uuid},</if>
             <if test="startDate != null">#{startDate},</if>
             <if test="deadline != null">#{deadline},</if>
-            <if test="creditCycle != null">#{creditCycle},</if>
+            <if test="projectName != null">#{projectName},</if>
         </trim>
     </insert>
 
@@ -237,7 +237,7 @@
             <if test="uuid != null">uuid = #{uuid},</if>
             <if test="startDate != null">start_date = #{startDate},</if>
             <if test="deadline != null">deadline = #{deadline},</if>
-            <if test="creditCycle != null">credit_cycle = #{creditCycle},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
         </trim>
         where id = #{id}
     </update>

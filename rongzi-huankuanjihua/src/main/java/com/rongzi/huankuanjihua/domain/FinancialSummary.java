@@ -7,10 +7,13 @@ import java.math.BigDecimal;
 public class FinancialSummary {
     private BigDecimal totalPrincipal;
     private BigDecimal totalInterest;
+    private BigDecimal totalShouxufei;
     private BigDecimal totalPaidPrincipal;
     private BigDecimal totalUnpaidPrincipal;
     private BigDecimal totalPaidInterest;
     private BigDecimal totalUnpaidInterest;
+    private BigDecimal totalPaidShouxufei;
+    private BigDecimal totalUnpaidShouxufei;
 
     public BigDecimal getTotalPrincipal() {
         return totalPrincipal;
@@ -60,15 +63,42 @@ public class FinancialSummary {
         this.totalUnpaidInterest = totalUnpaidInterest;
     }
 
+    public BigDecimal getTotalShouxufei() {
+        return totalShouxufei;
+    }
+
+    public void setTotalShouxufei(BigDecimal totalShouxufei) {
+        this.totalShouxufei = totalShouxufei;
+    }
+
+    public BigDecimal getTotalPaidShouxufei() {
+        return totalPaidShouxufei;
+    }
+
+    public void setTotalPaidShouxufei(BigDecimal totalPaidShouxufei) {
+        this.totalPaidShouxufei = totalPaidShouxufei;
+    }
+
+    public BigDecimal getTotalUnpaidShouxufei() {
+        return totalUnpaidShouxufei;
+    }
+
+    public void setTotalUnpaidShouxufei(BigDecimal totalUnpaidShouxufei) {
+        this.totalUnpaidShouxufei = totalUnpaidShouxufei;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("totalPrincipal", totalPrincipal)
                 .append("totalInterest", totalInterest)
+                .append("totalInterest", totalShouxufei)
                 .append("totalPaidPrincipal", totalPaidPrincipal)
                 .append("totalUnpaidPrincipal", totalUnpaidPrincipal)
                 .append("totalPaidInterest", totalPaidInterest)
                 .append("totalUnpaidInterest", totalUnpaidInterest)
+                .append("totalPaidInterest", totalPaidShouxufei)
+                .append("totalUnpaidInterest", totalUnpaidShouxufei)
                 .toString();
     }
 }
