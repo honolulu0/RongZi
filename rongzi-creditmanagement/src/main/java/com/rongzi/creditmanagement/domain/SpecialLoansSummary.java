@@ -7,7 +7,11 @@ public class SpecialLoansSummary {
     private BigDecimal totalBalance;
 
     public BigDecimal getTotalLoanAmount() {
-        return totalLoanAmount;
+        if (totalLoanAmount == null) {
+            return BigDecimal.ZERO;
+        } else {
+            return totalLoanAmount;
+        }
     }
 
     public void setTotalLoanAmount(BigDecimal totalLoanAmount) {
@@ -15,7 +19,11 @@ public class SpecialLoansSummary {
     }
 
     public BigDecimal getTotalBalance() {
-        return totalBalance;
+        if (totalBalance == null) {
+            return BigDecimal.ZERO;
+        } else {
+            return totalBalance;
+        }
     }
 
     public void setTotalBalance(BigDecimal totalBalance) {

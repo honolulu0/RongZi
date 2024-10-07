@@ -7,7 +7,7 @@ public class GovernmentSpecialBondsSummary {
     private BigDecimal totalRemainingAmount;
 
     public BigDecimal getTotalApprovedAmount() {
-        if(totalApprovedAmount == null) {
+        if (totalApprovedAmount == null) {
             return BigDecimal.ZERO;
         } else {
             return totalApprovedAmount;
@@ -19,7 +19,7 @@ public class GovernmentSpecialBondsSummary {
     }
 
     public BigDecimal getTotalRemainingAmount() {
-        if(totalRemainingAmount == null) {
+        if (totalRemainingAmount == null) {
             return BigDecimal.ZERO;
         } else {
             return totalRemainingAmount;

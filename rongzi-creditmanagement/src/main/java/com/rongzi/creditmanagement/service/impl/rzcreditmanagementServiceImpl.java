@@ -159,10 +159,88 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
     }
 
     public Map<String, Map<String, BigDecimal>> getFinanceSummary() {
+        SpecialLoansSummary specialLoansSummary = rzcreditmanagementMapper.selectSpecialLoansSummary();
+        GovernmentSpecialBondsSummary governmentSpecialBondsSummary = rzcreditmanagementMapper.selectGovernmentSpecialBondsSummary();
+
+        RzFinancingProjectSummary financingSummary = rzcreditmanagementMapper.selectRzFinancingProjectSummary();
+        RzReverseFactoringSummary factoringSummary = rzcreditmanagementMapper.selectRzReverseFactoringSummary();
+        BillSummary bussSummary = rzcreditmanagementMapper.selectRzBusinessAcceptBillSummary();
+        BillSummary bankSummary = rzcreditmanagementMapper.selectRzBankAcceptBillSummary();
+        BillSummary creditSummary = rzcreditmanagementMapper.selectRzCreditLetterSummary();
+
+        Map<String, Map<String, BigDecimal>> result = new HashMap<>();
+        Map<String, BigDecimal> financedAmount = new HashMap<>();
+        Map<String, BigDecimal> financeBalance = new HashMap<>();
+
+        // Calculate amounts for "金融负债" subcategories
+        BigDecimal financedAmountFinancing = getValidBigDecimal(financingSummary != null ? financingSummary.getTotalFinancingAmount() : null);
+        BigDecimal financeBalanceFinancing = getValidBigDecimal(financingSummary != null ? financingSummary.getTotalRemainingAmount() : null);
+
+        BigDecimal financedAmountFactoring = getValidBigDecimal(factoringSummary != null ? factoringSummary.getTotalLoanAmount() : null);
+        BigDecimal financeBalanceFactoring = getValidBigDecimal(factoringSummary != null ? factoringSummary.getTotalInProgressLoanAmount() : null);
+
+        BigDecimal financedAmountBuss = getValidBigDecimal(bussSummary != null ? bussSummary.getTotalChangkouedu() : null);
+        BigDecimal financeBalanceBuss = getValidBigDecimal(bussSummary != null ? bussSummary.getTotalInProgressChangkouedu() : null);
+
+        BigDecimal financedAmountBank = getValidBigDecimal(bankSummary != null ? bankSummary.getTotalChangkouedu() : null);
+        BigDecimal financeBalanceBank = getValidBigDecimal(bankSummary != null ? bankSummary.getTotalInProgressChangkouedu() : null);
+
+        BigDecimal financedAmountCredit = getValidBigDecimal(creditSummary != null ? creditSummary.getTotalChangkouedu() : null);
+        BigDecimal financeBalanceCredit = getValidBigDecimal(creditSummary != null ? creditSummary.getTotalInProgressChangkouedu() : null);
+
+        // Sum up the "金融负债" amounts
+        BigDecimal totalFinancedAmountFinancialLiabilities = financedAmountFinancing
+                .add(financedAmountFactoring)
+                .add(financedAmountBuss)
+                .add(financedAmountBank)
+                .add(financedAmountCredit);
+
+        BigDecimal totalFinanceBalanceFinancialLiabilities = financeBalanceFinancing
+                .add(financeBalanceFactoring)
+                .add(financeBalanceBuss)
+                .add(financeBalanceBank)
+                .add(financeBalanceCredit);
+
+        // "专项债"
+        BigDecimal financedAmountSpecialBonds = getValidBigDecimal(governmentSpecialBondsSummary != null ? governmentSpecialBondsSummary.getTotalApprovedAmount() : null);
+        BigDecimal financeBalanceSpecialBonds = getValidBigDecimal(governmentSpecialBondsSummary != null ? governmentSpecialBondsSummary.getTotalRemainingAmount() : null);
+
+        // "专项借款"
+        BigDecimal financedAmountSpecialLoans = getValidBigDecimal(specialLoansSummary != null ? specialLoansSummary.getTotalLoanAmount() : null);
+        BigDecimal financeBalanceSpecialLoans = getValidBigDecimal(specialLoansSummary != null ? specialLoansSummary.getTotalBalance() : null);
+
+        // Populate the maps
+        financedAmount.put("金融负债", totalFinancedAmountFinancialLiabilities);
+        financeBalance.put("金融负债", totalFinanceBalanceFinancialLiabilities);
+
+        financedAmount.put("专项债", financedAmountSpecialBonds);
+        financeBalance.put("专项债", financeBalanceSpecialBonds);
+
+        financedAmount.put("专项借款", financedAmountSpecialLoans);
+        financeBalance.put("专项借款", financeBalanceSpecialLoans);
+
+        result.put("已融资金额", financedAmount);
+        result.put("融资余额", financeBalance);
+
+        return result;
+    }
+
+    private BigDecimal getValidBigDecimal(BigDecimal value) {
+        return value != null ? value : BigDecimal.ZERO;
+    }
+
+
+
+    public Map<String, Map<String, BigDecimal>> getFinanceSummary2() {
+        SpecialLoansSummary specialLoansSummary = rzcreditmanagementMapper.selectSpecialLoansSummary();
+        GovernmentSpecialBondsSummary governmentSpecialBondsSummary = rzcreditmanagementMapper.selectGovernmentSpecialBondsSummary();
+
+
         RzFinancingProjectSummary financingSummary = rzcreditmanagementMapper.selectRzFinancingProjectSummary();
         RzReverseFactoringSummary factioringSummary = rzcreditmanagementMapper.selectRzReverseFactoringSummary();
         BillSummary bussSummary = rzcreditmanagementMapper.selectRzBusinessAcceptBillSummary();
         BillSummary bankSummary = rzcreditmanagementMapper.selectRzBankAcceptBillSummary();
+        BillSummary creditSummary = rzcreditmanagementMapper.selectRzCreditLetterSummary();
 
         Map<String, Map<String, BigDecimal>> result = new HashMap<>();
         Map<String, BigDecimal> financedAmount = new HashMap<>();
@@ -188,9 +266,23 @@ public class rzcreditmanagementServiceImpl implements IrzcreditmanagementService
             financeBalance.put("银行承兑", bankSummary.getTotalInProgressChangkouedu());
         }
 
+        if (creditSummary != null) {
+            financedAmount.put("信用证", creditSummary.getTotalChangkouedu());
+            financeBalance.put("信用证", creditSummary.getTotalInProgressChangkouedu());
+        }
 
-//        2.已融资金额：已融资金额=所有有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有金额含已结清的，只要融入的都算；敞口额度=票面金额*（1-保证金比例）。
-//        3.融资余额：金融负债余额=未到期的有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有未结清或未到期的金额；敞口额度=票面金额*（1-保证金比例）。-->
+        if (creditSummary != null) {
+            financedAmount.put("专项债", governmentSpecialBondsSummary.getTotalApprovedAmount());
+            financeBalance.put("专项债", governmentSpecialBondsSummary.getTotalRemainingAmount());
+        }
+
+        if (creditSummary != null) {
+            financedAmount.put("专项借款", specialLoansSummary.getTotalLoanAmount());
+            financeBalance.put("专项借款", specialLoansSummary.getTotalBalance());
+        }
+
+
+
 
         result.put("已融资金额", financedAmount);
         result.put("融资余额", financeBalance);

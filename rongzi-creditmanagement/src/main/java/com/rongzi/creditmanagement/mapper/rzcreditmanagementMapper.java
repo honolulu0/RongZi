@@ -115,4 +115,6 @@ public interface rzcreditmanagementMapper {
     BillSummary selectRzBusinessAcceptBillSummary();
 
     BillSummary selectRzBankAcceptBillSummary();
+
+    BillSummary selectRzCreditLetterSummary();
 }

@@ -266,9 +266,13 @@
 
 
     <!--
-    2.已融资金额：已融资金额=所有有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有金额含已结清的，只要融入的都算；敞口额度=票面金额*（1-保证金比例）。
-    3.融资余额：金融负债余额=未到期的有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度。备注：所有未结清或未到期的金额；敞口额度=票面金额*（1-保证金比例）。-->
-    <!--融资管理-->
+    分三类：金融负债，专项债，专项借款
+
+    备注：金融负债包括贷款清单、反向保理、银行承兑、商业承兑、信用证。
+
+    2.金融负债已融资金额：已融资金额=所有有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度+信用证敞口额度。备注：所有金额含已结清的，只要融入的都算；敞口额度=票面金额*（1-保证金比例）。
+    3.金融负债融资余额：金融负债余额=未到期的有息贷款+反向保理+商业承兑敞口额度+银行承兑敞口额度+信用证敞口额度。备注：所有未结清或未到期的金额；敞口额度=票面金额*（1-保证金比例）。-->
+    <!--金融负债-->
     <select id="selectRzFinancingProjectSummary" resultType="RzFinancingProjectSummary">
         SELECT
         SUM(financing_amount) AS totalFinancingAmount,
@@ -303,21 +307,30 @@
         FROM rz_bank_accept_bill;
     </select>
 
+    <!--信用证 rz_credit_letter-->
+    <select id="selectRzCreditLetterSummary" resultType="BillSummary">
+        SELECT
+        SUM(changkouedu) AS totalChangkouedu,
+        SUM(CASE WHEN due_date >= CURDATE() THEN changkouedu ELSE 0 END) AS totalInProgressChangkouedu
+        FROM rz_credit_letter;
+    </select>
 
-    <!--    &lt;!&ndash;    政府专项债&ndash;&gt;-->
-    <!--    <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">-->
-    <!--        SELECT SUM(approved_amount) AS totalApprovedAmount,-->
-    <!--        SUM(remaining_amount) AS totalRemainingAmount-->
-    <!--        FROM rz_government_special_bonds WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND-->
-    <!--        loan_date &lt;= NOW();-->
-    <!--    </select>-->
-    <!--    &lt;!&ndash;专项借款&ndash;&gt;-->
-    <!--    <select id="selectSpecialLoansSummary" resultType="SpecialLoansSummary">-->
-    <!--        SELECT SUM(loan_amount) AS totalLoanAmount,-->
-    <!--        SUM(balance) AS totalBalance-->
-    <!--        FROM rz_special_loans WHERE DATE_FORMAT(due_date, '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND loan_date-->
-    <!--        &lt;= NOW();-->
-    <!--    </select>-->
+
+    <!--专项债-->
+    <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">
+        SELECT SUM(approved_amount) AS totalApprovedAmount,
+        SUM(remaining_amount) AS totalRemainingAmount
+        FROM rz_government_special_bonds WHERE due_date >= CURDATE() AND
+        loan_date &lt;= NOW();
+    </select>
+    <!--专项借款-->
+    <select id="selectSpecialLoansSummary" resultType="SpecialLoansSummary">
+        SELECT SUM(loan_amount) AS totalLoanAmount,
+        SUM(balance) AS totalBalance
+        FROM rz_special_loans WHERE due_date >= CURDATE() AND loan_date
+        &lt;= NOW();
+    </select>
+
 
 
     <select id="selectInternalGuaranteeSummary" resultType="InternalGuaranteeSummary">
