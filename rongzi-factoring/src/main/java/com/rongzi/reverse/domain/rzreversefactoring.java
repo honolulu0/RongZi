@@ -93,8 +93,8 @@ public class rzreversefactoring extends BaseEntity
     private Long daoqishoufei;
 
     /** 支付利息 */
-    @Excel(name = "支付利息", cellType = Excel.ColumnType.BIGINT, scale = 2)
-    private Long zhifulixi;
+    @Excel(name = "支付利息", cellType = Excel.ColumnType.NUMERIC, scale = 2)
+    private Double zhifulixi;
 
     /** 资金用途 */
     @Excel(name = "资金用途")
@@ -286,12 +286,12 @@ public class rzreversefactoring extends BaseEntity
     {
         return daoqishoufei;
     }
-    public void setZhifulixi(Long zhifulixi)
+    public void setZhifulixi(Double zhifulixi)
     {
         this.zhifulixi = zhifulixi;
     }
 
-    public Long getZhifulixi()
+    public Double getZhifulixi()
     {
         return zhifulixi;
     }

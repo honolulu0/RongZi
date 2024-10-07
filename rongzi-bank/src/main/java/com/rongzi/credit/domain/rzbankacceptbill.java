@@ -1,4 +1,4 @@
-package com.rongzi.bankaccept.domain;
+package com.rongzi.credit.domain;
 
 import java.util.List;
 import java.util.Date;
@@ -84,7 +84,7 @@ public class rzbankacceptbill extends BaseEntity {
     /**
      * 协议编号
      */
-    @Excel(name = "协议编号")
+//    @Excel(name = "协议编号")
     private String acceptAgreementId;
 
     /**

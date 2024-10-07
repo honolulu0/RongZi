@@ -1,4 +1,4 @@
-package com.rongzi.bankaccept.controller;
+package com.rongzi.credit.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,8 +18,8 @@ import com.rongzi.common.annotation.Log;
 import com.rongzi.common.core.controller.BaseController;
 import com.rongzi.common.core.domain.AjaxResult;
 import com.rongzi.common.enums.BusinessType;
-import com.rongzi.bankaccept.domain.rzbankacceptbill;
-import com.rongzi.bankaccept.service.IrzbankacceptbillService;
+import com.rongzi.credit.domain.rzbankacceptbill;
+import com.rongzi.credit.service.IrzbankacceptbillService;
 import com.rongzi.common.utils.poi.ExcelUtil;
 import com.rongzi.common.core.page.TableDataInfo;
 

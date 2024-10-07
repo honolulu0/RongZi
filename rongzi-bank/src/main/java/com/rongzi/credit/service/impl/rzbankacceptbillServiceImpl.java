@@ -1,4 +1,4 @@
-package com.rongzi.bankaccept.service.impl;
+package com.rongzi.credit.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.Map;
 
 import com.rongzi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.rongzi.bankaccept.mapper.rzbankacceptbillMapper;
-import com.rongzi.bankaccept.domain.rzbankacceptbill;
-import com.rongzi.bankaccept.service.IrzbankacceptbillService;
+import com.rongzi.credit.mapper.rzbankacceptbillMapper;
+import com.rongzi.credit.domain.rzbankacceptbill;
+import com.rongzi.credit.service.IrzbankacceptbillService;
 import com.rongzi.appendix.domain.rzsrc2;
 /**
  * 银行承兑汇票Service业务层处理

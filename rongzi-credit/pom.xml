@@ -24,6 +24,7 @@
             <groupId>com.rongzi</groupId>
             <artifactId>rongzi-common</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.rongzi</groupId>
             <artifactId>rongzi-appendix</artifactId>
@@ -31,6 +32,14 @@
         <dependency>
             <groupId>com.rongzi</groupId>
             <artifactId>rongzi-appendix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.rongzi</groupId>
+            <artifactId>rongzi-huankuanjihua</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.rongzi</groupId>
+            <artifactId>rongzi-huankuanjihua</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,8 @@
 package com.rongzi.credit.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,9 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 信用证Controller
- * 
+ *
  * @author rongzi
- * @date 2024-03-01
+ * @date 2024-05-30
  */
 @RestController
 @RequestMapping("/credit/letter")
@@ -43,7 +45,22 @@ public class rzcreditletterController extends BaseController
     {
         startPage();
         List<rzcreditletter> list = rzcreditletterService.selectrzcreditletterList(rzcreditletter);
-        return getDataTable(list);
+        TableDataInfo tableDataInfo = getDataTable(list);
+
+        Map<String, BigDecimal> data = rzcreditletterService.selectrzcreditletterSum(rzcreditletter);
+
+        // 添加合计数据
+        if (data != null) {
+            tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
+            tableDataInfo.addTotal("totalChangkouedu", data.get("total_changkouedu") != null ? data.get("total_changkouedu").longValue() : 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
+        } else {
+            tableDataInfo.addTotal("totalInvoiceAmount", 0L);
+            tableDataInfo.addTotal("totalChangkouedu", 0L);
+//            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
+        }
+
+        return tableDataInfo;
     }
 
     /**
@@ -68,6 +85,13 @@ public class rzcreditletterController extends BaseController
     {
         return success(rzcreditletterService.selectrzcreditletterById(id));
     }
+
+    @PreAuthorize("@ss.hasPermi('credit:letter:query')")
+    @GetMapping(value = "/managementId/{managementId}")
+    public AjaxResult getInfoByManagementId(@PathVariable("managementId") String managementId) {
+        return success(rzcreditletterService.selectrzcreditletterByManagementId(managementId));
+    }
+
 
     /**
      * 新增信用证
@@ -96,7 +120,7 @@ public class rzcreditletterController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('credit:letter:remove')")
     @Log(title = "信用证", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(rzcreditletterService.deleterzcreditletterByIds(ids));
