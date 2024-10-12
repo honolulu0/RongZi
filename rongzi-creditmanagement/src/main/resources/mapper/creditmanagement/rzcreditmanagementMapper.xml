@@ -318,7 +318,7 @@
 
     <!--专项债-->
     <select id="selectGovernmentSpecialBondsSummary" resultType="GovernmentSpecialBondsSummary">
-        SELECT SUM(approved_amount) AS accumulated_amount_received,
+        SELECT SUM(accumulated_amount_received) AS totalApprovedAmount,
         SUM(remaining_amount) AS totalRemainingAmount
         FROM rz_government_special_bonds WHERE due_date >= CURDATE() AND
         loan_date &lt;= NOW();
