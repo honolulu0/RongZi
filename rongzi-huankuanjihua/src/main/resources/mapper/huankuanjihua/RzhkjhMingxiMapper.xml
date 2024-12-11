@@ -53,7 +53,7 @@
             <if test="huankuanjine != null  and huankuanjine != ''">and huankuanjine = #{huankuanjine}</if>
             <if test="changhuanben != null  and changhuanben != ''">and changhuanben = #{changhuanben}</if>
             <if test="zhifulixi != null  and zhifulixi != ''">and zhifulixi = #{zhifulixi}</if>
-            <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
+            <if test="benjinshengyu != null  and benjinshengyu != ''"> and benjinshengyu &lt;= cast( #{benjinshengyu} as decimal(32,2))</if>
             <if test="lilv != null  and lilv != ''">and lilv = #{lilv}</if>
             <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
             <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''">
@@ -92,7 +92,7 @@
             <if test="huankuanjine != null  and huankuanjine != ''">and huankuanjine = #{huankuanjine}</if>
             <if test="changhuanben != null  and changhuanben != ''">and changhuanben = #{changhuanben}</if>
             <if test="zhifulixi != null  and zhifulixi != ''">and zhifulixi = #{zhifulixi}</if>
-            <if test="benjinshengyu != null  and benjinshengyu != ''">and benjinshengyu = #{benjinshengyu}</if>
+            <if test="benjinshengyu != null  and benjinshengyu != ''"> and benjinshengyu &lt;= cast( #{benjinshengyu} as decimal(32,2))</if>
             <if test="lilv != null  and lilv != ''">and lilv = #{lilv}</if>
             <if test="comment != null  and comment != ''">and comment like concat('%', #{comment}, '%')</if>
             <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''">

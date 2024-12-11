@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,7 @@ import com.rongzi.common.core.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/bankaccept/bank")
-public class rzbankacceptbillController extends BaseController
-{
+public class rzbankacceptbillController extends BaseController {
     @Autowired
     private IrzbankacceptbillService rzbankacceptbillService;
 
@@ -41,22 +41,25 @@ public class rzbankacceptbillController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:list')")
     @GetMapping("/list")
-    public TableDataInfo list(rzbankacceptbill rzbankacceptbill)
-    {
+    public TableDataInfo list(rzbankacceptbill rzbankacceptbill) {
         startPage();
         List<rzbankacceptbill> list = rzbankacceptbillService.selectrzbankacceptbillList(rzbankacceptbill);
         TableDataInfo tableDataInfo = getDataTable(list);
 
         Map<String, BigDecimal> data = rzbankacceptbillService.selectrzbankacceptbillSum(rzbankacceptbill);
-
         // 添加合计数据
         if (data != null) {
             tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
             tableDataInfo.addTotal("totalChangkouedu", data.get("total_changkouedu") != null ? data.get("total_changkouedu").longValue() : 0L);
+            tableDataInfo.addTotal("total_ticketProcessingFee", data.get("total_ticketProcessingFee") != null ? new BigDecimal(String.valueOf(data.get("total_ticketProcessingFee"))).longValue() : 0L);
+            tableDataInfo.addTotal("total_discountedHandlingFee", data.get("total_discountedHandlingFee") != null ? new BigDecimal(String.valueOf(data.get("total_discountedHandlingFee"))).longValue() : 0L);
+
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
         } else {
             tableDataInfo.addTotal("totalInvoiceAmount", 0L);
             tableDataInfo.addTotal("totalChangkouedu", 0L);
+            tableDataInfo.addTotal("total_ticketProcessingFee", 0L);
+            tableDataInfo.addTotal("total_discountedHandlingFee", 0L);
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
         }
 
@@ -69,8 +72,7 @@ public class rzbankacceptbillController extends BaseController
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:export')")
     @Log(title = "银行承兑汇票", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, rzbankacceptbill rzbankacceptbill)
-    {
+    public void export(HttpServletResponse response, rzbankacceptbill rzbankacceptbill) {
         List<rzbankacceptbill> list = rzbankacceptbillService.selectrzbankacceptbillList(rzbankacceptbill);
         ExcelUtil<rzbankacceptbill> util = new ExcelUtil<rzbankacceptbill>(rzbankacceptbill.class);
         util.exportExcel(response, list, "银行承兑汇票数据");
@@ -81,8 +83,7 @@ public class rzbankacceptbillController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(rzbankacceptbillService.selectrzbankacceptbillById(id));
     }
 
@@ -99,8 +100,7 @@ public class rzbankacceptbillController extends BaseController
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:add')")
     @Log(title = "银行承兑汇票", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody rzbankacceptbill rzbankacceptbill)
-    {
+    public AjaxResult add(@RequestBody rzbankacceptbill rzbankacceptbill) {
         return toAjax(rzbankacceptbillService.insertrzbankacceptbill(rzbankacceptbill));
     }
 
@@ -110,8 +110,7 @@ public class rzbankacceptbillController extends BaseController
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:edit')")
     @Log(title = "银行承兑汇票", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody rzbankacceptbill rzbankacceptbill)
-    {
+    public AjaxResult edit(@RequestBody rzbankacceptbill rzbankacceptbill) {
         return toAjax(rzbankacceptbillService.updaterzbankacceptbill(rzbankacceptbill));
     }
 
@@ -121,8 +120,7 @@ public class rzbankacceptbillController extends BaseController
     @PreAuthorize("@ss.hasPermi('bankaccept:bank:remove')")
     @Log(title = "银行承兑汇票", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rzbankacceptbillService.deleterzbankacceptbillByIds(ids));
     }
 }

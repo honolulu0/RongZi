@@ -25,7 +25,7 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 商业承兑汇票Controller
- * 
+ *
  * @author rongzi
  * @date 2024-08-27
  */
@@ -53,10 +53,14 @@ public class rzbusinessacceptbillController extends BaseController
         if (data != null) {
             tableDataInfo.addTotal("totalInvoiceAmount", data.get("total_invoice_amount") != null ? data.get("total_invoice_amount").longValue() : 0L);
             tableDataInfo.addTotal("totalChangkouedu", data.get("total_changkouedu") != null ? data.get("total_changkouedu").longValue() : 0L);
+            tableDataInfo.addTotal("total_ticketProcessingFee", data.get("total_ticketProcessingFee") != null ? new BigDecimal(String.valueOf(data.get("total_ticketProcessingFee"))).longValue() : 0L);
+            tableDataInfo.addTotal("total_discountedHandlingFee", data.get("total_discountedHandlingFee") != null ? new BigDecimal(String.valueOf(data.get("total_discountedHandlingFee"))).longValue() : 0L);
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", data.get("total_margin_income_amount") != null ? data.get("total_margin_income_amount").longValue() : 0L);
         } else {
             tableDataInfo.addTotal("totalInvoiceAmount", 0L);
             tableDataInfo.addTotal("totalChangkouedu", 0L);
+            tableDataInfo.addTotal("total_ticketProcessingFee", 0L);
+            tableDataInfo.addTotal("total_discountedHandlingFee", 0L);
 
 //            tableDataInfo.addTotal("totalMarginIncomeAmount", 0L);
         }

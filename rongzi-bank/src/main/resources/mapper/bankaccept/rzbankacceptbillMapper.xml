@@ -83,8 +83,7 @@
             <if test="params.beginDueDate != null and params.beginDueDate != '' and params.endDueDate != null and params.endDueDate != ''">
                 and due_date between #{params.beginDueDate} and #{params.endDueDate}
             </if>
-            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '未过期'">and due_date &gt;=
-                CURDATE()
+            <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '未过期'">and due_date &gt;= CURDATE()
             </if>
             <if test="params.guoqizhuangtai != null and params.guoqizhuangtai == '已过期'">and due_date &lt; CURDATE()
             </if>
@@ -122,6 +121,8 @@
 
     <select id="selectrzbankacceptbillSum" parameterType="rzbankacceptbill" resultType="map">
         SELECT
+        SUM(ticketProcessingFee) AS total_ticketProcessingFee,
+        SUM(discountedHandlingFee) AS total_discountedHandlingFee,
         SUM(invoice_amount) AS total_invoice_amount,
         SUM(changkouedu) AS total_changkouedu
         FROM rz_bank_accept_bill

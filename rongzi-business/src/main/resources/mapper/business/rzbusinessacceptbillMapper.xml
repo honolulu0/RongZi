@@ -123,6 +123,8 @@
 
     <select id="selectrzbusinessacceptbillSum" parameterType="rzbusinessacceptbill" resultType="map">
         SELECT
+        SUM(ticketProcessingFee) AS total_ticketProcessingFee,
+        SUM(discountedHandlingFee) AS total_discountedHandlingFee,
         SUM(invoice_amount) AS total_invoice_amount,
         SUM(changkouedu) AS total_changkouedu
         FROM rz_business_accept_bill
