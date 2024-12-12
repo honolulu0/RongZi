@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +26,13 @@ import com.rongzi.common.core.page.TableDataInfo;
 
 /**
  * 内部借款Controller
- * 
+ *
  * @author rongzi
  * @date 2024-03-20
  */
 @RestController
 @RequestMapping("/rzinternalborrowing/borrowing")
-public class rzinternalborrowingController extends BaseController
-{
+public class rzinternalborrowingController extends BaseController {
     @Autowired
     private IrzinternalborrowingService rzinternalborrowingService;
 
@@ -41,8 +41,7 @@ public class rzinternalborrowingController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:list')")
     @GetMapping("/list")
-    public TableDataInfo list(rzinternalborrowing rzinternalborrowing)
-    {
+    public TableDataInfo list(rzinternalborrowing rzinternalborrowing) {
         startPage();
         List<rzinternalborrowing> list = rzinternalborrowingService.selectrzinternalborrowingList(rzinternalborrowing);
         TableDataInfo tableDataInfo = getDataTable(list);
@@ -51,6 +50,8 @@ public class rzinternalborrowingController extends BaseController
 
         // 添加合计数据
         tableDataInfo.addTotal("totalLoanAmount", data != null && data.get("totalLoanAmount") != null ? data.get("totalLoanAmount").longValue() : 0L);
+        tableDataInfo.addTotal("totalyihuanlixi", data != null && data.get("totalyihuanlixi") != null ? data.get("totalyihuanlixi").longValue() : 0L);
+        tableDataInfo.addTotal("totalbenjinshengyu", data != null && data.get("totalbenjinshengyu") != null ? data.get("totalbenjinshengyu").longValue() : 0L);
 
         return tableDataInfo;
     }
@@ -61,8 +62,7 @@ public class rzinternalborrowingController extends BaseController
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:export')")
     @Log(title = "内部借款", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, rzinternalborrowing rzinternalborrowing)
-    {
+    public void export(HttpServletResponse response, rzinternalborrowing rzinternalborrowing) {
         List<rzinternalborrowing> list = rzinternalborrowingService.selectrzinternalborrowingList(rzinternalborrowing);
         ExcelUtil<rzinternalborrowing> util = new ExcelUtil<rzinternalborrowing>(rzinternalborrowing.class);
         util.exportExcel(response, list, "内部借款数据");
@@ -73,8 +73,7 @@ public class rzinternalborrowingController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(rzinternalborrowingService.selectrzinternalborrowingById(id));
     }
 
@@ -84,8 +83,7 @@ public class rzinternalborrowingController extends BaseController
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:add')")
     @Log(title = "内部借款", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody rzinternalborrowing rzinternalborrowing)
-    {
+    public AjaxResult add(@RequestBody rzinternalborrowing rzinternalborrowing) {
         return toAjax(rzinternalborrowingService.insertrzinternalborrowing(rzinternalborrowing));
     }
 
@@ -95,8 +93,7 @@ public class rzinternalborrowingController extends BaseController
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:edit')")
     @Log(title = "内部借款", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody rzinternalborrowing rzinternalborrowing)
-    {
+    public AjaxResult edit(@RequestBody rzinternalborrowing rzinternalborrowing) {
         return toAjax(rzinternalborrowingService.updaterzinternalborrowing(rzinternalborrowing));
     }
 
@@ -105,9 +102,8 @@ public class rzinternalborrowingController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('rzinternalborrowing:borrowing:remove')")
     @Log(title = "内部借款", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rzinternalborrowingService.deleterzinternalborrowingByIds(ids));
     }
 }

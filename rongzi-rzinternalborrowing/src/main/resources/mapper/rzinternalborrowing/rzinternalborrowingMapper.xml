@@ -56,8 +56,6 @@
         rz_internal_borrowing
     </sql>
 
-    <!--    明天继续修改-->
-
     <select id="selectrzinternalborrowingList" parameterType="rzinternalborrowing"
             resultMap="rzinternalborrowingResult">
         <include refid="selectrzinternalborrowingVo"/>
@@ -83,11 +81,18 @@
             <if test="comment != null  and comment != ''">and comment = #{comment}</if>
             <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
             <if test="sublessee != null  and sublessee != ''">and sublessee = #{sublessee}</if>
+            <if test="leixing_neibujiekuan != null  and leixing_neibujiekuan != ''">and leixing_neibujiekuan =
+                #{leixing_neibujiekuan}
+            </if>
+            <if test="jiekuanzhuangtai != null  and jiekuanzhuangtai != ''">and jiekuanzhuangtai = #{jiekuanzhuangtai}
+            </if>
         </where>
     </select>
     <select id="selectrzinternalborrowingSum" parameterType="rzinternalborrowing" resultType="map">
         SELECT
-        SUM(loan_amount) AS totalLoanAmount
+        SUM(loan_amount) AS totalLoanAmount,
+        SUM(yihuanlixi) AS totalyihuanlixi,
+        SUM(benjinshengyu) AS totalbenjinshengyu
         FROM rz_internal_borrowing
         <where>
             <if test="managementId != null  and managementId != ''">and management_id like concat('%', #{managementId},
@@ -111,13 +116,19 @@
             <if test="comment != null  and comment != ''">and comment = #{comment}</if>
             <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
             <if test="sublessee != null  and sublessee != ''">and sublessee = #{sublessee}</if>
+            <if test="leixing_neibujiekuan != null  and leixing_neibujiekuan != ''">and leixing_neibujiekuan =
+                #{leixing_neibujiekuan}
+            </if>
+            <if test="jiekuanzhuangtai != null  and jiekuanzhuangtai != ''">and jiekuanzhuangtai = #{jiekuanzhuangtai}
+            </if>
         </where>
     </select>
 
     <select id="selectrzinternalborrowingById" parameterType="Long" resultMap="rzinternalborrowingrzsrc2Result">
         select a.id, a.management_id, a.scr_uuid, a.loan_amount, a.borrower, a.payee, a.borrow_date, a.due_date,
         a.loan_term, a.rate, a.contract_id, a.repayment_method, a.loan_use, a.comment, a.create_time, a.create_by,
-        a.update_time, a.update_by, a.uuid, a.sublessee,
+        a.update_time, a.update_by, a.uuid, a.sublessee, a.yihuanlixi, a.benjinshengyu, a.jiekuanzhuangtai,
+        a.leixing_neibujiekuan, a.lxch, a.bjch, a.zjbj ,
         b.id as sub_id, b.url as sub_url, b.scr_uuid as sub_scr_uuid, b.project_management_id as
         sub_project_management_id, b.type as sub_type, b.create_time as sub_create_time, b.create_by as sub_create_by
         from rz_internal_borrowing a
@@ -147,6 +158,16 @@
             <if test="updateBy != null">update_by,</if>
             <if test="uuid != null">uuid,</if>
             <if test="sublessee != null and sublessee != ''">sublessee,</if>
+            <if test="yihuanlixi != null and yihuanlixi != ''">yihuanlixi,</if>
+            <if test="benjinshengyu != null and benjinshengyu != ''">benjinshengyu,</if>
+            <if test="jiekuanzhuangtai != null and jiekuanzhuangtai != ''">jiekuanzhuangtai,</if>
+            <if test="leixing_neibujiekuan != null and leixing_neibujiekuan != ''">leixing_neibujiekuan,</if>
+            <if test="lxch != null and lxch != ''">lxch,</if>
+            <if test="bjch != null and bjch != ''">bjch,</if>
+            <if test="zjbj != null and zjbj != ''">zjbj,</if>
+            <!--            ,yihuanlixi,benjinshengyu,jiekuanzhuangtai,leixing_neibujiekuan,lxch,bjch,zjbj-->
+
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="managementId != null and managementId != ''">#{managementId},</if>
@@ -168,6 +189,13 @@
             <if test="updateBy != null">#{updateBy},</if>
             <if test="uuid != null">#{uuid},</if>
             <if test="sublessee != null and sublessee != ''">#{sublessee},</if>
+            <if test="yihuanlixi != null and yihuanlixi != ''">#{yihuanlixi},</if>
+            <if test="benjinshengyu != null and benjinshengyu != ''">#{benjinshengyu},</if>
+            <if test="jiekuanzhuangtai != null and jiekuanzhuangtai != ''">#{jiekuanzhuangtai},</if>
+            <if test="leixing_neibujiekuan != null and leixing_neibujiekuan != ''">#{leixing_neibujiekuan},</if>
+            <if test="lxch != null and lxch != ''">#{lxch},</if>
+            <if test="bjch != null and bjch != ''">#{bjch},</if>
+            <if test="zjbj != null and zjbj != ''">#{zjbj},</if>
         </trim>
     </insert>
 
@@ -193,6 +221,15 @@
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="uuid != null">uuid = #{uuid},</if>
             <if test="sublessee != null and sublessee != ''">sublessee = #{sublessee},</if>
+            <if test="yihuanlixi != null and yihuanlixi != ''">yihuanlixi=#{yihuanlixi},</if>
+            <if test="benjinshengyu != null and benjinshengyu != ''">benjinshengyu=#{benjinshengyu},</if>
+            <if test="jiekuanzhuangtai != null and jiekuanzhuangtai != ''">jiekuanzhuangtai=#{jiekuanzhuangtai},</if>
+            <if test="leixing_neibujiekuan != null and leixing_neibujiekuan != ''">
+                leixing_neibujiekuan=#{leixing_neibujiekuan},
+            </if>
+            <if test="lxch != null and lxch != ''">lxch=#{lxch},</if>
+            <if test="bjch != null and bjch != ''">bjch=#{bjch},</if>
+            <if test="zjbj != null and zjbj != ''">zjbj=#{zjbj},</if>
         </trim>
         where id = #{id}
     </update>
